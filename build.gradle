@@ -8,4 +8,11 @@ version '1.0'
 repositories {
     mavenLocal()
     mavenCentral()
+    maven {
+        url 'https://jitpack.io/'
+    }
+}
+
+dependencies {
+    implementation 'com.github.retrooper.packetevents:spigot:2.0-SNAPSHOT'
 }
