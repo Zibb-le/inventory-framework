@@ -1,0 +1,11 @@
+plugins {
+    id 'java'
+}
+
+group 'com.pepedevs'
+version '1.0'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
