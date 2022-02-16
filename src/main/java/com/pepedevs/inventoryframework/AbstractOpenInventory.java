@@ -6,7 +6,7 @@ import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerCl
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerOpenWindow;
 import net.kyori.adventure.text.Component;
 
-public class AbstractOpenInventory {
+public abstract class AbstractOpenInventory {
 
     private static byte containerId = 100;
 
@@ -51,5 +51,7 @@ public class AbstractOpenInventory {
         containerId = containerId == Byte.MAX_VALUE ? 100 : ++containerId;
         return containerId;
     }
+
+    public abstract InventoryListener getInventoryListener();
 
 }
