@@ -58,4 +58,6 @@ public abstract class Menu {
     public MenuItem getMaskItem(char maskKey) {
         return this.maskMap.get(maskKey);
     }
+
+    public abstract InventoryType getInventoryType();
 }
