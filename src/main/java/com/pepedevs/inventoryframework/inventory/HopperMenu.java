@@ -1,7 +1,6 @@
 package com.pepedevs.inventoryframework.inventory;
 
 import com.pepedevs.inventoryframework.InventoryType;
-import com.pepedevs.inventoryframework.Menu;
 import com.pepedevs.inventoryframework.NamedMenu;
 import net.kyori.adventure.text.Component;
 

@@ -4,9 +4,9 @@ import com.pepedevs.inventoryframework.InventoryType;
 import com.pepedevs.inventoryframework.NamedMenu;
 import net.kyori.adventure.text.Component;
 
-public class BrewingStand extends NamedMenu {
+public class BrewingStandMenu extends NamedMenu {
 
-    public BrewingStand(Component title) {
+    public BrewingStandMenu(Component title) {
         super(1, 5, title);
     }
 

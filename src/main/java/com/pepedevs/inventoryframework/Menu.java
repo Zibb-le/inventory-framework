@@ -7,7 +7,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 
 public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
 
@@ -24,8 +23,8 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
     public Menu(int rows, int columns) {
         this.rows = rows;
         this.columns = columns;
-        this.items = new MenuItem[columns][rows];
-        this.mask = new char[columns][rows];
+        this.items = new MenuItem[rows][columns];
+        this.mask = new char[rows][columns];
         this.itemMap = new ConcurrentHashMap<>();
     }
 

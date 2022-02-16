@@ -8,4 +8,6 @@ public abstract class AbstractFurnaceMenu extends NamedMenu {
     public AbstractFurnaceMenu(Component title) {
         super(1,3, title);
     }
+
+
 }

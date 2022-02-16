@@ -4,6 +4,7 @@ import com.github.retrooper.packetevents.protocol.item.ItemStack;
 import com.github.retrooper.packetevents.protocol.player.User;
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientClickWindow;
 import com.pepedevs.inventoryframework.*;
+import com.pepedevs.inventoryframework.openinventory.AbstractOpenInventory;
 import net.kyori.adventure.text.Component;
 
 public class ChestMenu extends NamedMenu {

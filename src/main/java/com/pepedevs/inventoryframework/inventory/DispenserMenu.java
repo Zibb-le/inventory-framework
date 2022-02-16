@@ -14,4 +14,5 @@ public class DispenserMenu extends NamedMenu {
     public InventoryType getInventoryType() {
         return InventoryType.DISPENSER;
     }
+
 }
