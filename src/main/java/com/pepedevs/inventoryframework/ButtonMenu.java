@@ -1,5 +1,7 @@
 package com.pepedevs.inventoryframework;
 
+import com.github.retrooper.packetevents.protocol.player.User;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,5 +42,10 @@ public abstract class ButtonMenu<C> extends Menu {
             buttons.addAll(Arrays.asList(button));
         }
         return buttons;
+    }
+
+    @Override
+    public void open(User user) {
+
     }
 }

@@ -1,6 +1,6 @@
 package com.pepedevs.inventoryframework;
 
-import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientClickWindow;
+import com.github.retrooper.packetevents.protocol.item.ItemStack;
 
 public abstract class InventoryListener {
 
@@ -8,7 +8,7 @@ public abstract class InventoryListener {
 
     public void onClose() {}
 
-    public boolean onClick(int slot, WrapperPlayClientClickWindow.WindowClickType clickType) {
+    public boolean onClick(int slot, ItemStack clicked, ItemStack onCursor, ClickType clickType) {
         return true;
     }
 

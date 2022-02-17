@@ -9,6 +9,7 @@ import com.pepedevs.inventoryframework.*;
 import com.pepedevs.inventoryframework.protocol.PacketUtils;
 import net.kyori.adventure.text.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractOpenInventory {
@@ -24,21 +25,20 @@ public abstract class AbstractOpenInventory {
         this.menu = menu;
     }
 
-    protected void show() {
-        Component title = this.menu instanceof NamedMenu ? ((NamedMenu) this.menu).getTitle() : Component.empty();
-        WrapperPlayServerOpenWindow wrapper = new WrapperPlayServerOpenWindow(
-                this.nextContainerId(),
-                this.getInventoryType().getLegacyId(),
-                title,
-                this.getInventoryType() == InventoryType.CHEST ? menu.getColumns() * menu.getRows() : 0,
-                0);
-        PacketUtils.sendPacket(this.user, wrapper);
-        this.getInventoryListener().onOpen();
-    }
-
     public void sendItems(List<ItemStack> items) {
         WrapperPlayServerWindowItems wrapper = new WrapperPlayServerWindowItems(this.windowId, 0, items, InventoryFramework.framework().platformAdaptor().getItemOnCursor(this.user));
         PacketUtils.sendPacket(this.user, wrapper);
+    }
+
+    public void sendItems(MenuItem<ItemStack>[][] items) {
+        List<ItemStack> itemStacks = new ArrayList<>(items.length * items[0].length);
+        for (MenuItem<ItemStack>[] a : items) {
+            for (MenuItem<ItemStack> item : a) {
+                if (item == null) itemStacks.add(null);
+                else itemStacks.add(item.getContent());
+            }
+        }
+        this.sendItems(itemStacks);
     }
 
     protected void close() {
@@ -63,6 +63,8 @@ public abstract class AbstractOpenInventory {
         containerId = containerId == Byte.MAX_VALUE ? 100 : ++containerId;
         return containerId;
     }
+
+    public abstract void show();
 
     public abstract InventoryListener getInventoryListener();
 

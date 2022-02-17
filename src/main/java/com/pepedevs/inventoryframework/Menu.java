@@ -13,6 +13,7 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
 
     public static final List<AbstractOpenInventory> OPEN_INVENTORIES = Collections.synchronizedList(new ArrayList<>());
 
+    private final PlayerInventory playerInventory;
     protected final MenuItem<ItemStack>[][] items;
     protected final int rows;
     protected final int columns;
@@ -29,6 +30,7 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
         this.items = new MenuItem[rows][columns];
         this.mask = new char[rows][columns];
         this.itemMap = new ConcurrentHashMap<>();
+        this.playerInventory = new PlayerInventory();
     }
 
     public MenuItem<ItemStack> getItemAt(int index) {
@@ -49,6 +51,11 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
 
     public void setMask(char[][] mask) {
         this.mask = mask;
+        for (int i = 0; i < this.mask.length; i++) {
+            for (int j = 0; j < this.mask[i].length; j++) {
+                this.items[i][j] = this.itemMap.get(this.mask[i][j]);
+            }
+        }
     }
 
     public Map<Character, MenuItem<ItemStack>> getItemMap() {
@@ -57,6 +64,11 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
 
     public void changeMaskItem(char maskKey, MenuItem<ItemStack> item) {
         this.itemMap.put(maskKey, item);
+        for (int i = 0; i < this.mask.length; i++) {
+            for (int j = 0; j < this.mask[i].length; j++) {
+                this.items[i][j] = this.itemMap.get(this.mask[i][j]);
+            }
+        }
     }
 
     public MenuItem<ItemStack> getMaskItem(char maskKey) {
@@ -101,7 +113,12 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
         this.onClose = onClose;
     }
 
+    public PlayerInventory getPlayerInventoryComponent() {
+        return this.playerInventory;
+    }
+
     public abstract InventoryType getInventoryType();
 
+    public abstract void open(User user);
 
 }

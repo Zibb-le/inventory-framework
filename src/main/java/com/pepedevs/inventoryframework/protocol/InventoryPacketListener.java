@@ -8,6 +8,7 @@ import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientCl
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientClickWindowButton;
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientCloseWindow;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerSetSlot;
+import com.pepedevs.inventoryframework.ClickType;
 import com.pepedevs.inventoryframework.InventoryFramework;
 import com.pepedevs.inventoryframework.Menu;
 import com.pepedevs.inventoryframework.openinventory.AbstractOpenInventory;
@@ -24,7 +25,7 @@ public class InventoryPacketListener extends PacketListenerAbstract {
             WrapperPlayClientClickWindow packet = new WrapperPlayClientClickWindow(event);
             for (AbstractOpenInventory inv : Menu.OPEN_INVENTORIES) {
                 if (inv.getWindowId() == packet.getWindowId() && event.getUser().equals(inv.getUser())) {
-                    if (inv.getInventoryListener().onClick(packet.getSlot(), packet.getWindowClickType())) {
+                    if (inv.getInventoryListener().onClick(packet.getSlot(), ClickType.fromPacketType(packet.getWindowClickType()))) {
                         WrapperPlayServerSetSlot setSlot = new WrapperPlayServerSetSlot(packet.getWindowId(), 0, packet.getSlot(), packet.getClickedItemStack());
                         PacketUtils.sendPacket(event.getUser(), setSlot);
                         WrapperPlayServerSetSlot setSlot2 = new WrapperPlayServerSetSlot(-1, 0, -1, InventoryFramework.framework().platformAdaptor().getItemOnCursor(event.getUser()));
