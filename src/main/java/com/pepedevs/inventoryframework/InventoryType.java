@@ -28,13 +28,13 @@ public enum InventoryType {
             return 13;
         }
     },
-    BLAST_FURNACE("minecraft:blast_furnace", ServerVersion.V_1_14) {
+    BLAST_FURNACE(ServerVersion.V_1_14) {
         @Override
         public int getLatestId(int size) {
             return 9;
         }
     },
-    SMOKER("minecraft:smoker", ServerVersion.V_1_14) {
+    SMOKER(ServerVersion.V_1_14) {
         @Override
         public int getLatestId(int size) {
             return 21;
@@ -64,7 +64,7 @@ public enum InventoryType {
             return 12;
         }
     },
-    WORKBENCH("minecraft:crafting", 1) {
+    WORKBENCH("minecraft:crafting_table", 1) {
         @Override
         public int getLatestId(int size) {
             return 11;
@@ -76,37 +76,37 @@ public enum InventoryType {
             return 18;
         }
     },
-    GRINDSTONE("minecraft:grindstone", ServerVersion.V_1_14) {
+    GRINDSTONE(ServerVersion.V_1_14) {
         @Override
         public int getLatestId(int size) {
             return 14;
         }
     },
-    LECTERN("minecraft:lectern", ServerVersion.V_1_14) {
+    LECTERN(ServerVersion.V_1_14) {
         @Override
         public int getLatestId(int size) {
             return 16;
         }
     },
-    LOOM("minecraft:loom", ServerVersion.V_1_14) {
+    LOOM(ServerVersion.V_1_14) {
         @Override
         public int getLatestId(int size) {
             return 17;
         }
     },
-    SMITHING("minecraft:smithing", ServerVersion.V_1_14) {
+    SMITHING(ServerVersion.V_1_14) {
         @Override
         public int getLatestId(int size) {
             return 20;
         }
     },
-    CARTOGRAPHY_TABLE("minecraft:cartography_table", ServerVersion.V_1_14) {
+    CARTOGRAPHY_TABLE(ServerVersion.V_1_14) {
         @Override
         public int getLatestId(int size) {
             return 22;
         }
     },
-    STONE_CUTTER("minecraft:stonecutter", ServerVersion.V_1_14) {
+    STONE_CUTTER(ServerVersion.V_1_14) {
         @Override
         public int getLatestId(int size) {
             return 23;
@@ -114,12 +114,18 @@ public enum InventoryType {
     },
     ;
 
+    public static final InventoryType[] VALUES = values();
+
     private final String legacy_id;
     private final int notch_inv_id;
     private ServerVersion introduced_version;
 
     InventoryType(String legacy_id) {
         this(legacy_id, ServerVersion.V_1_7_10);
+    }
+
+    InventoryType(ServerVersion introduced_version) {
+        this("", introduced_version);
     }
 
     InventoryType(String legacy_id, ServerVersion introduced_version) {

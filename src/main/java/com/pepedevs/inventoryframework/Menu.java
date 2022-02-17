@@ -2,6 +2,7 @@ package com.pepedevs.inventoryframework;
 
 import com.github.retrooper.packetevents.protocol.item.ItemStack;
 import com.github.retrooper.packetevents.protocol.player.User;
+import com.pepedevs.inventoryframework.openinventory.AbstractOpenInventory;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -9,6 +10,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
 public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
+
+    public static final List<AbstractOpenInventory> OPEN_INVENTORIES = Collections.synchronizedList(new ArrayList<>());
 
     protected final MenuItem<ItemStack>[][] items;
     protected final int rows;

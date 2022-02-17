@@ -1,13 +1,10 @@
 package com.pepedevs.inventoryframework.openinventory;
 
-import com.github.retrooper.packetevents.PacketEvents;
 import com.github.retrooper.packetevents.protocol.player.User;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerCloseWindow;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerOpenWindow;
-import com.pepedevs.inventoryframework.InventoryListener;
-import com.pepedevs.inventoryframework.InventoryType;
-import com.pepedevs.inventoryframework.Menu;
-import com.pepedevs.inventoryframework.NamedMenu;
+import com.pepedevs.inventoryframework.*;
+import com.pepedevs.inventoryframework.protocol.PacketUtils;
 import net.kyori.adventure.text.Component;
 
 public abstract class AbstractOpenInventory {
@@ -31,12 +28,12 @@ public abstract class AbstractOpenInventory {
                 title,
                 this.getInventoryType() == InventoryType.CHEST ? menu.getColumns() * menu.getRows() : 0,
                 0);
-        PacketEvents.getAPI().getPlayerManager().sendPacket(this.user.getChannel(), wrapper);
+        PacketUtils.sendPacket(this.user, wrapper);
     }
 
     protected void close() {
         WrapperPlayServerCloseWindow wrapper = new WrapperPlayServerCloseWindow(this.windowId);
-        PacketEvents.getAPI().getPlayerManager().sendPacket(this.user.getChannel(), wrapper);
+        PacketUtils.sendPacket(this.user, wrapper);
     }
 
     public User getUser() {
