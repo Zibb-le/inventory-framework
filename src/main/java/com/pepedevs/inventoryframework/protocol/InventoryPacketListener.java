@@ -17,7 +17,7 @@ import com.pepedevs.inventoryframework.openinventory.AbstractOpenInventory;
 public class InventoryPacketListener extends PacketListenerAbstract {
 
     public InventoryPacketListener() {
-        super(PacketListenerPriority.MONITOR);
+        super(PacketListenerPriority.HIGH);
     }
 
     @Override
@@ -35,6 +35,7 @@ public class InventoryPacketListener extends PacketListenerAbstract {
                         PacketUtils.sendPacket(event.getUser(), setSlot);
                         WrapperPlayServerSetSlot setSlot2 = new WrapperPlayServerSetSlot(-1, 0, -1, last);
                         PacketUtils.sendPacket(event.getUser(), setSlot2);
+                        event.setCancelled(true);
                     }
                 }
             }
@@ -43,6 +44,7 @@ public class InventoryPacketListener extends PacketListenerAbstract {
             for (AbstractOpenInventory inv : Menu.OPEN_INVENTORIES) {
                 if (inv.getWindowId() == packet.getWindowId() && event.getUser().equals(inv.getUser())) {
                     inv.getInventoryListener().onClose();
+                    event.setCancelled(true);
                 }
             }
         } else if (event.getPacketType() == PacketType.Play.Client.CLICK_WINDOW_BUTTON) {
@@ -50,6 +52,7 @@ public class InventoryPacketListener extends PacketListenerAbstract {
             for (AbstractOpenInventory inv : Menu.OPEN_INVENTORIES) {
                 if (inv.getWindowId() == packet.getWindowId() && event.getUser().equals(inv.getUser())) {
                     inv.getInventoryListener().onButtonClick(packet.getWindowId());
+                    event.setCancelled(true);
                 }
             }
         }
