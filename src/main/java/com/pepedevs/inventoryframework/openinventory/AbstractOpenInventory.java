@@ -3,6 +3,7 @@ package com.pepedevs.inventoryframework.openinventory;
 import com.github.retrooper.packetevents.protocol.item.ItemStack;
 import com.github.retrooper.packetevents.protocol.player.User;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerCloseWindow;
+import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerSetSlot;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerWindowItems;
 import com.pepedevs.inventoryframework.*;
 import com.pepedevs.inventoryframework.protocol.PacketUtils;
@@ -37,6 +38,11 @@ public abstract class AbstractOpenInventory {
             }
         }
         this.sendItems(itemStacks);
+    }
+
+    public void setSlot(int slot, ItemStack itemStack) {
+        WrapperPlayServerSetSlot wrapper = new WrapperPlayServerSetSlot(this.windowId, 0, slot, itemStack);
+        PacketUtils.sendPacket(this.user, wrapper);
     }
 
     protected void close() {
