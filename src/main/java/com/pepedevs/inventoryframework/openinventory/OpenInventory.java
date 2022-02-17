@@ -30,6 +30,7 @@ public class OpenInventory extends AbstractOpenInventory {
 
             @Override
             public boolean onClick(int slot, ItemStack clicked, ItemStack onCursor, ClickType clickType) {
+                if (slot < 0) return false;
                 if (slot >= menu.getColumns() * menu.getRows()) {
                     SlotClickAction clickAction = menu.getPlayerInventoryComponent().getClickAction(slot - menu.getColumns() * menu.getRows());
                     if (clickAction == null) return true;
