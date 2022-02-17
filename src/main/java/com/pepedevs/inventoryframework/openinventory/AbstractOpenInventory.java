@@ -3,11 +3,9 @@ package com.pepedevs.inventoryframework.openinventory;
 import com.github.retrooper.packetevents.protocol.item.ItemStack;
 import com.github.retrooper.packetevents.protocol.player.User;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerCloseWindow;
-import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerOpenWindow;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerWindowItems;
 import com.pepedevs.inventoryframework.*;
 import com.pepedevs.inventoryframework.protocol.PacketUtils;
-import net.kyori.adventure.text.Component;
 
 import java.util.ArrayList;
 import java.util.List;

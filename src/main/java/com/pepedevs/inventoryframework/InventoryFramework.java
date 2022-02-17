@@ -37,6 +37,7 @@ public class InventoryFramework {
         this.serverVersion = PacketEvents.getAPI().getServerManager().getVersion();
         if (platformAdaptor == null) {
             this.platformAdaptor = new DefaultPlatformAdaptor();
+            ProtocolPlayer.setHandling(true);
             this.playerListener = PacketEvents.getAPI().getEventManager().registerListener(new PlayerListener());
         }
     }
@@ -58,6 +59,7 @@ public class InventoryFramework {
         if (playerListener != null) {
             PacketEvents.getAPI().getEventManager().unregisterListener(this.playerListener);
         }
+        ProtocolPlayer.setHandling(false);
         instance = null;
     }
 

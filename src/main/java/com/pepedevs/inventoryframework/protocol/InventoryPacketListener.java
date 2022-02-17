@@ -3,6 +3,7 @@ package com.pepedevs.inventoryframework.protocol;
 import com.github.retrooper.packetevents.event.PacketListenerAbstract;
 import com.github.retrooper.packetevents.event.PacketListenerPriority;
 import com.github.retrooper.packetevents.event.PacketReceiveEvent;
+import com.github.retrooper.packetevents.protocol.item.ItemStack;
 import com.github.retrooper.packetevents.protocol.packettype.PacketType;
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientClickWindow;
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientClickWindowButton;
@@ -23,12 +24,16 @@ public class InventoryPacketListener extends PacketListenerAbstract {
     public void onPacketReceive(PacketReceiveEvent event) {
         if (event.getPacketType() == PacketType.Play.Client.CLICK_WINDOW) {
             WrapperPlayClientClickWindow packet = new WrapperPlayClientClickWindow(event);
+            ItemStack last = InventoryFramework.framework().platformAdaptor().getItemOnCursor(event.getUser());
+            if (ProtocolPlayer.isHandling()) {
+                ProtocolPlayer.player(event.getUser()).setCarried(packet.getClickedItemStack());
+            }
             for (AbstractOpenInventory inv : Menu.OPEN_INVENTORIES) {
                 if (inv.getWindowId() == packet.getWindowId() && event.getUser().equals(inv.getUser())) {
-                    if (inv.getInventoryListener().onClick(packet.getSlot(), ClickType.fromPacketType(packet.getWindowClickType()))) {
+                    if (inv.getInventoryListener().onClick(packet.getSlot(), packet.getClickedItemStack(), last, ClickType.fromPacketType(packet.getWindowClickType()))) {
                         WrapperPlayServerSetSlot setSlot = new WrapperPlayServerSetSlot(packet.getWindowId(), 0, packet.getSlot(), packet.getClickedItemStack());
                         PacketUtils.sendPacket(event.getUser(), setSlot);
-                        WrapperPlayServerSetSlot setSlot2 = new WrapperPlayServerSetSlot(-1, 0, -1, InventoryFramework.framework().platformAdaptor().getItemOnCursor(event.getUser()));
+                        WrapperPlayServerSetSlot setSlot2 = new WrapperPlayServerSetSlot(-1, 0, -1, last);
                         PacketUtils.sendPacket(event.getUser(), setSlot2);
                     }
                 }

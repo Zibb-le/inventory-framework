@@ -10,6 +10,7 @@ import java.util.Set;
 public class ProtocolPlayer {
 
     public static final Set<ProtocolPlayer> PLAYERS = Collections.synchronizedSet(new HashSet<>());
+    private static boolean handling = false;
 
     public static ProtocolPlayer handle(User user) {
         return new ProtocolPlayer(user);
@@ -26,6 +27,14 @@ public class ProtocolPlayer {
             }
         }
         throw new IllegalStateException("Player not handled?");
+    }
+
+    public static void setHandling(boolean handling) {
+        ProtocolPlayer.handling = handling;
+    }
+
+    public static boolean isHandling() {
+        return handling;
     }
 
     private final User user;

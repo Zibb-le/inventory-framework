@@ -15,14 +15,6 @@ public class PlayerListener extends PacketListenerAbstract {
     }
 
     @Override
-    public void onPacketReceive(PacketReceiveEvent event) {
-        if (event.getPacketType() == PacketType.Play.Client.CLICK_WINDOW) {
-            WrapperPlayClientClickWindow wrapper = new WrapperPlayClientClickWindow(event);
-            ProtocolPlayer.player(event.getUser()).setCarried(wrapper.getClickedItemStack());
-        }
-    }
-
-    @Override
     public void onPacketSend(PacketSendEvent event) {
         if (event.getPacketType() == PacketType.Play.Server.JOIN_GAME) {
             ProtocolPlayer.handle(event.getUser());
