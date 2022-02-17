@@ -5,7 +5,6 @@ import com.github.retrooper.packetevents.event.PacketListenerPriority;
 import com.github.retrooper.packetevents.event.PacketReceiveEvent;
 import com.github.retrooper.packetevents.event.PacketSendEvent;
 import com.github.retrooper.packetevents.protocol.packettype.PacketType;
-import com.github.retrooper.packetevents.wrapper.login.client.WrapperLoginClientPluginResponse;
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientClickWindow;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerSetSlot;
 
@@ -17,12 +16,7 @@ public class PlayerListener extends PacketListenerAbstract {
 
     @Override
     public void onPacketReceive(PacketReceiveEvent event) {
-        if (event.getPacketType() == PacketType.Login.Client.LOGIN_PLUGIN_RESPONSE) {
-            WrapperLoginClientPluginResponse wrapper = new WrapperLoginClientPluginResponse(event);
-            if (wrapper.isSuccessful()) {
-                ProtocolPlayer.handle(event.getUser());
-            }
-        } else if (event.getPacketType() == PacketType.Play.Client.CLICK_WINDOW) {
+        if (event.getPacketType() == PacketType.Play.Client.CLICK_WINDOW) {
             WrapperPlayClientClickWindow wrapper = new WrapperPlayClientClickWindow(event);
             ProtocolPlayer.player(event.getUser()).setCarried(wrapper.getClickedItemStack());
         }
@@ -30,7 +24,9 @@ public class PlayerListener extends PacketListenerAbstract {
 
     @Override
     public void onPacketSend(PacketSendEvent event) {
-        if (event.getPacketType() == PacketType.Play.Server.DISCONNECT) {
+        if (event.getPacketType() == PacketType.Play.Server.JOIN_GAME) {
+            ProtocolPlayer.handle(event.getUser());
+        } else if (event.getPacketType() == PacketType.Play.Server.DISCONNECT) {
             ProtocolPlayer.unhandle(event.getUser());
         } else if (event.getPacketType() == PacketType.Play.Server.CLOSE_WINDOW) {
             ProtocolPlayer.player(event.getUser()).setCarried(null);

@@ -16,7 +16,7 @@ public class InventoryFramework {
     private PlatformAdaptor platformAdaptor;
     private final PacketListenerCommon listener;
     private PacketListenerCommon playerListener;
-    private ServerVersion serverVersion;
+    private final ServerVersion serverVersion;
 
     public static InventoryFramework init() {
         return init(null);
@@ -54,9 +54,9 @@ public class InventoryFramework {
     }
 
     public void terminate() {
-        PacketEvents.getAPI().getEventManager().unregisterListener(listener);
+        PacketEvents.getAPI().getEventManager().unregisterListener(this.listener);
         if (playerListener != null) {
-            PacketEvents.getAPI().getEventManager().unregisterListener(playerListener);
+            PacketEvents.getAPI().getEventManager().unregisterListener(this.playerListener);
         }
         instance = null;
     }
