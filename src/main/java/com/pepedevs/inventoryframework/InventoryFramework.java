@@ -2,6 +2,7 @@ package com.pepedevs.inventoryframework;
 
 import com.github.retrooper.packetevents.PacketEvents;
 import com.github.retrooper.packetevents.event.PacketListenerCommon;
+import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import com.github.retrooper.packetevents.protocol.item.ItemStack;
 import com.github.retrooper.packetevents.protocol.player.User;
 import com.pepedevs.inventoryframework.protocol.InventoryPacketListener;
@@ -15,6 +16,7 @@ public class InventoryFramework {
     private PlatformAdaptor platformAdaptor;
     private final PacketListenerCommon listener;
     private PacketListenerCommon playerListener;
+    private ServerVersion serverVersion;
 
     public static InventoryFramework init() {
         return init(null);
@@ -32,6 +34,7 @@ public class InventoryFramework {
         instance = this;
         this.platformAdaptor = platformAdaptor;
         this.listener = PacketEvents.getAPI().getEventManager().registerListener(new InventoryPacketListener());
+        this.serverVersion = PacketEvents.getAPI().getServerManager().getVersion();
         if (platformAdaptor == null) {
             this.platformAdaptor = new DefaultPlatformAdaptor();
             this.playerListener = PacketEvents.getAPI().getEventManager().registerListener(new PlayerListener());
@@ -44,6 +47,10 @@ public class InventoryFramework {
 
     public void platformAdaptor(PlatformAdaptor platformAdaptor) {
         this.platformAdaptor = platformAdaptor;
+    }
+
+    public ServerVersion serverVersion() {
+        return this.serverVersion;
     }
 
     public void terminate() {
