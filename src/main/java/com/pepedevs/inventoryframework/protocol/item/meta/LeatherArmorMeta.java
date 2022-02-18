@@ -1,8 +1,13 @@
 package com.pepedevs.inventoryframework.protocol.item.meta;
 
+import com.github.retrooper.packetevents.protocol.nbt.NBTCompound;
+import com.github.retrooper.packetevents.protocol.nbt.NBTInt;
+
 import java.awt.*;
 
 public class LeatherArmorMeta extends ItemMeta {
+
+    private static final String COLOR = "color";
 
     private Color color;
 
@@ -16,5 +21,15 @@ public class LeatherArmorMeta extends ItemMeta {
 
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    @Override
+    public void applyTo(NBTCompound compound) {
+        super.applyTo(compound);
+        if (this.color == null) return;
+        NBTCompound display = compound.getCompoundTagOrNull(DISPLAY);
+        if (display == null)
+            compound.setTag(DISPLAY, display = new NBTCompound());
+        display.setTag(COLOR, new NBTInt(this.color.getRGB()));
     }
 }

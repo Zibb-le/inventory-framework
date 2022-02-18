@@ -42,13 +42,13 @@ public enum PatternType {
     FLOWER("flo"),
     MOJANG("moj");
 
-    private final String identifier;
+    private final String ID;
 
-    PatternType(String identifier) {
-        this.identifier = identifier;
+    PatternType(String ID) {
+        this.ID = ID;
     }
 
-    public String getIdentifier() {
-        return identifier;
+    public String getID() {
+        return ID;
     }
 }

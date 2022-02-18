@@ -2,6 +2,7 @@ package com.pepedevs.inventoryframework.protocol.item;
 
 import com.pepedevs.inventoryframework.protocol.Material;
 import com.pepedevs.inventoryframework.protocol.item.meta.ItemMeta;
+import com.pepedevs.inventoryframework.protocol.item.meta.MetaUtil;
 import net.kyori.adventure.text.Component;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class ItemStack {
     public ItemStack(Material type, int amount) {
         this.material = type;
         this.amount = amount;
-        this.itemMeta = new ItemMeta();
+        this.itemMeta = MetaUtil.getMeta(type);
     }
 
     public Material getMaterial() {

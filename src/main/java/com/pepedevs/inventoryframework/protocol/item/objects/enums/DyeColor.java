@@ -20,4 +20,13 @@ public enum DyeColor {
     BLACK(),
     ;
 
+    private final byte ID;
+
+    DyeColor() {
+        this.ID = (byte) (15 - this.ordinal());
+    }
+
+    public byte getID() {
+        return ID;
+    }
 }
