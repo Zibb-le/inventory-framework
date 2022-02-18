@@ -3,6 +3,7 @@ package com.pepedevs.inventoryframework.protocol.item.meta;
 import com.pepedevs.inventoryframework.protocol.item.objects.PotionEffect;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class PotionMeta extends ItemMeta {
@@ -15,7 +16,7 @@ public class PotionMeta extends ItemMeta {
     }
 
     public List<PotionEffect> getPotionEffects() {
-        return potionEffects;
+        return Collections.unmodifiableList(potionEffects);
     }
 
     public void setPotionEffects(List<PotionEffect> potionEffects) {

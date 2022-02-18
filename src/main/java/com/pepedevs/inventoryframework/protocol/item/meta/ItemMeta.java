@@ -9,13 +9,13 @@ public class ItemMeta {
 
     private Component displayName;
     private List<Component> lore;
-    private Set<Enchantment> enchantments;
+    private Map<Enchantment, Integer> enchantments;
     private int repairCost;
     private EnumSet<Flag> flags;
 
     public ItemMeta() {
         this.lore = new ArrayList<>();
-        this.enchantments = new HashSet<>();
+        this.enchantments = new EnumMap<>(Enchantment.class);
         this.flags = EnumSet.noneOf(Flag.class);
     }
 
@@ -35,19 +35,19 @@ public class ItemMeta {
         this.lore = lore;
     }
 
-    public Set<Enchantment> getEnchantments() {
+    public Map<Enchantment, Integer> getEnchantments() {
         return enchantments;
     }
 
-    public void addEnchant(Enchantment enchantment) {
-        this.enchantments.add(enchantment);
+    public void addEnchant(Enchantment enchantment, int level) {
+        this.enchantments.put(enchantment, level);
     }
 
     public void removeEnchantment(Enchantment enchantment) {
         this.enchantments.remove(enchantment);
     }
-    public void setEnchantments(Collection<Enchantment> enchantments) {
-        this.enchantments = new HashSet<>(enchantments);
+    public void setEnchantments(Map<Enchantment, Integer> enchantments) {
+        this.enchantments = new EnumMap<>(enchantments);
     }
 
     public int getRepairCost() {
@@ -56,10 +56,6 @@ public class ItemMeta {
 
     public void setRepairCost(int repairCost) {
         this.repairCost = repairCost;
-    }
-
-    public void setEnchantments(Set<Enchantment> enchantments) {
-        this.enchantments = enchantments;
     }
 
     public Set<Flag> getFlags() {
