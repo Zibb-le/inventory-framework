@@ -13,7 +13,6 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
 
     public static final List<AbstractOpenInventory> OPEN_INVENTORIES = Collections.synchronizedList(new ArrayList<>());
 
-    private final PlayerInventory playerInventory;
     protected final MenuItem<ItemStack>[][] items;
     protected final int rows;
     protected final int columns;
@@ -30,7 +29,6 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
         this.items = new MenuItem[rows][columns];
         this.mask = new char[rows][columns];
         this.itemMap = new ConcurrentHashMap<>();
-        this.playerInventory = new PlayerInventory();
     }
 
     public MenuItem<ItemStack> getItemAt(int index) {
@@ -111,10 +109,6 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
 
     public void setOnClose(Consumer<User> onClose) {
         this.onClose = onClose;
-    }
-
-    public PlayerInventory getPlayerInventoryComponent() {
-        return this.playerInventory;
     }
 
     public abstract InventoryType getInventoryType();

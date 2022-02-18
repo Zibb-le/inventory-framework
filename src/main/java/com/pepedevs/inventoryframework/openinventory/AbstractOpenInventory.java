@@ -6,7 +6,6 @@ import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerCl
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerSetSlot;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerWindowItems;
 import com.pepedevs.inventoryframework.*;
-import com.pepedevs.inventoryframework.protocol.PacketUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +24,8 @@ public abstract class AbstractOpenInventory {
     }
 
     public void sendItems(List<ItemStack> items) {
-        WrapperPlayServerWindowItems wrapper = new WrapperPlayServerWindowItems(this.windowId, 0, items, InventoryFramework.framework().platformAdaptor().getItemOnCursor(this.user));
-        PacketUtils.sendPacket(this.user, wrapper);
+        WrapperPlayServerWindowItems wrapper = new WrapperPlayServerWindowItems(this.windowId, 0, items, null);
+        this.user.sendPacket(wrapper);
     }
 
     public void sendItems(MenuItem<ItemStack>[][] items) {
@@ -42,12 +41,12 @@ public abstract class AbstractOpenInventory {
 
     public void setSlot(int slot, ItemStack itemStack) {
         WrapperPlayServerSetSlot wrapper = new WrapperPlayServerSetSlot(this.windowId, 0, slot, itemStack);
-        PacketUtils.sendPacket(this.user, wrapper);
+        this.user.sendPacket(wrapper);
     }
 
     protected void close() {
         WrapperPlayServerCloseWindow wrapper = new WrapperPlayServerCloseWindow(this.windowId);
-        PacketUtils.sendPacket(this.user, wrapper);
+        this.user.sendPacket(wrapper);
         this.getInventoryListener().onClose();
     }
 
