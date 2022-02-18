@@ -1,6 +1,6 @@
 package com.pepedevs.inventoryframework.protocol.item.meta;
 
-import com.pepedevs.inventoryframework.protocol.item.objects.Enchantment;
+import com.pepedevs.inventoryframework.protocol.item.objects.enums.Enchantment;
 
 import java.util.EnumMap;
 import java.util.Map;

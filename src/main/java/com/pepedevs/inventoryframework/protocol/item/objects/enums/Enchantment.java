@@ -1,0 +1,45 @@
+package com.pepedevs.inventoryframework.protocol.item.objects.enums;
+
+public enum Enchantment {
+
+    ARROW_DAMAGE(),
+    ARROW_FIRE(),
+    ARROW_INFINITE(),
+    ARROW_KNOCKBACK(),
+    BINDING_CURSE(),
+    CHANNELING(),
+    DAMAGE_ALL(),
+    DAMAGE_ARTHROPODS(),
+    DAMAGE_UNDEAD(),
+    DEPTH_STRIDER(),
+    DIG_SPEED(),
+    DURABILITY(),
+    FIRE_ASPECT(),
+    FROST_WALKER(),
+    IMPALING(),
+    SOUL_SPEED(),
+    KNOCKBACK(),
+    LOOT_BONUS_BLOCKS(),
+    LOOT_BONUS_MOBS(),
+    LOYALTY(),
+    LUCK(),
+    LURE(),
+    MENDING(),
+    MULTISHOT(),
+    OXYGEN(),
+    PIERCING(),
+    PROTECTION_ENVIRONMENTAL(),
+    PROTECTION_EXPLOSIONS(),
+    PROTECTION_FALL(),
+    PROTECTION_FIRE(),
+    PROTECTION_PROJECTILE(),
+    QUICK_CHARGE(),
+    RIPTIDE(),
+    SILK_TOUCH(),
+    SWEEPING_EDGE(),
+    THORNS(),
+    VANISHING_CURSE(),
+    WATER_WORKER();
+
+
+}

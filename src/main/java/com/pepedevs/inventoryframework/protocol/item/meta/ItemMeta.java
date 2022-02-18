@@ -1,6 +1,6 @@
 package com.pepedevs.inventoryframework.protocol.item.meta;
 
-import com.pepedevs.inventoryframework.protocol.item.objects.Enchantment;
+import com.pepedevs.inventoryframework.protocol.item.objects.enums.Enchantment;
 import net.kyori.adventure.text.Component;
 
 import java.util.*;

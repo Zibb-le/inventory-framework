@@ -1,6 +1,6 @@
 package com.pepedevs.inventoryframework.protocol.item.meta;
 
-import com.pepedevs.inventoryframework.protocol.item.objects.DyeColor;
+import com.pepedevs.inventoryframework.protocol.item.objects.enums.DyeColor;
 import com.pepedevs.inventoryframework.protocol.item.objects.Pattern;
 
 import java.util.ArrayList;
