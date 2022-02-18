@@ -1,5 +1,7 @@
-package com.pepedevs.inventoryframework.protocol;
+package com.pepedevs.inventoryframework.protocol.item;
 
+import com.pepedevs.inventoryframework.protocol.Material;
+import com.pepedevs.inventoryframework.protocol.item.meta.ItemMeta;
 import net.kyori.adventure.text.Component;
 
 import java.util.List;
@@ -9,8 +11,7 @@ public class ItemStack {
     private Material material;
     private int amount;
 
-    private Component displayName;
-    private List<Component> lore;
+    private ItemMeta itemMeta;
 
     public ItemStack(Material type) {
         this(type, 1);
@@ -19,6 +20,7 @@ public class ItemStack {
     public ItemStack(Material type, int amount) {
         this.material = type;
         this.amount = amount;
+        this.itemMeta = new ItemMeta();
     }
 
     public Material getMaterial() {
@@ -38,19 +40,26 @@ public class ItemStack {
     }
 
     public Component getDisplayName() {
-        return displayName;
+        return this.itemMeta.getDisplayName();
     }
 
     public void setDisplayName(Component displayName) {
-        this.displayName = displayName;
+        this.itemMeta.setDisplayName(displayName);
     }
 
     public List<Component> getLore() {
-        return lore;
+        return this.itemMeta.getLore();
     }
 
     public void setLore(List<Component> lore) {
-        this.lore = lore;
+        this.itemMeta.setLore(lore);
     }
 
+    public ItemMeta getItemMeta() {
+        return itemMeta;
+    }
+
+    public void setItemMeta(ItemMeta itemMeta) {
+        this.itemMeta = itemMeta;
+    }
 }

@@ -3,6 +3,7 @@ package com.pepedevs.inventoryframework.protocol;
 import com.github.retrooper.packetevents.protocol.item.type.ItemType;
 import com.github.retrooper.packetevents.protocol.item.type.ItemTypes;
 
+@SuppressWarnings("unused")
 public class Materials {
 
     public static final Material GILDED_BLACKSTONE = define(ItemTypes.GILDED_BLACKSTONE);
