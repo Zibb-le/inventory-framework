@@ -1,7 +1,9 @@
 package com.pepedevs.inventoryframework.protocol.item.meta;
 
+import com.github.retrooper.packetevents.protocol.nbt.NBTCompound;
 import com.pepedevs.inventoryframework.protocol.Material;
 import com.pepedevs.inventoryframework.protocol.Materials;
+import com.pepedevs.inventoryframework.protocol.item.objects.FireworkEffect;
 
 public class MetaUtil {
 
@@ -50,6 +52,11 @@ public class MetaUtil {
             return new BannerMeta();
         }
         return new ItemMeta();
+    }
+
+    public static NBTCompound asMeta(FireworkEffect fireworkEffect) {
+        //TODO
+        return null;
     }
 
 }

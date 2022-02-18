@@ -60,6 +60,7 @@ public class ItemMeta {
     public void removeEnchantment(Enchantment enchantment) {
         this.enchantments.remove(enchantment);
     }
+
     public void setEnchantments(Map<Enchantment, Integer> enchantments) {
         this.enchantments = new EnumMap<>(enchantments);
     }
