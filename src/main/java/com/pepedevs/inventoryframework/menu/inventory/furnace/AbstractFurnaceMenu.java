@@ -1,9 +1,9 @@
-package com.pepedevs.inventoryframework.inventory.furnace;
+package com.pepedevs.inventoryframework.menu.inventory.furnace;
 
 import com.github.retrooper.packetevents.protocol.player.User;
-import com.pepedevs.inventoryframework.Menu;
-import com.pepedevs.inventoryframework.NamedMenu;
-import com.pepedevs.inventoryframework.openinventory.OpenInventory;
+import com.pepedevs.inventoryframework.menu.Menu;
+import com.pepedevs.inventoryframework.menu.NamedMenu;
+import com.pepedevs.inventoryframework.menu.openinventory.OpenInventory;
 import net.kyori.adventure.text.Component;
 
 public abstract class AbstractFurnaceMenu extends NamedMenu {

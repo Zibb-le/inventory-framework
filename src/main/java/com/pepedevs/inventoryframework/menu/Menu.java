@@ -1,8 +1,10 @@
-package com.pepedevs.inventoryframework;
+package com.pepedevs.inventoryframework.menu;
 
 import com.github.retrooper.packetevents.protocol.item.ItemStack;
 import com.github.retrooper.packetevents.protocol.player.User;
-import com.pepedevs.inventoryframework.openinventory.AbstractOpenInventory;
+import com.pepedevs.inventoryframework.InventoryType;
+import com.pepedevs.inventoryframework.MenuItem;
+import com.pepedevs.inventoryframework.menu.openinventory.AbstractOpenInventory;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;

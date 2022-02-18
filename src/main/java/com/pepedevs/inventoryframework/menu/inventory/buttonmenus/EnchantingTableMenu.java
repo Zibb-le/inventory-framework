@@ -1,7 +1,7 @@
-package com.pepedevs.inventoryframework.inventory.buttonmenus;
+package com.pepedevs.inventoryframework.menu.inventory.buttonmenus;
 
 import com.pepedevs.inventoryframework.InventoryType;
-import com.pepedevs.inventoryframework.NamedButtonMenu;
+import com.pepedevs.inventoryframework.menu.NamedButtonMenu;
 import net.kyori.adventure.text.Component;
 
 public class EnchantingTableMenu extends NamedButtonMenu {

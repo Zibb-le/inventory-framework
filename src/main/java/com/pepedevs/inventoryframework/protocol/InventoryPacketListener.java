@@ -9,8 +9,8 @@ import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientCl
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientCloseWindow;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerSetSlot;
 import com.pepedevs.inventoryframework.ClickType;
-import com.pepedevs.inventoryframework.Menu;
-import com.pepedevs.inventoryframework.openinventory.AbstractOpenInventory;
+import com.pepedevs.inventoryframework.menu.Menu;
+import com.pepedevs.inventoryframework.menu.openinventory.AbstractOpenInventory;
 
 public class InventoryPacketListener extends PacketListenerAbstract {
 

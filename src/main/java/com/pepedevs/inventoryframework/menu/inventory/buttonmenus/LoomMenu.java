@@ -1,6 +1,6 @@
-package com.pepedevs.inventoryframework.inventory.buttonmenus;
+package com.pepedevs.inventoryframework.menu.inventory.buttonmenus;
 
-import com.pepedevs.inventoryframework.ButtonMenu;
+import com.pepedevs.inventoryframework.menu.ButtonMenu;
 import com.pepedevs.inventoryframework.InventoryType;
 
 public class LoomMenu extends ButtonMenu {

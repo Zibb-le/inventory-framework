@@ -1,21 +1,19 @@
-package com.pepedevs.inventoryframework.inventory;
+package com.pepedevs.inventoryframework.menu.inventory;
 
 import com.github.retrooper.packetevents.protocol.player.User;
 import com.pepedevs.inventoryframework.InventoryType;
-import com.pepedevs.inventoryframework.Menu;
-import com.pepedevs.inventoryframework.NamedMenu;
-import com.pepedevs.inventoryframework.openinventory.OpenInventory;
-import net.kyori.adventure.text.Component;
+import com.pepedevs.inventoryframework.menu.Menu;
+import com.pepedevs.inventoryframework.menu.openinventory.OpenInventory;
 
-public class HopperMenu extends NamedMenu {
+public class SmithingTableMenu extends Menu {
 
-    public HopperMenu(Component title) {
-        super(1, 5, title);
+    public SmithingTableMenu() {
+        super(1, 3);
     }
 
     @Override
     public InventoryType getInventoryType() {
-        return InventoryType.HOPPER;
+        return InventoryType.SMITHING;
     }
 
     @Override
@@ -25,4 +23,5 @@ public class HopperMenu extends NamedMenu {
         openInventory.show();
         openInventory.sendItems(this.items);
     }
+
 }

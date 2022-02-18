@@ -1,4 +1,4 @@
-package com.pepedevs.inventoryframework.openinventory;
+package com.pepedevs.inventoryframework.menu.openinventory;
 
 import com.github.retrooper.packetevents.protocol.item.ItemStack;
 import com.github.retrooper.packetevents.protocol.player.User;
@@ -6,6 +6,7 @@ import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerCl
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerSetSlot;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerWindowItems;
 import com.pepedevs.inventoryframework.*;
+import com.pepedevs.inventoryframework.menu.Menu;
 
 import java.util.ArrayList;
 import java.util.List;

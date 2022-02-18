@@ -1,5 +1,6 @@
-package com.pepedevs.inventoryframework;
+package com.pepedevs.inventoryframework.menu;
 
+import com.pepedevs.inventoryframework.menu.ButtonMenu;
 import net.kyori.adventure.text.Component;
 
 public abstract class NamedButtonMenu<C> extends ButtonMenu<C> {

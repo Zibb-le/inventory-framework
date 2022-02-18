@@ -1,6 +1,7 @@
-package com.pepedevs.inventoryframework;
+package com.pepedevs.inventoryframework.menu;
 
 import com.github.retrooper.packetevents.protocol.player.User;
+import com.pepedevs.inventoryframework.MenuItem;
 
 import java.util.ArrayList;
 import java.util.Arrays;

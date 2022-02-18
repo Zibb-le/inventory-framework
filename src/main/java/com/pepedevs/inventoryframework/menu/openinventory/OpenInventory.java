@@ -1,9 +1,11 @@
-package com.pepedevs.inventoryframework.openinventory;
+package com.pepedevs.inventoryframework.menu.openinventory;
 
 import com.github.retrooper.packetevents.protocol.item.ItemStack;
 import com.github.retrooper.packetevents.protocol.player.User;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerOpenWindow;
 import com.pepedevs.inventoryframework.*;
+import com.pepedevs.inventoryframework.menu.Menu;
+import com.pepedevs.inventoryframework.menu.NamedMenu;
 import net.kyori.adventure.text.Component;
 
 public class OpenInventory extends AbstractOpenInventory {

@@ -1,8 +1,8 @@
-package com.pepedevs.inventoryframework.inventory;
+package com.pepedevs.inventoryframework.menu.inventory;
 
 import com.github.retrooper.packetevents.protocol.player.User;
 import com.pepedevs.inventoryframework.InventoryType;
-import com.pepedevs.inventoryframework.Menu;
+import com.pepedevs.inventoryframework.menu.Menu;
 
 public class CartographyTableMenu extends Menu {
 

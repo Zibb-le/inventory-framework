@@ -1,4 +1,4 @@
-package com.pepedevs.inventoryframework.inventory.furnace;
+package com.pepedevs.inventoryframework.menu.inventory.furnace;
 
 import com.pepedevs.inventoryframework.InventoryType;
 import net.kyori.adventure.text.Component;

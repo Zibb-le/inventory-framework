@@ -1,10 +1,10 @@
-package com.pepedevs.inventoryframework.inventory;
+package com.pepedevs.inventoryframework.menu.inventory;
 
 import com.github.retrooper.packetevents.protocol.player.User;
 import com.pepedevs.inventoryframework.InventoryType;
-import com.pepedevs.inventoryframework.Menu;
-import com.pepedevs.inventoryframework.NamedMenu;
-import com.pepedevs.inventoryframework.openinventory.OpenInventory;
+import com.pepedevs.inventoryframework.menu.Menu;
+import com.pepedevs.inventoryframework.menu.NamedMenu;
+import com.pepedevs.inventoryframework.menu.openinventory.OpenInventory;
 import net.kyori.adventure.text.Component;
 
 public class BrewingStandMenu extends NamedMenu {

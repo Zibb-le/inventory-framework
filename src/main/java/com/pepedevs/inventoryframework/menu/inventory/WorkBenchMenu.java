@@ -1,21 +1,19 @@
-package com.pepedevs.inventoryframework.inventory;
+package com.pepedevs.inventoryframework.menu.inventory;
 
 import com.github.retrooper.packetevents.protocol.player.User;
 import com.pepedevs.inventoryframework.InventoryType;
-import com.pepedevs.inventoryframework.Menu;
-import com.pepedevs.inventoryframework.NamedMenu;
-import com.pepedevs.inventoryframework.openinventory.OpenInventory;
-import net.kyori.adventure.text.Component;
+import com.pepedevs.inventoryframework.menu.Menu;
+import com.pepedevs.inventoryframework.menu.openinventory.OpenInventory;
 
-public class DispenserMenu extends NamedMenu {
+public class WorkBenchMenu extends Menu {
 
-    public DispenserMenu(Component title) {
-        super(3, 3, title);
+    public WorkBenchMenu() {
+        super(3, 3);
     }
 
     @Override
     public InventoryType getInventoryType() {
-        return InventoryType.DISPENSER;
+        return InventoryType.WORKBENCH;
     }
 
     @Override

@@ -1,19 +1,19 @@
-package com.pepedevs.inventoryframework.inventory;
+package com.pepedevs.inventoryframework.menu.inventory;
 
 import com.github.retrooper.packetevents.protocol.player.User;
 import com.pepedevs.inventoryframework.InventoryType;
-import com.pepedevs.inventoryframework.Menu;
-import com.pepedevs.inventoryframework.openinventory.OpenInventory;
+import com.pepedevs.inventoryframework.menu.Menu;
+import com.pepedevs.inventoryframework.menu.openinventory.OpenInventory;
 
-public class SmithingTableMenu extends Menu {
+public class GrindStoneMenu extends Menu {
 
-    public SmithingTableMenu() {
+    public GrindStoneMenu() {
         super(1, 3);
     }
 
     @Override
     public InventoryType getInventoryType() {
-        return InventoryType.SMITHING;
+        return InventoryType.GRINDSTONE;
     }
 
     @Override
@@ -23,5 +23,4 @@ public class SmithingTableMenu extends Menu {
         openInventory.show();
         openInventory.sendItems(this.items);
     }
-
 }
