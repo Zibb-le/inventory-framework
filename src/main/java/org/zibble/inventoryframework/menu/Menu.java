@@ -13,7 +13,7 @@ import java.util.function.Consumer;
 
 public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
 
-    public static final List<AbstractOpenInventory> OPEN_INVENTORIES = Collections.synchronizedList(new ArrayList<>());
+    public static final Map<User, AbstractOpenInventory> OPEN_INVENTORIES = new ConcurrentHashMap<>();
 
     protected final int rows;
     protected final int columns;
@@ -58,12 +58,28 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
         return this.itemMap;
     }
 
+    public void setItem(char c, MenuItem<ItemStack> item) {
+        if (item == null) {
+            this.itemMap.remove(c);
+        } else {
+            this.itemMap.put(c, item);
+        }
+    }
+
     public MenuItem<ItemStack> getMaskItem(char maskKey) {
         return this.itemMap.get(maskKey);
     }
 
+    public MenuItem<ItemStack> getItem(int slot) {
+        return this.getItem(slot % this.columns, slot / this.rows);
+    }
+
+    public MenuItem<ItemStack> getItem(int x, int y) {
+        return this.itemMap.get(this.mask[y][x]);
+    }
+
     public MenuItem<ItemStack>[][] getItems() {
-        MenuItem<ItemStack>[][] items = new MenuItem[rows][columns];
+        MenuItem<ItemStack>[][] items = new MenuItem[this.rows][this.columns];
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.columns; j++) {
                 char c = this.mask[i][j];
@@ -117,5 +133,16 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
     public abstract InventoryType getInventoryType();
 
     public abstract void open(User user);
+
+    public abstract void update(User user);
+
+    public abstract void updateSlot(int slot, User user);
+
+    public void close(User user) {
+        AbstractOpenInventory inv = OPEN_INVENTORIES.remove(user);
+        if (inv != null) {
+            inv.close();
+        }
+    }
 
 }

@@ -4,6 +4,7 @@ import com.github.retrooper.packetevents.protocol.player.User;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerCloseWindow;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerSetSlot;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerWindowItems;
+import org.jetbrains.annotations.Nullable;
 import org.zibble.inventoryframework.InventoryListener;
 import org.zibble.inventoryframework.InventoryType;
 import org.zibble.inventoryframework.MenuItem;
@@ -42,12 +43,12 @@ public abstract class AbstractOpenInventory {
         this.sendItems(itemStacks);
     }
 
-    public void setSlot(int slot, ItemStack itemStack) {
+    public void setSlot(int slot, @Nullable ItemStack itemStack) {
         WrapperPlayServerSetSlot wrapper = new WrapperPlayServerSetSlot(this.windowId, 0, slot, itemStack.asProtocol());
         this.user.sendPacket(wrapper);
     }
 
-    protected void close() {
+    public void close() {
         WrapperPlayServerCloseWindow wrapper = new WrapperPlayServerCloseWindow(this.windowId);
         this.user.sendPacket(wrapper);
         this.getInventoryListener().onClose();

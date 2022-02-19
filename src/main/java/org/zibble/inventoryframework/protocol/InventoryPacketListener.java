@@ -22,9 +22,9 @@ public class InventoryPacketListener extends PacketListenerAbstract {
     public void onPacketReceive(PacketReceiveEvent event) {
         if (event.getPacketType() == PacketType.Play.Client.CLICK_WINDOW) {
             WrapperPlayClientClickWindow packet = new WrapperPlayClientClickWindow(event);
-            for (AbstractOpenInventory inv : Menu.OPEN_INVENTORIES) {
+            for (AbstractOpenInventory inv : Menu.OPEN_INVENTORIES.values()) {
                 if (inv.getWindowId() == packet.getWindowId() && event.getUser().equals(inv.getUser())) {
-                    inv.getInventoryListener().onClick(packet.getSlot(), packet.getClickedItemStack(), ClickType.fromPacketType(packet.getWindowClickType()));
+                    inv.getInventoryListener().onClick(packet.getSlot(), ClickType.fromPacketType(packet.getWindowClickType()));
                     WrapperPlayServerSetSlot setSlot = new WrapperPlayServerSetSlot(packet.getWindowId(), 0, packet.getSlot(), packet.getClickedItemStack());
                     event.getUser().sendPacket(setSlot);
                     WrapperPlayServerSetSlot setSlot2 = new WrapperPlayServerSetSlot(-1, 0, -1, null);
@@ -34,7 +34,7 @@ public class InventoryPacketListener extends PacketListenerAbstract {
             }
         } else if (event.getPacketType() == PacketType.Play.Client.CLOSE_WINDOW) {
             WrapperPlayClientCloseWindow packet = new WrapperPlayClientCloseWindow(event);
-            for (AbstractOpenInventory inv : Menu.OPEN_INVENTORIES) {
+            for (AbstractOpenInventory inv : Menu.OPEN_INVENTORIES.values()) {
                 if (inv.getWindowId() == packet.getWindowId() && event.getUser().equals(inv.getUser())) {
                     inv.getInventoryListener().onClose();
                     event.setCancelled(true);
@@ -42,7 +42,7 @@ public class InventoryPacketListener extends PacketListenerAbstract {
             }
         } else if (event.getPacketType() == PacketType.Play.Client.CLICK_WINDOW_BUTTON) {
             WrapperPlayClientClickWindowButton packet = new WrapperPlayClientClickWindowButton(event);
-            for (AbstractOpenInventory inv : Menu.OPEN_INVENTORIES) {
+            for (AbstractOpenInventory inv : Menu.OPEN_INVENTORIES.values()) {
                 if (inv.getWindowId() == packet.getWindowId() && event.getUser().equals(inv.getUser())) {
                     inv.getInventoryListener().onButtonClick(packet.getWindowId());
                     event.setCancelled(true);

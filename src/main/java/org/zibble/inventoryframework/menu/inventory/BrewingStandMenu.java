@@ -24,7 +24,7 @@ public class BrewingStandMenu extends NamedMenu {
     @Override
     public void open(User user) {
         OpenInventory openInventory = new OpenInventory(user, this);
-        Menu.OPEN_INVENTORIES.add(openInventory);
+        Menu.OPEN_INVENTORIES.put(user, openInventory);
         openInventory.show();
         openInventory.sendItems(this.getItems());
     }

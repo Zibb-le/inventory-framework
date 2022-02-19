@@ -63,7 +63,7 @@ public class MetaUtil {
         return new ItemMeta();
     }
 
-    protected static NBTCompound asMeta(FireworkEffect fireworkEffect) {
+    protected static NBTCompound applyFireworkEffect(FireworkEffect fireworkEffect) {
         //TODO
         return null;
     }

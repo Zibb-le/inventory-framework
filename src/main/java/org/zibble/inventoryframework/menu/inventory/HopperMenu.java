@@ -21,8 +21,19 @@ public class HopperMenu extends NamedMenu {
     @Override
     public void open(User user) {
         OpenInventory openInventory = new OpenInventory(user, this);
-        Menu.OPEN_INVENTORIES.add(openInventory);
+        Menu.OPEN_INVENTORIES.put(user, openInventory);
         openInventory.show();
         openInventory.sendItems(this.getItems());
     }
+
+    @Override
+    public void update(User user) {
+
+    }
+
+    @Override
+    public void updateSlot(int slot, User user) {
+
+    }
+
 }

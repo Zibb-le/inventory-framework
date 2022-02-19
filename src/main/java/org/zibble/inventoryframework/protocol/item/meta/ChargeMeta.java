@@ -25,6 +25,6 @@ public class ChargeMeta extends ItemMeta {
     public void applyTo(NBTCompound compound) {
         super.applyTo(compound);
         if (this.fireworkEffect != null)
-            compound.setTag(EXPLOSION, MetaUtil.asMeta(this.fireworkEffect));
+            compound.setTag(EXPLOSION, MetaUtil.applyFireworkEffect(this.fireworkEffect));
     }
 }

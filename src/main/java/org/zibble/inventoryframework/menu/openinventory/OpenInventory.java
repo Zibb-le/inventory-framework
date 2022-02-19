@@ -33,7 +33,7 @@ public class OpenInventory extends AbstractOpenInventory {
             }
 
             @Override
-            public void onClick(int slot, ItemStack clicked, ClickType clickType) {
+            public void onClick(int slot, ClickType clickType) {
                 if (slot < 0) return;
                 MenuItem<ItemStack> item = menu.getAsList().get(slot);
                 if (item == null || item.getClickAction() == null) return;
