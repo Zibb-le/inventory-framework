@@ -27,9 +27,6 @@ public class LeatherArmorMeta extends ItemMeta {
     public void applyTo(NBTCompound compound) {
         super.applyTo(compound);
         if (this.color == null) return;
-        NBTCompound display = compound.getCompoundTagOrNull(DISPLAY);
-        if (display == null)
-            compound.setTag(DISPLAY, display = new NBTCompound());
-        display.setTag(COLOR, new NBTInt(this.color.getRGB()));
+        MetaUtil.applyDisplayTag(COLOR, new NBTInt(this.color.getRGB()), compound);
     }
 }

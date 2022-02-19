@@ -5,8 +5,8 @@ import com.pepedevs.inventoryframework.protocol.item.objects.enums.PatternType;
 
 public class Pattern {
 
-    private DyeColor dyeColor;
-    private PatternType patternType;
+    private final DyeColor dyeColor;
+    private final PatternType patternType;
 
     public Pattern(DyeColor dyeColor, PatternType patternType) {
         this.dyeColor = dyeColor;
@@ -17,15 +17,7 @@ public class Pattern {
         return dyeColor;
     }
 
-    public void setDyeColor(DyeColor dyeColor) {
-        this.dyeColor = dyeColor;
-    }
-
     public PatternType getPatternType() {
         return patternType;
-    }
-
-    public void setPatternType(PatternType patternType) {
-        this.patternType = patternType;
     }
 }

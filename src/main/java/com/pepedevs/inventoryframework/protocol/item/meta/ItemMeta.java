@@ -9,15 +9,11 @@ import java.util.*;
 
 public class ItemMeta {
 
-    protected static final String DISPLAY = "display";
-    protected static final String NAME = "Name";
-    protected static final String LORE = "Lore";
-    protected static final String HIDE_FLAGS = "HideFlags";
-    protected static final String ENCHANTMENTS = "ench";
-    protected static final String ENCHANT_ID = "id";
-    protected static final String ENCHANT_LVL = "lvl";
-    protected static final String UNBREAKABLE = "Unbreakable";
-    protected static final String REPAIR_COST = "RepairCost";
+    private static final String NAME = "Name";
+    private static final String LORE = "Lore";
+    private static final String HIDE_FLAGS = "HideFlags";
+    private static final String UNBREAKABLE = "Unbreakable";
+    private static final String REPAIR_COST = "RepairCost";
 
     private Component displayName;
     private List<Component> lore;
@@ -99,18 +95,14 @@ public class ItemMeta {
 
     public void applyTo(NBTCompound compound) {
         if (this.displayName != null || this.lore != null) {
-            NBTCompound display = compound.getCompoundTagOrNull(DISPLAY);
-            if (display == null) {
-                compound.setTag(DISPLAY, display = new NBTCompound());
-            }
             if (this.displayName != null)
-                display.setTag(NAME, new NBTString(AdventureSerializer.asVanilla(this.displayName)));
+                MetaUtil.applyDisplayTag(NAME, new NBTString(AdventureSerializer.asVanilla(this.displayName)), compound);
             if (this.lore != null) {
-                List<NBTString> strings = new ArrayList<>(this.lore.size());
+                NBTList<NBTString> strings = new NBTList<>(NBTType.STRING);
                 for (Component component : this.lore) {
-                    strings.add(new NBTString(AdventureSerializer.asVanilla(component)));
+                    strings.addTag(new NBTString(AdventureSerializer.asVanilla(component)));
                 }
-                display.setTag(LORE, new NBTList<>(NBTType.STRING, strings));
+                MetaUtil.applyDisplayTag(LORE, strings, compound);
             }
         }
         byte flags = 0x00;
@@ -118,16 +110,6 @@ public class ItemMeta {
             flags |= 1 << flag.ordinal();
         }
         if (flags != 0x00) compound.setTag(HIDE_FLAGS, new NBTInt(flags));
-        if (enchantments.size() > 0) {
-            NBTList<NBTCompound> enchants = new NBTList<>(NBTType.COMPOUND);
-            for (Map.Entry<Enchantment, Integer> entry : enchantments.entrySet()) {
-                NBTCompound enchant = new NBTCompound();
-                enchant.setTag(ENCHANT_ID, new NBTShort((short) entry.getKey().getID()));
-                enchant.setTag(ENCHANT_LVL, new NBTShort(entry.getValue().shortValue()));
-                enchants.addTag((short) entry.getKey().getPacketType().getId(), enchant);
-            }
-            compound.setTag(ENCHANTMENTS, enchants);
-        }
         if (this.unBreakable)
             compound.setTag(UNBREAKABLE, new NBTByte((byte) 1));
         if (this.repairCost > 0)

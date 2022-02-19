@@ -1,11 +1,14 @@
 package com.pepedevs.inventoryframework.protocol.item.meta;
 
+import com.github.retrooper.packetevents.protocol.nbt.NBTCompound;
 import com.pepedevs.inventoryframework.protocol.item.objects.enums.Enchantment;
 
 import java.util.EnumMap;
 import java.util.Map;
 
-public class EnchantedBookMeta extends ItemMeta{
+public class EnchantedBookMeta extends ItemMeta {
+
+    private static final String STORED_ENCHANTMENTS = "StoredEnchantments";
 
     private Map<Enchantment, Integer> bookEnchants;
 
@@ -28,5 +31,11 @@ public class EnchantedBookMeta extends ItemMeta{
 
     public void setBookEnchants(Map<Enchantment, Integer> bookEnchants) {
         this.bookEnchants = new EnumMap<>(bookEnchants);
+    }
+
+    @Override
+    public void applyTo(NBTCompound compound) {
+        super.applyTo(compound);
+        MetaUtil.applyEnchants(bookEnchants, compound);
     }
 }

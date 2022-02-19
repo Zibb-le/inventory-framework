@@ -1,11 +1,20 @@
 package com.pepedevs.inventoryframework.protocol.item.meta;
 
-import com.github.retrooper.packetevents.protocol.nbt.NBTCompound;
+import com.github.retrooper.packetevents.protocol.nbt.*;
 import com.pepedevs.inventoryframework.protocol.Material;
 import com.pepedevs.inventoryframework.protocol.Materials;
 import com.pepedevs.inventoryframework.protocol.item.objects.FireworkEffect;
+import com.pepedevs.inventoryframework.protocol.item.objects.enums.Enchantment;
+
+import java.util.Map;
 
 public class MetaUtil {
+
+    private static final String DISPLAY = "display";
+
+    private static final String ENCHANTMENTS = "ench";
+    private static final String ENCHANT_ID = "id";
+    private static final String ENCHANT_LVL = "lvl";
 
     public static ItemMeta getMeta(final Material type) {
         if (Materials.WRITABLE_BOOK.equals(type) || Materials.WRITTEN_BOOK.equals(type)) {
@@ -54,9 +63,30 @@ public class MetaUtil {
         return new ItemMeta();
     }
 
-    public static NBTCompound asMeta(FireworkEffect fireworkEffect) {
+    protected static NBTCompound asMeta(FireworkEffect fireworkEffect) {
         //TODO
         return null;
+    }
+
+    protected static void applyEnchants(Map<Enchantment, Integer> enchantments, NBTCompound target) {
+        if (enchantments.size() > 0) {
+            NBTList<NBTCompound> enchants = new NBTList<>(NBTType.COMPOUND);
+            for (Map.Entry<Enchantment, Integer> entry : enchantments.entrySet()) {
+                NBTCompound enchant = new NBTCompound();
+                enchant.setTag(ENCHANT_ID, new NBTShort((short) entry.getKey().getID()));
+                enchant.setTag(ENCHANT_LVL, new NBTShort(entry.getValue().shortValue()));
+                enchants.addTag((short) entry.getKey().getPacketType().getId(), enchant);
+            }
+            target.setTag(ENCHANTMENTS, enchants);
+        }
+    }
+
+    protected static void applyDisplayTag(String key, NBT value, NBTCompound target) {
+        NBTCompound display = target.getCompoundTagOrNull(DISPLAY);
+        if (display == null) {
+            target.setTag(DISPLAY, display = new NBTCompound());
+        }
+        display.setTag(key, value);
     }
 
 }
