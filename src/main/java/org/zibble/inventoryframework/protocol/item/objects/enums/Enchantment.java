@@ -50,7 +50,7 @@ public enum Enchantment {
         this.packetEventsType = enchantmentType;
     }
 
-    public EnchantmentType getPacketType() {
+    public EnchantmentType asProtocol() {
         return packetEventsType;
     }
 

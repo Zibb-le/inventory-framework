@@ -26,7 +26,7 @@ public class BrewingStandMenu extends NamedMenu {
         OpenInventory openInventory = new OpenInventory(user, this);
         Menu.OPEN_INVENTORIES.add(openInventory);
         openInventory.show();
-        openInventory.sendItems(this.items);
+        openInventory.sendItems(this.getItems());
     }
 
     public int getBrewTime() {

@@ -75,7 +75,7 @@ public class MetaUtil {
                 NBTCompound enchant = new NBTCompound();
                 enchant.setTag(ENCHANT_ID, new NBTShort((short) entry.getKey().getID()));
                 enchant.setTag(ENCHANT_LVL, new NBTShort(entry.getValue().shortValue()));
-                enchants.addTag((short) entry.getKey().getPacketType().getId(), enchant);
+                enchants.addTag((short) entry.getKey().asProtocol().getId(), enchant);
             }
             target.setTag(ENCHANTMENTS, enchants);
         }

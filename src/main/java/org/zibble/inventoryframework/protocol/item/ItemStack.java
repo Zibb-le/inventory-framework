@@ -1,5 +1,6 @@
 package org.zibble.inventoryframework.protocol.item;
 
+import com.github.retrooper.packetevents.protocol.nbt.NBTCompound;
 import org.zibble.inventoryframework.protocol.Material;
 import org.zibble.inventoryframework.protocol.item.meta.ItemMeta;
 import org.zibble.inventoryframework.protocol.item.meta.MetaUtil;
@@ -11,6 +12,7 @@ public class ItemStack {
 
     private Material material;
     private int amount;
+    private int data;
 
     private ItemMeta itemMeta;
 
@@ -62,5 +64,26 @@ public class ItemStack {
 
     public void setItemMeta(ItemMeta itemMeta) {
         this.itemMeta = itemMeta;
+    }
+
+    public int getData() {
+        return data;
+    }
+
+    public void setData(int data) {
+        this.data = data;
+    }
+
+    public com.github.retrooper.packetevents.protocol.item.ItemStack asProtocol() {
+        NBTCompound nbt = new NBTCompound();
+        if (this.itemMeta != null) {
+            this.itemMeta.applyTo(nbt);
+        }
+        return com.github.retrooper.packetevents.protocol.item.ItemStack.builder()
+                .type(this.material.getItemType())
+                .amount(this.amount)
+                .nbt(nbt)
+                .legacyData(this.data)
+                .build();
     }
 }

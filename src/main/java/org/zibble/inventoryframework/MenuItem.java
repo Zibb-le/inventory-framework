@@ -1,6 +1,6 @@
 package org.zibble.inventoryframework;
 
-import com.github.retrooper.packetevents.protocol.item.ItemStack;
+import org.zibble.inventoryframework.protocol.item.ItemStack;
 
 public class MenuItem<C> {
 
@@ -12,7 +12,7 @@ public class MenuItem<C> {
     }
 
     public static MenuItem<ItemStack> of(ItemStack itemStack) {
-        return new MenuItem<ItemStack>(itemStack);
+        return new MenuItem<>(itemStack);
     }
 
     public ClickAction getClickAction() {

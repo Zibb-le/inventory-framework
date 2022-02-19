@@ -11,7 +11,7 @@ public class Profile {
 
     private UUID uuid;
     private String name;
-    private List<Property> properties = new ArrayList<>();
+    private final List<Property> properties = new ArrayList<>();
 
     public Profile(UUID uuid, String name) {
         this.uuid = uuid;

@@ -1,6 +1,5 @@
 package org.zibble.inventoryframework.menu.openinventory;
 
-import com.github.retrooper.packetevents.protocol.item.ItemStack;
 import com.github.retrooper.packetevents.protocol.player.User;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerOpenWindow;
 import org.zibble.inventoryframework.InventoryType;
@@ -10,6 +9,7 @@ import org.zibble.inventoryframework.menu.NamedMenu;
 import net.kyori.adventure.text.Component;
 import org.zibble.inventoryframework.ClickType;
 import org.zibble.inventoryframework.InventoryListener;
+import org.zibble.inventoryframework.protocol.item.ItemStack;
 
 public class OpenInventory extends AbstractOpenInventory {
 
@@ -35,7 +35,7 @@ public class OpenInventory extends AbstractOpenInventory {
             @Override
             public void onClick(int slot, ItemStack clicked, ClickType clickType) {
                 if (slot < 0) return;
-                MenuItem<ItemStack> item = menu.getItems()[slot / menu.getColumns()][slot % menu.getColumns()];
+                MenuItem<ItemStack> item = menu.getAsList().get(slot);
                 if (item == null || item.getClickAction() == null) return;
                 item.getClickAction().onClick(user, clickType);
             }

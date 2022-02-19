@@ -1,6 +1,6 @@
 package org.zibble.inventoryframework;
 
-import com.github.retrooper.packetevents.protocol.item.ItemStack;
+import org.zibble.inventoryframework.protocol.item.ItemStack;
 
 public abstract class InventoryListener {
 
