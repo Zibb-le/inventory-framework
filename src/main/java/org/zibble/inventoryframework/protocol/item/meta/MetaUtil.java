@@ -16,6 +16,12 @@ public class MetaUtil {
     private static final String ENCHANT_ID = "id";
     private static final String ENCHANT_LVL = "lvl";
 
+    private static final String EXPLOSION_FLICKER = "Flicker";
+    private static final String EXPLOSION_TRAIL = "Trail";
+    private static final String EXPLOSION_COLORS = "Colors";
+    private static final String EXPLOSION_FADE = "FadeColors";
+    private static final String EXPLOSION_TYPE = "Type";
+
     public static ItemMeta getMeta(final Material type) {
         if (Materials.WRITABLE_BOOK.equals(type) || Materials.WRITTEN_BOOK.equals(type)) {
             return new BookMeta();
@@ -63,9 +69,24 @@ public class MetaUtil {
         return new ItemMeta();
     }
 
-    protected static NBTCompound applyFireworkEffect(FireworkEffect fireworkEffect) {
-        //TODO
-        return null;
+    protected static void applyFireworkEffect(FireworkEffect effect, NBTCompound target) {
+        if (effect.hasFlicker()) {
+            target.setTag(EXPLOSION_FLICKER, new NBTByte((byte) 1));
+        }
+        if (effect.hasTrail()) {
+            target.setTag(EXPLOSION_TRAIL, new NBTByte((byte) 1));
+        }
+        int[] colors = new int[effect.getColors().size()];
+        for (int i = 0; i < effect.getColors().size(); i++) {
+            colors[i] = effect.getColors().get(i).getRGB();
+        }
+        target.setTag(EXPLOSION_COLORS, new NBTIntArray(colors));
+        int[] fadeColors = new int[effect.getFadeColors().size()];
+        for (int i = 0; i < effect.getFadeColors().size(); i++) {
+            fadeColors[i] = effect.getFadeColors().get(i).getRGB();
+        }
+        target.setTag(EXPLOSION_FADE, new NBTIntArray(fadeColors));
+        target.setTag(EXPLOSION_TYPE, new NBTByte((byte) effect.getType().ordinal()));
     }
 
     protected static void applyEnchants(Map<Enchantment, Integer> enchantments, NBTCompound target) {
