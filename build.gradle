@@ -3,7 +3,7 @@ plugins {
     id 'maven-publish'
 }
 
-group 'com.pepedevs'
+group 'org.zibble'
 version '1.0'
 
 repositories {
@@ -17,7 +17,7 @@ repositories {
 publishing {
     publications {
         maven(MavenPublication) { publication ->
-            groupId = 'com.pepedevs'
+            groupId = 'org.zibble'
             artifactId = project.name
             from(components.java)
         }
@@ -25,13 +25,6 @@ publishing {
 
     repositories {
         mavenLocal()
-        /*maven {
-            credentials {
-                username = "$usr"
-                password = "$pwd"
-            }
-            url 'https://repo.pepedevs.com/nexus/repository/maven-snapshots/'
-        }*/
     }
 }
 
