@@ -1,5 +1,6 @@
 package org.zibble.inventoryframework.menu.inventory.buttonmenus;
 
+import org.jetbrains.annotations.NotNull;
 import org.zibble.inventoryframework.menu.ButtonMenu;
 import org.zibble.inventoryframework.InventoryType;
 
@@ -10,7 +11,7 @@ public class BeaconMenu extends ButtonMenu {
     }
 
     @Override
-    public InventoryType getInventoryType() {
+    public @NotNull InventoryType getInventoryType() {
         return InventoryType.BEACON;
     }
 

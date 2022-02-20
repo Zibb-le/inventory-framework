@@ -1,7 +1,9 @@
 package org.zibble.inventoryframework.menu.property;
 
+import org.jetbrains.annotations.NotNull;
+
 public interface DataPropertyHolder {
 
-    PropertyPair[] getProperties();
+    @NotNull PropertyPair[] getProperties();
 
 }

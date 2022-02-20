@@ -2,6 +2,8 @@ package org.zibble.inventoryframework.menu.inventory.buttonmenus;
 
 import com.github.retrooper.packetevents.protocol.player.User;
 import net.kyori.adventure.text.Component;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.zibble.inventoryframework.InventoryType;
 import org.zibble.inventoryframework.MenuItem;
 import org.zibble.inventoryframework.menu.Menu;
@@ -17,17 +19,18 @@ import java.util.function.Predicate;
 
 public class EnchantingTableMenu extends NamedButtonMenu<EnchantOption> implements DataPropertyHolder {
 
-    public EnchantingTableMenu(Component title) {
+    public EnchantingTableMenu(@Nullable final Component title) {
         super(1, 2, 3, 1, title);
     }
 
     @Override
+    @NotNull
     public InventoryType getInventoryType() {
         return InventoryType.ENCHANTING_TABLE;
     }
 
     @Override
-    public void open(User user) {
+    public void open(@NotNull final User user) {
         ButtonOpenInventory openInventory = new ButtonOpenInventory(user, this);
         Menu.OPEN_INVENTORIES.put(user, openInventory);
         openInventory.show();
@@ -36,6 +39,7 @@ public class EnchantingTableMenu extends NamedButtonMenu<EnchantOption> implemen
     }
 
     @Override
+    @NotNull
     public PropertyPair[] getProperties() {
         List<PropertyPair> properties = new ArrayList<>(6);
 

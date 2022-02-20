@@ -41,7 +41,7 @@ public class ButtonOpenInventory extends AbstractOpenInventory {
                 if (buttonID < 0) return;
                 MenuItem<?> item = menu.getButtonsAsList().get(buttonID);
                 if (item == null || item.getClickAction() == null) return;
-                item.getClickAction().onClick(user, ClickType.PICKUP);
+                item.getClickAction().onClick(user, ClickType.SWAP);
             }
         };
     }

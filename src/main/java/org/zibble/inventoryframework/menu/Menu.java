@@ -2,6 +2,8 @@ package org.zibble.inventoryframework.menu;
 
 import com.github.retrooper.packetevents.protocol.player.User;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.Range;
 import org.zibble.inventoryframework.InventoryType;
 import org.zibble.inventoryframework.MenuItem;
 import org.zibble.inventoryframework.menu.openinventory.AbstractOpenInventory;
@@ -14,32 +16,37 @@ import java.util.function.Consumer;
 
 public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
 
-    public static final Map<User, AbstractOpenInventory> OPEN_INVENTORIES = new ConcurrentHashMap<>();
+    protected static final Map<User, AbstractOpenInventory> OPEN_INVENTORIES = new ConcurrentHashMap<>();
 
     protected final int rows;
     protected final int columns;
-    protected char[][] mask;
-    protected final Map<Character, MenuItem<ItemStack>> itemMap;
+    protected final char[][] mask;
+    protected final @NotNull Map<Character, MenuItem<ItemStack>> itemMap;
 
-    protected Consumer<User> onOpen;
-    protected Consumer<User> onClose;
+    protected @Nullable Consumer<User> onOpen;
+    protected @Nullable Consumer<User> onClose;
 
+    public Menu(@Range(from = 1, to = Integer.MAX_VALUE) final int rows,
+                @Range(from = 1, to = Integer.MAX_VALUE) final int columns) {
 
-    public Menu(int rows, int columns) {
         this.rows = rows;
         this.columns = columns;
+
         this.mask = new char[rows][columns];
         char[] fill = new char[columns];
+
         Arrays.fill(fill, 'X');
         Arrays.fill(this.mask, fill);
+
         this.itemMap = new ConcurrentHashMap<>();
+
     }
 
     public char[][] getMask() {
         return mask;
     }
 
-    public void setMask(String... masks) {
+    public void setMask(@NotNull final String... masks) {
         if (masks.length > rows) {
             throw new IllegalArgumentException("Mask length must be equal to rows. " + masks.length);
         }
@@ -55,11 +62,12 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
         }
     }
 
+    @NotNull
     public Map<Character, MenuItem<ItemStack>> getItemMap() {
         return this.itemMap;
     }
 
-    public void setItem(char c, MenuItem<ItemStack> item) {
+    public void setItem(final char c, @Nullable final MenuItem<ItemStack> item) {
         if (item == null) {
             this.itemMap.remove(c);
         } else {
@@ -67,18 +75,23 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
         }
     }
 
-    public MenuItem<ItemStack> getMaskItem(char maskKey) {
+    @Nullable
+    public MenuItem<ItemStack> getMaskItem(final char maskKey) {
         return this.itemMap.get(maskKey);
     }
 
-    public MenuItem<ItemStack> getItem(int slot) {
+    @Nullable
+    public MenuItem<ItemStack> getItem(@Range(from = 0, to = Integer.MAX_VALUE) final int slot) {
         return this.getItem(slot % this.columns, slot / this.rows);
     }
 
-    public MenuItem<ItemStack> getItem(int x, int y) {
+    @Nullable
+    public MenuItem<ItemStack> getItem(@Range(from = 0, to = Integer.MAX_VALUE) final int x,
+                                       @Range(from = 0, to = Integer.MAX_VALUE) final int y) {
         return this.itemMap.get(this.mask[y][x]);
     }
 
+    @NotNull
     public MenuItem<ItemStack>[][] getItems() {
         MenuItem<ItemStack>[][] items = new MenuItem[this.rows][this.columns];
         for (int i = 0; i < this.rows; i++) {
@@ -90,6 +103,7 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
         return items;
     }
 
+    @NotNull
     public List<MenuItem<ItemStack>> getAsList() {
         List<MenuItem<ItemStack>> items = new ArrayList<>(rows * columns);
         for (int i = 0; i < this.rows; i++) {
@@ -107,35 +121,40 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
         return getAsList().iterator();
     }
 
+    @Range(from = 0, to = Integer.MAX_VALUE)
     public int getRows() {
         return rows;
     }
 
+    @Range(from = 0, to = Integer.MAX_VALUE)
     public int getColumns() {
         return columns;
     }
 
+    @Nullable
     public Consumer<User> getOnOpen() {
         return onOpen;
     }
 
+    @Nullable
     public Consumer<User> getOnClose() {
         return onClose;
     }
 
-    public void setOnOpen(Consumer<User> onOpen) {
+    public void setOnOpen(@Nullable final Consumer<User> onOpen) {
         this.onOpen = onOpen;
     }
 
-    public void setOnClose(Consumer<User> onClose) {
+    public void setOnClose(@Nullable final Consumer<User> onClose) {
         this.onClose = onClose;
     }
 
+    @NotNull
     public abstract InventoryType getInventoryType();
 
-    public abstract void open(User user);
+    public abstract void open(@NotNull final User user);
 
-    public void update(User user) {
+    public void update(@NotNull final User user) {
         AbstractOpenInventory openInventory = Menu.OPEN_INVENTORIES.get(user);
         if (openInventory == null) return;
 
@@ -147,7 +166,8 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
 
     }
 
-    public void updateSlot(int slot, User user) {
+    public void updateSlot(@Range(from = 0, to = Integer.MAX_VALUE) final int slot,
+                           @NotNull final User user) {
         AbstractOpenInventory openInventory = Menu.OPEN_INVENTORIES.get(user);
         if (openInventory != null) {
             MenuItem<ItemStack> item = this.getItem(slot);
@@ -155,7 +175,7 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
         }
     }
 
-    public void close(User user) {
+    public void close(@NotNull final User user) {
         AbstractOpenInventory inv = OPEN_INVENTORIES.remove(user);
         if (inv != null) {
             inv.close();
