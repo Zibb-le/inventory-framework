@@ -4,11 +4,13 @@ import com.github.retrooper.packetevents.protocol.player.User;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerCloseWindow;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerSetSlot;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerWindowItems;
+import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerWindowProperty;
 import org.jetbrains.annotations.Nullable;
 import org.zibble.inventoryframework.InventoryListener;
 import org.zibble.inventoryframework.InventoryType;
 import org.zibble.inventoryframework.MenuItem;
 import org.zibble.inventoryframework.menu.Menu;
+import org.zibble.inventoryframework.menu.property.PropertyPair;
 import org.zibble.inventoryframework.protocol.item.ItemStack;
 
 import java.util.ArrayList;
@@ -44,7 +46,7 @@ public abstract class AbstractOpenInventory {
     }
 
     public void setSlot(int slot, @Nullable ItemStack itemStack) {
-        WrapperPlayServerSetSlot wrapper = new WrapperPlayServerSetSlot(this.windowId, 0, slot, itemStack.asProtocol());
+        WrapperPlayServerSetSlot wrapper = new WrapperPlayServerSetSlot(this.windowId, 0, slot, itemStack == null ? null : itemStack.asProtocol());
         this.user.sendPacket(wrapper);
     }
 
@@ -71,8 +73,19 @@ public abstract class AbstractOpenInventory {
         return containerId;
     }
 
-    public abstract void show();
+    public void updateWindowData(int ID, int value) {
+        WrapperPlayServerWindowProperty wrapper = new WrapperPlayServerWindowProperty(this.windowId, ID, value);
+        this.user.sendPacket(wrapper);
+    }
+
+    public void updateWindowData(PropertyPair[] propertyPairs) {
+        for (PropertyPair propertyPair : propertyPairs) {
+            this.updateWindowData(propertyPair.getID(), propertyPair.getValue());
+        }
+    }
 
     public abstract InventoryListener getInventoryListener();
+
+    public abstract void show();
 
 }

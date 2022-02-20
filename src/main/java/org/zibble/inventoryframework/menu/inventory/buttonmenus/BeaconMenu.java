@@ -13,4 +13,5 @@ public class BeaconMenu extends ButtonMenu {
     public InventoryType getInventoryType() {
         return InventoryType.BEACON;
     }
+
 }

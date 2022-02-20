@@ -3,11 +3,14 @@ package org.zibble.inventoryframework.menu.inventory;
 import com.github.retrooper.packetevents.protocol.player.User;
 import org.zibble.inventoryframework.InventoryType;
 import org.zibble.inventoryframework.menu.Menu;
-import org.zibble.inventoryframework.menu.NamedMenu;
+import org.zibble.inventoryframework.menu.nameable.NamedMenu;
+import org.zibble.inventoryframework.menu.openinventory.AbstractOpenInventory;
 import org.zibble.inventoryframework.menu.openinventory.OpenInventory;
 import net.kyori.adventure.text.Component;
+import org.zibble.inventoryframework.menu.property.DataPropertyHolder;
+import org.zibble.inventoryframework.menu.property.PropertyPair;
 
-public class BrewingStandMenu extends NamedMenu {
+public class BrewingStandMenu extends NamedMenu implements DataPropertyHolder {
 
     private int brewTime;
     private int fuel;
@@ -43,5 +46,22 @@ public class BrewingStandMenu extends NamedMenu {
 
     public void setFuel(int fuel) {
         this.fuel = fuel;
+    }
+
+    @Override
+    public void update(User user) {
+        AbstractOpenInventory openInventory = Menu.OPEN_INVENTORIES.get(user);
+        if (openInventory != null) {
+            openInventory.sendItems(this.getItems());
+            openInventory.updateWindowData(this.getProperties());
+        }
+    }
+
+    @Override
+    public PropertyPair[] getProperties() {
+        return new PropertyPair[] {
+                PropertyPair.of(0, this.brewTime),
+                PropertyPair.of(1, this.fuel)
+        };
     }
 }

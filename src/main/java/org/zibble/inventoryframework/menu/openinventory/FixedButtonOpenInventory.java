@@ -1,21 +1,17 @@
 package org.zibble.inventoryframework.menu.openinventory;
 
 import com.github.retrooper.packetevents.protocol.player.User;
-import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerOpenWindow;
-import org.zibble.inventoryframework.InventoryType;
-import org.zibble.inventoryframework.MenuItem;
-import org.zibble.inventoryframework.menu.Menu;
-import org.zibble.inventoryframework.menu.nameable.NamedMenu;
-import net.kyori.adventure.text.Component;
 import org.zibble.inventoryframework.ClickType;
 import org.zibble.inventoryframework.InventoryListener;
+import org.zibble.inventoryframework.MenuItem;
+import org.zibble.inventoryframework.menu.FixedButtonMenu;
 import org.zibble.inventoryframework.protocol.item.ItemStack;
 
-public class OpenInventory extends AbstractOpenInventory {
+public class FixedButtonOpenInventory extends AbstractOpenInventory {
 
     private final InventoryListener listener;
 
-    public OpenInventory(User user, Menu menu) {
+    public FixedButtonOpenInventory(User user, FixedButtonMenu menu) {
         super(user, menu);
         this.listener = new InventoryListener() {
             @Override
@@ -39,6 +35,12 @@ public class OpenInventory extends AbstractOpenInventory {
                 if (item == null || item.getClickAction() == null) return;
                 item.getClickAction().onClick(user, clickType);
             }
+
+            @Override
+            public void onButtonClick(int buttonID) {
+                if (buttonID < 0) return;
+                menu.getButtonClickHandler().accept(buttonID);
+            }
         };
     }
 
@@ -49,15 +51,7 @@ public class OpenInventory extends AbstractOpenInventory {
 
     @Override
     public void show() {
-        Component title = this.menu instanceof NamedMenu ? ((NamedMenu) this.menu).getTitle() : Component.empty();
-        this.windowId = this.nextContainerId();
-        WrapperPlayServerOpenWindow wrapper = new WrapperPlayServerOpenWindow(
-                this.windowId,
-                this.getInventoryType().getLegacyId(),
-                title,
-                this.getInventoryType() == InventoryType.CHEST ? menu.getColumns() * menu.getRows() : 0,
-                0);
-        this.user.sendPacket(wrapper);
-        this.getInventoryListener().onOpen();
+
     }
+
 }

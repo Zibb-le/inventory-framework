@@ -1,0 +1,64 @@
+package org.zibble.inventoryframework.protocol.item.objects.buttons;
+
+import org.zibble.inventoryframework.protocol.item.ItemStack;
+
+public class TradeOption {
+
+    private final ItemStack buyItem1;
+    private final ItemStack buyItem2;
+    private final ItemStack sellItem;
+    private final int uses;
+    private final int maxUses;
+    private final int xp;
+    private final float priceMultiplier;
+    private final int specialPrice;
+    private final int demand;
+
+    private TradeOption(ItemStack buyItem1, ItemStack buyItem2, ItemStack sellItem, int uses, int maxUses, int xp, float priceMultiplier, int demand, int specialPrice) {
+        this.buyItem1 = buyItem1;
+        this.buyItem2 = buyItem2;
+        this.sellItem = sellItem;
+        this.uses = uses;
+        this.maxUses = maxUses;
+        this.xp = xp;
+        this.priceMultiplier = priceMultiplier;
+        this.demand = demand;
+        this.specialPrice = specialPrice;
+    }
+
+    public ItemStack getBuyItemPrimary() {
+        return buyItem1;
+    }
+
+    public ItemStack getBuyItemSecondary() {
+        return buyItem2;
+    }
+
+    public ItemStack getSellItem() {
+        return sellItem;
+    }
+
+    public int getUses() {
+        return uses;
+    }
+
+    public int getMaxUses() {
+        return maxUses;
+    }
+
+    public int getXp() {
+        return xp;
+    }
+
+    public float getPriceMultiplier() {
+        return priceMultiplier;
+    }
+
+    public int getSpecialPrice() {
+        return specialPrice;
+    }
+
+    public int getDemand() {
+        return demand;
+    }
+}

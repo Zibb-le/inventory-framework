@@ -5,6 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import org.zibble.inventoryframework.InventoryType;
 import org.zibble.inventoryframework.MenuItem;
 import org.zibble.inventoryframework.menu.openinventory.AbstractOpenInventory;
+import org.zibble.inventoryframework.menu.property.DataPropertyHolder;
 import org.zibble.inventoryframework.protocol.item.ItemStack;
 
 import java.util.*;
@@ -134,9 +135,25 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
 
     public abstract void open(User user);
 
-    public abstract void update(User user);
+    public void update(User user) {
+        AbstractOpenInventory openInventory = Menu.OPEN_INVENTORIES.get(user);
+        if (openInventory == null) return;
 
-    public abstract void updateSlot(int slot, User user);
+        openInventory.sendItems(this.getItems());
+        if (this instanceof DataPropertyHolder) {
+            DataPropertyHolder dataPropertyHolder = (DataPropertyHolder) this;
+            openInventory.updateWindowData(dataPropertyHolder.getProperties());
+        }
+
+    }
+
+    public void updateSlot(int slot, User user) {
+        AbstractOpenInventory openInventory = Menu.OPEN_INVENTORIES.get(user);
+        if (openInventory != null) {
+            MenuItem<ItemStack> item = this.getItem(slot);
+            openInventory.setSlot(slot, item == null ? null : item.getContent());
+        }
+    }
 
     public void close(User user) {
         AbstractOpenInventory inv = OPEN_INVENTORIES.remove(user);

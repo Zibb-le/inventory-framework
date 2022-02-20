@@ -33,20 +33,11 @@ public abstract class ButtonMenu<C> extends Menu {
         return buttons;
     }
 
-    public MenuItem<C> getButtonAt(int index) {
-        return this.buttons[index / buttonColumns][index % buttonColumns];
-    }
-
     public List<MenuItem<C>> getButtonsAsList() {
         List<MenuItem<C>> buttons = new ArrayList<>(buttonRows * buttonColumns);
         for (MenuItem<C>[] button : this.buttons) {
             buttons.addAll(Arrays.asList(button));
         }
         return buttons;
-    }
-
-    @Override
-    public void open(User user) {
-
     }
 }
