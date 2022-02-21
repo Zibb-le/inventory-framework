@@ -84,6 +84,7 @@ public class ItemStack {
     @NotNull
     public com.github.retrooper.packetevents.protocol.item.ItemStack asProtocol() {
         NBTCompound nbt = new NBTCompound();
+        this.meta().applyTo(nbt);
         return com.github.retrooper.packetevents.protocol.item.ItemStack.builder()
                 .type(this.material.asProtocol())
                 .amount(this.amount)

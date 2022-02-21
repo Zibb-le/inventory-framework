@@ -68,6 +68,11 @@ public abstract class AbstractOpenInventory {
         return this.menu.type();
     }
 
+    @NotNull
+    public Menu menu() {
+        return this.menu;
+    }
+
     public @Range(from = 101, to = 255) byte windowId() {
         return windowId;
     }

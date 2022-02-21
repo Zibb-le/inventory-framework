@@ -29,6 +29,7 @@ public class InventoryPacketListener extends PacketListenerAbstract {
                     event.getUser().sendPacket(setSlot);
                     WrapperPlayServerSetSlot setSlot2 = new WrapperPlayServerSetSlot(-1, 0, -1, null);
                     event.getUser().sendPacket(setSlot2);
+                    inv.sendItems(inv.menu().items());
                     event.setCancelled(true);
                 }
             }
