@@ -26,4 +26,5 @@ public class Material {
     public @Range(from = 0, to = Integer.MAX_VALUE) byte legacyData() {
         return data;
     }
+
 }

@@ -7,6 +7,8 @@ import org.zibble.inventoryframework.InventoryFramework;
 
 public class Materials {
 
+    private static final boolean IS_LEGACY = InventoryFramework.framework().serverVersion().isOlderThan(ServerVersion.V_1_13);
+
     public static final Material ACACIA_BOAT = define(ItemTypes.ACACIA_BOAT);
     public static final Material ACACIA_BUTTON = define(ItemTypes.ACACIA_BUTTON);
     public static final Material ACACIA_DOOR = define(ItemTypes.ACACIA_DOOR);
@@ -1108,8 +1110,6 @@ public class Materials {
     public static final Material ZOMBIE_SPAWN_EGG = define(54, ItemTypes.EGG, ItemTypes.ZOMBIE_SPAWN_EGG);
     public static final Material ZOMBIE_VILLAGER_SPAWN_EGG = define(27, ItemTypes.EGG, ItemTypes.ZOMBIE_VILLAGER_SPAWN_EGG);
     public static final Material ZOMBIFIED_PIGLIN_SPAWN_EGG = define(57, ItemTypes.EGG, ItemTypes.ZOMBIFIED_PIGLIN_SPAWN_EGG);
-
-    private static final boolean IS_LEGACY = InventoryFramework.framework().serverVersion().isOlderThan(ServerVersion.V_1_13);
 
     public static Material define(ItemType type) {
         return new Material(type);
