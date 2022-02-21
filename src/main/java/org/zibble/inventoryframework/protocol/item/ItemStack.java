@@ -15,7 +15,7 @@ public class ItemStack {
 
     private @NotNull Material material;
     private @Range(from = 0, to = 64) int amount;
-    private int data;
+    private int data = -1;
 
     private @NotNull ItemMeta itemMeta;
 
@@ -86,10 +86,9 @@ public class ItemStack {
         NBTCompound nbt = new NBTCompound();
         return com.github.retrooper.packetevents.protocol.item.ItemStack.builder()
                 .type(this.material.asProtocol())
-                .legacyData(this.material.legacyData())
                 .amount(this.amount)
                 .nbt(nbt)
-                .legacyData(this.data)
+                .legacyData(this.data == -1 ? this.material.legacyData() : this.data)
                 .build();
     }
 }
