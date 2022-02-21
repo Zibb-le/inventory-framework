@@ -4,6 +4,7 @@ import com.github.retrooper.packetevents.protocol.nbt.NBTByte;
 import com.github.retrooper.packetevents.protocol.nbt.NBTCompound;
 import com.github.retrooper.packetevents.protocol.nbt.NBTList;
 import com.github.retrooper.packetevents.protocol.nbt.NBTType;
+import org.jetbrains.annotations.NotNull;
 import org.zibble.inventoryframework.protocol.item.objects.FireworkEffect;
 
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class FireworkMeta extends ItemMeta {
     }
 
     @Override
-    public void applyTo(NBTCompound compound) {
+    public void applyTo(@NotNull NBTCompound compound) {
         super.applyTo(compound);
 
         if (power == 0 || this.effects.isEmpty()) {

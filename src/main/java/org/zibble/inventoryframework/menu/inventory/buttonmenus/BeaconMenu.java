@@ -12,7 +12,8 @@ public class BeaconMenu extends ButtonMenu {
     }
 
     @Override
-    public @NotNull InventoryType type() {
+    @NotNull
+    public InventoryType type() {
         return InventoryType.BEACON;
     }
 

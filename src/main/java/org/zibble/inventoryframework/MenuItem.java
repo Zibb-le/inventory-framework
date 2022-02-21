@@ -1,33 +1,36 @@
 package org.zibble.inventoryframework;
 
+import org.jetbrains.annotations.Nullable;
 import org.zibble.inventoryframework.protocol.item.ItemStack;
 
 public class MenuItem<C> {
 
-    public static MenuItem<ItemStack> of(ItemStack itemStack) {
+    public static MenuItem<ItemStack> of(@Nullable ItemStack itemStack) {
         return new MenuItem<>(itemStack);
     }
 
-    private C content;
-    private ClickAction clickAction;
+    private @Nullable C content;
+    private @Nullable ClickAction clickAction;
 
-    private MenuItem(C content) {
+    private MenuItem(@Nullable C content) {
         this.content = content;
     }
 
+    @Nullable
     public ClickAction clickAction() {
         return clickAction;
     }
 
-    public void clickAction(ClickAction clickAction) {
+    public void clickAction(@Nullable ClickAction clickAction) {
         this.clickAction = clickAction;
     }
 
+    @Nullable
     public C content() {
         return this.content;
     }
 
-    public void content(C content) {
+    public void content(@Nullable C content) {
         this.content = content;
     }
 }

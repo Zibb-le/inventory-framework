@@ -11,7 +11,8 @@ public class FurnaceMenu extends AbstractFurnaceMenu {
     }
 
     @Override
-    public @NotNull InventoryType type() {
+    @NotNull
+    public InventoryType type() {
         return InventoryType.FURNACE;
     }
 

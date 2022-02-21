@@ -1,6 +1,7 @@
 package org.zibble.inventoryframework.protocol.item.meta;
 
 import com.github.retrooper.packetevents.protocol.nbt.*;
+import org.jetbrains.annotations.NotNull;
 import org.zibble.inventoryframework.protocol.item.objects.PotionEffect;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class PotionMeta extends ItemMeta {
     }
 
     @Override
-    public void applyTo(NBTCompound compound) {
+    public void applyTo(@NotNull NBTCompound compound) {
         super.applyTo(compound);
         if (this.potionEffects.isEmpty()) return;
         NBTList<NBTCompound> list = new NBTList<>(NBTType.COMPOUND);

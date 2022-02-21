@@ -18,8 +18,8 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
 
     protected static final Map<ProtocolPlayer<?>, AbstractOpenInventory> OPEN_INVENTORIES = new ConcurrentHashMap<>();
 
-    protected final int rows;
-    protected final int columns;
+    protected @Range(from = 0, to = Integer.MAX_VALUE) final int rows;
+    protected @Range(from = 0, to = Integer.MAX_VALUE) final int columns;
     protected final char[][] mask;
     protected final @NotNull Map<Character, MenuItem<ItemStack>> itemMap;
 

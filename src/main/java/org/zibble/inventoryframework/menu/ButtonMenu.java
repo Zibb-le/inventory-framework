@@ -12,8 +12,8 @@ public abstract class ButtonMenu<C> extends Menu {
 
     protected @NotNull final MenuItem<C>[][] buttons;
 
-    protected final int buttonRows;
-    protected final int buttonColumns;
+    protected @Range(from = 0, to = Integer.MAX_VALUE) final int buttonRows;
+    protected @Range(from = 0, to = Integer.MAX_VALUE) final int buttonColumns;
 
     public ButtonMenu(@Range(from = 0, to = Integer.MAX_VALUE) final int itemRows,
                       @Range(from = 0, to = Integer.MAX_VALUE) final int itemColumns,
@@ -27,11 +27,11 @@ public abstract class ButtonMenu<C> extends Menu {
 
     }
 
-    public int buttonRows() {
+    public @Range(from = 0, to = Integer.MAX_VALUE) int buttonRows() {
         return buttonRows;
     }
 
-    public int buttonColumns() {
+    public @Range(from = 0, to = Integer.MAX_VALUE) int buttonColumns() {
         return buttonColumns;
     }
 

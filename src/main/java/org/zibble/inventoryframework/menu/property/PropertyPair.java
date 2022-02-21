@@ -1,12 +1,17 @@
 package org.zibble.inventoryframework.menu.property;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Range;
+
 public interface PropertyPair {
 
-    int id();
+    @Range(from = 0, to = Integer.MAX_VALUE) int id();
 
-    int value();
+    @Range(from = 0, to = Integer.MAX_VALUE) int value();
 
-    static PropertyPair of(int id, int value) {
+    @NotNull
+    static PropertyPair of(@Range(from = 0, to = Integer.MAX_VALUE) int id,
+                                    @Range(from = 0, to = Integer.MAX_VALUE) int value) {
         return new PropertyPair() {
             @Override
             public int id() {

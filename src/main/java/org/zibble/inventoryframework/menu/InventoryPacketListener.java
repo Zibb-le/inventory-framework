@@ -8,6 +8,7 @@ import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientCl
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientClickWindowButton;
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientCloseWindow;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerSetSlot;
+import org.jetbrains.annotations.NotNull;
 import org.zibble.inventoryframework.ClickType;
 import org.zibble.inventoryframework.menu.openinventory.AbstractOpenInventory;
 
@@ -18,7 +19,7 @@ public class InventoryPacketListener extends PacketListenerAbstract {
     }
 
     @Override
-    public void onPacketReceive(PacketReceiveEvent event) {
+    public void onPacketReceive(@NotNull final PacketReceiveEvent event) {
         if (event.getPacketType() == PacketType.Play.Client.CLICK_WINDOW) {
             WrapperPlayClientClickWindow packet = new WrapperPlayClientClickWindow(event);
             for (AbstractOpenInventory inv : Menu.OPEN_INVENTORIES.values()) {

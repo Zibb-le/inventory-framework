@@ -4,6 +4,7 @@ import com.github.retrooper.packetevents.protocol.nbt.NBTCompound;
 import com.github.retrooper.packetevents.protocol.nbt.NBTList;
 import com.github.retrooper.packetevents.protocol.nbt.NBTString;
 import com.github.retrooper.packetevents.protocol.nbt.NBTType;
+import org.jetbrains.annotations.NotNull;
 import org.zibble.inventoryframework.protocol.item.objects.Profile;
 import org.zibble.inventoryframework.protocol.item.objects.Property;
 
@@ -26,7 +27,7 @@ public class SkullMeta extends ItemMeta {
     }
 
     @Override
-    public void applyTo(NBTCompound compound) {
+    public void applyTo(@NotNull NBTCompound compound) {
         super.applyTo(compound);
         if (profile != null) {
             NBTCompound owner = new NBTCompound();

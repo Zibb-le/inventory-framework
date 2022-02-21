@@ -3,22 +3,24 @@ package org.zibble.inventoryframework.protocol;
 import com.github.retrooper.packetevents.PacketEvents;
 import com.github.retrooper.packetevents.protocol.player.User;
 import com.github.retrooper.packetevents.wrapper.PacketWrapper;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
 public interface ProtocolPlayer<T> {
 
-    UUID uuid();
+    @NotNull UUID uuid();
 
-    String name();
+    @NotNull String name();
 
-    T handle();
+    @NotNull T handle();
 
+    @NotNull
     default User asProtocol() {
         return PacketEvents.getAPI().getPlayerManager().getUser(this.handle());
     }
 
-    default void sendPacket(PacketWrapper<?> wrapper) {
+    default void sendPacket(@NotNull PacketWrapper<?> wrapper) {
         this.asProtocol().sendPacket(wrapper);
     }
 

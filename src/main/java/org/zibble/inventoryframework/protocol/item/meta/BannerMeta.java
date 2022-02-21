@@ -1,6 +1,8 @@
 package org.zibble.inventoryframework.protocol.item.meta;
 
 import com.github.retrooper.packetevents.protocol.nbt.*;
+import org.jetbrains.annotations.NotNull;
+import org.zibble.inventoryframework.protocol.Material;
 import org.zibble.inventoryframework.protocol.item.objects.Pattern;
 import org.zibble.inventoryframework.protocol.item.objects.enums.DyeColor;
 
@@ -17,9 +19,9 @@ public class BannerMeta extends ItemMeta {
     private static final String BLOCK_ENTITY_TAG = "BlockEntityTag";
 
     private DyeColor baseColor;
-    private List<Pattern> patterns;
+    private @NotNull final List<Pattern> patterns;
 
-    protected BannerMeta() {
+    protected BannerMeta(@NotNull Material material) {
         this.patterns = new ArrayList<>();
     }
 
@@ -31,16 +33,21 @@ public class BannerMeta extends ItemMeta {
         this.baseColor = baseColor;
     }
 
+    @NotNull
     public List<Pattern> patterns() {
         return Collections.unmodifiableList(this.patterns);
     }
 
-    public void patterns(List<Pattern> patterns) {
-        this.patterns = patterns;
+    public void addPattern(@NotNull Pattern pattern) {
+        this.patterns.add(pattern);
+    }
+
+    public void removePattern(@NotNull Pattern pattern) {
+        this.patterns.remove(pattern);
     }
 
     @Override
-    public void applyTo(NBTCompound compound) {
+    public void applyTo(@NotNull NBTCompound compound) {
         super.applyTo(compound);
         NBTCompound entityTag = new NBTCompound();
         if (this.baseColor != null) {

@@ -1,6 +1,7 @@
 package org.zibble.inventoryframework.protocol.item.meta;
 
 import com.github.retrooper.packetevents.protocol.nbt.NBTCompound;
+import org.jetbrains.annotations.NotNull;
 import org.zibble.inventoryframework.protocol.item.objects.enums.Enchantment;
 
 import java.util.EnumMap;
@@ -33,7 +34,7 @@ public class EnchantedBookMeta extends ItemMeta {
     }
 
     @Override
-    public void applyTo(NBTCompound compound) {
+    public void applyTo(@NotNull NBTCompound compound) {
         super.applyTo(compound);
         MetaUtil.applyEnchants(bookEnchants, compound);
     }

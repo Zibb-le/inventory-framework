@@ -1,6 +1,7 @@
 package org.zibble.inventoryframework.protocol.item.meta;
 
 import com.github.retrooper.packetevents.protocol.nbt.NBTCompound;
+import org.jetbrains.annotations.NotNull;
 import org.zibble.inventoryframework.protocol.item.objects.FireworkEffect;
 
 public class ChargeMeta extends ItemMeta {
@@ -22,7 +23,7 @@ public class ChargeMeta extends ItemMeta {
     }
 
     @Override
-    public void applyTo(NBTCompound compound) {
+    public void applyTo(@NotNull NBTCompound compound) {
         super.applyTo(compound);
         if (this.fireworkEffect != null) {
             NBTCompound nbtCompound = new NBTCompound();

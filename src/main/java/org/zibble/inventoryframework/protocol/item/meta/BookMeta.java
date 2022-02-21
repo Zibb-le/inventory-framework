@@ -5,6 +5,7 @@ import com.github.retrooper.packetevents.protocol.nbt.NBTInt;
 import com.github.retrooper.packetevents.protocol.nbt.NBTString;
 import com.github.retrooper.packetevents.util.AdventureSerializer;
 import net.kyori.adventure.text.Component;
+import org.jetbrains.annotations.NotNull;
 
 public class BookMeta extends ItemMeta {
 
@@ -45,7 +46,7 @@ public class BookMeta extends ItemMeta {
     }
 
     @Override
-    public void applyTo(NBTCompound compound) {
+    public void applyTo(@NotNull NBTCompound compound) {
         super.applyTo(compound);
         if (this.title != null)
             compound.setTag(BOOK_TITLE, new NBTString(AdventureSerializer.asVanilla(this.title)));

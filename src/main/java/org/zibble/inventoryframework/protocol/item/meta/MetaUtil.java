@@ -64,7 +64,7 @@ public class MetaUtil {
                 || Materials.FLOWER_BANNER_PATTERN.equals(type)
                 || Materials.GLOBE_BANNER_PATTERN.equals(type)
                 || Materials.PIGLIN_BANNER_PATTERN.equals(type)) {
-            return new BannerMeta();
+            return new BannerMeta(type);
         }
         return new ItemMeta();
     }

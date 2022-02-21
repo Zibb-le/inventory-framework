@@ -11,7 +11,8 @@ public class BlastFurnaceMenu extends AbstractFurnaceMenu {
     }
 
     @Override
-    public @NotNull InventoryType type() {
+    @NotNull
+    public InventoryType type() {
         return InventoryType.BLAST_FURNACE;
     }
 }

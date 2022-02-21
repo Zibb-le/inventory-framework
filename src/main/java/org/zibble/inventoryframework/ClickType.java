@@ -1,6 +1,7 @@
 package org.zibble.inventoryframework;
 
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientClickWindow;
+import org.jetbrains.annotations.NotNull;
 
 public enum ClickType {
 
@@ -12,19 +13,21 @@ public enum ClickType {
     QUICK_CRAFT(WrapperPlayClientClickWindow.WindowClickType.QUICK_CRAFT),
     PICKUP_ALL(WrapperPlayClientClickWindow.WindowClickType.PICKUP_ALL);
 
-    private final WrapperPlayClientClickWindow.WindowClickType packetEventsType;
+    private @NotNull final WrapperPlayClientClickWindow.WindowClickType packetEventsType;
 
-    ClickType(WrapperPlayClientClickWindow.WindowClickType windowClickType) {
+    ClickType(@NotNull WrapperPlayClientClickWindow.WindowClickType windowClickType) {
         this.packetEventsType = windowClickType;
     }
 
-    public static ClickType fromProtocol(WrapperPlayClientClickWindow.WindowClickType windowClickType) {
+    @NotNull
+    public static ClickType fromProtocol(@NotNull WrapperPlayClientClickWindow.WindowClickType windowClickType) {
         for(ClickType clickType : values()) {
             if(clickType.packetEventsType == windowClickType) return clickType;
         }
-        return null;
+        throw new IllegalStateException("Unknown click type: " + windowClickType);
     }
 
+    @NotNull
     public WrapperPlayClientClickWindow.WindowClickType asProtocol() {
         return packetEventsType;
     }
