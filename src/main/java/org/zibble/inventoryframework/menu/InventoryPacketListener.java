@@ -1,4 +1,4 @@
-package org.zibble.inventoryframework.protocol;
+package org.zibble.inventoryframework.menu;
 
 import com.github.retrooper.packetevents.event.PacketListenerAbstract;
 import com.github.retrooper.packetevents.event.PacketListenerPriority;
@@ -9,7 +9,6 @@ import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientCl
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientCloseWindow;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerSetSlot;
 import org.zibble.inventoryframework.ClickType;
-import org.zibble.inventoryframework.menu.Menu;
 import org.zibble.inventoryframework.menu.openinventory.AbstractOpenInventory;
 
 public class InventoryPacketListener extends PacketListenerAbstract {
@@ -23,8 +22,8 @@ public class InventoryPacketListener extends PacketListenerAbstract {
         if (event.getPacketType() == PacketType.Play.Client.CLICK_WINDOW) {
             WrapperPlayClientClickWindow packet = new WrapperPlayClientClickWindow(event);
             for (AbstractOpenInventory inv : Menu.OPEN_INVENTORIES.values()) {
-                if (inv.getWindowId() == packet.getWindowId() && event.getUser().equals(inv.getUser())) {
-                    inv.getInventoryListener().onClick(packet.getSlot(), ClickType.fromPacketType(packet.getWindowClickType()));
+                if (inv.windowId() == packet.getWindowId() && event.getUser().equals(inv.player().asProtocol())) {
+                    inv.listener().onClick(packet.getSlot(), ClickType.fromProtocol(packet.getWindowClickType()));
                     WrapperPlayServerSetSlot setSlot = new WrapperPlayServerSetSlot(packet.getWindowId(), 0, packet.getSlot(), packet.getClickedItemStack());
                     event.getUser().sendPacket(setSlot);
                     WrapperPlayServerSetSlot setSlot2 = new WrapperPlayServerSetSlot(-1, 0, -1, null);
@@ -35,16 +34,16 @@ public class InventoryPacketListener extends PacketListenerAbstract {
         } else if (event.getPacketType() == PacketType.Play.Client.CLOSE_WINDOW) {
             WrapperPlayClientCloseWindow packet = new WrapperPlayClientCloseWindow(event);
             for (AbstractOpenInventory inv : Menu.OPEN_INVENTORIES.values()) {
-                if (inv.getWindowId() == packet.getWindowId() && event.getUser().equals(inv.getUser())) {
-                    inv.getInventoryListener().onClose();
+                if (inv.windowId() == packet.getWindowId() && event.getUser().equals(inv.player().asProtocol())) {
+                    inv.listener().onClose();
                     event.setCancelled(true);
                 }
             }
         } else if (event.getPacketType() == PacketType.Play.Client.CLICK_WINDOW_BUTTON) {
             WrapperPlayClientClickWindowButton packet = new WrapperPlayClientClickWindowButton(event);
             for (AbstractOpenInventory inv : Menu.OPEN_INVENTORIES.values()) {
-                if (inv.getWindowId() == packet.getWindowId() && event.getUser().equals(inv.getUser())) {
-                    inv.getInventoryListener().onButtonClick(packet.getWindowId());
+                if (inv.windowId() == packet.getWindowId() && event.getUser().equals(inv.player().asProtocol())) {
+                    inv.listener().onButtonClick(packet.getWindowId());
                     event.setCancelled(true);
                 }
             }

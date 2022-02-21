@@ -1,10 +1,10 @@
 package org.zibble.inventoryframework.protocol.item;
 
 import com.github.retrooper.packetevents.protocol.nbt.NBTCompound;
+import net.kyori.adventure.text.Component;
 import org.zibble.inventoryframework.protocol.Material;
 import org.zibble.inventoryframework.protocol.item.meta.ItemMeta;
 import org.zibble.inventoryframework.protocol.item.meta.MetaUtil;
-import net.kyori.adventure.text.Component;
 
 import java.util.List;
 
@@ -26,51 +26,51 @@ public class ItemStack {
         this.itemMeta = MetaUtil.getMeta(type);
     }
 
-    public Material getMaterial() {
+    public Material type() {
         return material;
     }
 
-    public void setMaterial(Material material) {
+    public void type(Material material) {
         this.material = material;
     }
 
-    public int getAmount() {
+    public int amount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void amount(int amount) {
         this.amount = amount;
     }
 
-    public Component getDisplayName() {
-        return this.itemMeta.getDisplayName();
+    public Component displayName() {
+        return this.itemMeta.displayName();
     }
 
-    public void setDisplayName(Component displayName) {
-        this.itemMeta.setDisplayName(displayName);
+    public void displayName(Component displayName) {
+        this.itemMeta.displayName(displayName);
     }
 
-    public List<Component> getLore() {
-        return this.itemMeta.getLore();
+    public List<Component> lore() {
+        return this.itemMeta.lore();
     }
 
-    public void setLore(List<Component> lore) {
-        this.itemMeta.setLore(lore);
+    public void lore(List<Component> lore) {
+        this.itemMeta.lore(lore);
     }
 
-    public ItemMeta getItemMeta() {
+    public ItemMeta meta() {
         return itemMeta;
     }
 
-    public void setItemMeta(ItemMeta itemMeta) {
+    public void meta(ItemMeta itemMeta) {
         this.itemMeta = itemMeta;
     }
 
-    public int getData() {
+    public int data() {
         return data;
     }
 
-    public void setData(int data) {
+    public void data(int data) {
         this.data = data;
     }
 
@@ -80,7 +80,7 @@ public class ItemStack {
             this.itemMeta.applyTo(nbt);
         }
         return com.github.retrooper.packetevents.protocol.item.ItemStack.builder()
-                .type(this.material.getItemType())
+                .type(this.material.asProtocol())
                 .amount(this.amount)
                 .nbt(nbt)
                 .legacyData(this.data)

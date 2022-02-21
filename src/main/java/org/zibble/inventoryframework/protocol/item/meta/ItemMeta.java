@@ -2,8 +2,8 @@ package org.zibble.inventoryframework.protocol.item.meta;
 
 import com.github.retrooper.packetevents.protocol.nbt.*;
 import com.github.retrooper.packetevents.util.AdventureSerializer;
-import org.zibble.inventoryframework.protocol.item.objects.enums.Enchantment;
 import net.kyori.adventure.text.Component;
+import org.zibble.inventoryframework.protocol.item.objects.enums.Enchantment;
 
 import java.util.*;
 
@@ -29,23 +29,23 @@ public class ItemMeta {
         this.unBreakable = false;
     }
 
-    public Component getDisplayName() {
+    public Component displayName() {
         return displayName;
     }
 
-    public void setDisplayName(Component displayName) {
+    public void displayName(Component displayName) {
         this.displayName = displayName;
     }
 
-    public List<Component> getLore() {
+    public List<Component> lore() {
         return Collections.unmodifiableList(this.lore);
     }
 
-    public void setLore(List<Component> lore) {
+    public void lore(List<Component> lore) {
         this.lore = lore;
     }
 
-    public Map<Enchantment, Integer> getEnchantments() {
+    public Map<Enchantment, Integer> enchantments() {
         return enchantments;
     }
 
@@ -57,19 +57,19 @@ public class ItemMeta {
         this.enchantments.remove(enchantment);
     }
 
-    public void setEnchantments(Map<Enchantment, Integer> enchantments) {
+    public void enchantments(Map<Enchantment, Integer> enchantments) {
         this.enchantments = new EnumMap<>(enchantments);
     }
 
-    public int getRepairCost() {
+    public int repairCost() {
         return repairCost;
     }
 
-    public void setRepairCost(int repairCost) {
+    public void repairCost(int repairCost) {
         this.repairCost = repairCost;
     }
 
-    public Set<Flag> getFlags() {
+    public Set<Flag> flags() {
         return Collections.unmodifiableSet(flags);
     }
 
@@ -81,15 +81,15 @@ public class ItemMeta {
         this.flags.remove(flag);
     }
 
-    public void setFlags(EnumSet<Flag> flags) {
+    public void flags(EnumSet<Flag> flags) {
         this.flags = flags;
     }
 
-    public boolean isUnBreakable() {
+    public boolean unbreakable() {
         return unBreakable;
     }
 
-    public void setUnBreakable(boolean unBreakable) {
+    public void unbreakable(boolean unBreakable) {
         this.unBreakable = unBreakable;
     }
 

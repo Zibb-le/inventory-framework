@@ -26,39 +26,40 @@ public class TradeOption {
         this.specialPrice = specialPrice;
     }
 
-    public ItemStack getBuyItemPrimary() {
+    public ItemStack primaryBuyItem() {
         return buyItem1;
     }
 
-    public ItemStack getBuyItemSecondary() {
+    public ItemStack secondaryBuyItem() {
         return buyItem2;
     }
 
-    public ItemStack getSellItem() {
+    public ItemStack sellItems() {
         return sellItem;
     }
 
-    public int getUses() {
+    public int uses() {
         return uses;
     }
 
-    public int getMaxUses() {
+    public int maxUses() {
         return maxUses;
     }
 
-    public int getXp() {
+    public int xp() {
         return xp;
     }
 
-    public float getPriceMultiplier() {
+    public float priceMultiplier() {
         return priceMultiplier;
     }
 
-    public int getSpecialPrice() {
+    public int specialPrice() {
         return specialPrice;
     }
 
-    public int getDemand() {
+    public int demand() {
         return demand;
     }
+
 }

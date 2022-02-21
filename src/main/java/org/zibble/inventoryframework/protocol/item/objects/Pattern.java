@@ -13,11 +13,11 @@ public class Pattern {
         this.patternType = patternType;
     }
 
-    public DyeColor getDyeColor() {
+    public DyeColor dyeColor() {
         return dyeColor;
     }
 
-    public PatternType getPatternType() {
+    public PatternType type() {
         return patternType;
     }
 }

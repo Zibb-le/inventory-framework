@@ -44,17 +44,17 @@ public enum Enchantment {
     CURSE_OF_VANISHING(EnchantmentTypes.VANISHING_CURSE),
     AQUA_AFFINITY(EnchantmentTypes.AQUA_AFFINITY);
 
-    private final EnchantmentType packetEventsType;
+    private final EnchantmentType protocol;
 
     Enchantment(EnchantmentType enchantmentType) {
-        this.packetEventsType = enchantmentType;
+        this.protocol = enchantmentType;
     }
 
     public EnchantmentType asProtocol() {
-        return packetEventsType;
+        return protocol;
     }
 
-    public int getID() {
-        return this.packetEventsType.getId();
+    public int id() {
+        return this.protocol.getId();
     }
 }

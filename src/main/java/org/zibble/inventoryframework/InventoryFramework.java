@@ -3,7 +3,7 @@ package org.zibble.inventoryframework;
 import com.github.retrooper.packetevents.PacketEvents;
 import com.github.retrooper.packetevents.event.PacketListenerCommon;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
-import org.zibble.inventoryframework.protocol.InventoryPacketListener;
+import org.zibble.inventoryframework.menu.InventoryPacketListener;
 
 public class InventoryFramework {
 

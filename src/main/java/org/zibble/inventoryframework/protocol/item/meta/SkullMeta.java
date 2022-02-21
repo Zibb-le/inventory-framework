@@ -17,11 +17,11 @@ public class SkullMeta extends ItemMeta {
         super();
     }
 
-    public Profile getProfile() {
+    public Profile profile() {
         return profile;
     }
 
-    public void setProfile(Profile profile) {
+    public void profile(Profile profile) {
         this.profile = profile;
     }
 
@@ -30,22 +30,22 @@ public class SkullMeta extends ItemMeta {
         super.applyTo(compound);
         if (profile != null) {
             NBTCompound owner = new NBTCompound();
-            if (profile.getName() != null && !profile.getName().isEmpty()) {
-                owner.setTag("Name", new NBTString(profile.getName()));
+            if (profile.name() != null && !profile.name().isEmpty()) {
+                owner.setTag("Name", new NBTString(profile.name()));
             }
 
-            if (profile.getUuid() != null) {
-                owner.setTag("Id", new NBTString(profile.getUuid().toString()));
+            if (profile.uuid() != null) {
+                owner.setTag("Id", new NBTString(profile.uuid().toString()));
             }
 
-            if (!profile.getProperties().isEmpty()) {
+            if (!profile.properties().isEmpty()) {
                 NBTCompound properties = new NBTCompound();
                 NBTList<NBTCompound> list = new NBTList<>(NBTType.COMPOUND);
-                for (Property property : profile.getProperties()) {
+                for (Property property : profile.properties()) {
                     NBTCompound prop = new NBTCompound();
-                    prop.setTag("Value", new NBTString(property.getValue()));
-                    if (property.getSignature() != null) {
-                        prop.setTag("Signature", new NBTString(property.getSignature()));
+                    prop.setTag("Value", new NBTString(property.value()));
+                    if (property.signature() != null) {
+                        prop.setTag("Signature", new NBTString(property.signature()));
                     }
                 }
                 properties.setTag("textures", list);

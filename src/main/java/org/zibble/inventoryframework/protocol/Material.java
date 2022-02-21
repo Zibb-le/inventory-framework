@@ -10,7 +10,7 @@ public class Material {
         this.itemType = itemType;
     }
 
-    public ItemType getItemType() {
+    public ItemType asProtocol() {
         return itemType;
     }
 

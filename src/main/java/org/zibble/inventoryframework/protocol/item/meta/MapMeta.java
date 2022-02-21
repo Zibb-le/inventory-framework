@@ -8,11 +8,11 @@ public class MapMeta extends ItemMeta {
         super();
     }
 
-    public Scaling getScaling() {
+    public Scaling scaling() {
         return scaling;
     }
 
-    public void setScaling(Scaling scaling) {
+    public void scaling(Scaling scaling) {
         this.scaling = scaling;
     }
 

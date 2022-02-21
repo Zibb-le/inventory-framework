@@ -19,15 +19,14 @@ public class PotionMeta extends ItemMeta {
     private List<PotionEffect> potionEffects;
 
     protected PotionMeta() {
-        super();
         this.potionEffects = new ArrayList<>();
     }
 
-    public List<PotionEffect> getPotionEffects() {
+    public List<PotionEffect> potionEffects() {
         return Collections.unmodifiableList(potionEffects);
     }
 
-    public void setPotionEffects(List<PotionEffect> potionEffects) {
+    public void potionEffects(List<PotionEffect> potionEffects) {
         this.potionEffects = potionEffects;
     }
 
@@ -38,9 +37,9 @@ public class PotionMeta extends ItemMeta {
         NBTList<NBTCompound> list = new NBTList<>(NBTType.COMPOUND);
         for (PotionEffect potionEffect : this.potionEffects) {
             NBTCompound potion = new NBTCompound();
-            potion.setTag(ID, new NBTByte((byte) potionEffect.getEffectType().getID()));
-            potion.setTag(AMPLIFIER, new NBTByte((byte) potionEffect.getAmplifier()));
-            potion.setTag(DURATION, new NBTInt((int) (potionEffect.getDuration().toMillis() / 50)));
+            potion.setTag(ID, new NBTByte((byte) potionEffect.type().id()));
+            potion.setTag(AMPLIFIER, new NBTByte((byte) potionEffect.amplifier()));
+            potion.setTag(DURATION, new NBTInt((int) (potionEffect.duration().toMillis() / 50)));
             potion.setTag(AMBIENT, new NBTByte((byte) (potionEffect.isAmbient() ? 1 : 0)));
             potion.setTag(SHOW_PARTICLES, new NBTByte((byte) (potionEffect.isParticles() ? 1 : 0)));
             list.addTag(potion);

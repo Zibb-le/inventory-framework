@@ -18,14 +18,14 @@ public enum ClickType {
         this.packetEventsType = windowClickType;
     }
 
-    public static ClickType fromPacketType(WrapperPlayClientClickWindow.WindowClickType windowClickType) {
+    public static ClickType fromProtocol(WrapperPlayClientClickWindow.WindowClickType windowClickType) {
         for(ClickType clickType : values()) {
             if(clickType.packetEventsType == windowClickType) return clickType;
         }
         return null;
     }
 
-    public WrapperPlayClientClickWindow.WindowClickType getPacketType() {
+    public WrapperPlayClientClickWindow.WindowClickType asProtocol() {
         return packetEventsType;
     }
 

@@ -4,6 +4,6 @@ import org.jetbrains.annotations.NotNull;
 
 public interface DataPropertyHolder {
 
-    @NotNull PropertyPair[] getProperties();
+    @NotNull PropertyPair[] properties();
 
 }

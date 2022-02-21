@@ -15,11 +15,11 @@ public class LeatherArmorMeta extends ItemMeta {
         super();
     }
 
-    public Color getColor() {
+    public Color color() {
         return new Color(this.color.getColorSpace(), this.color.getComponents(new float[0]), this.color.getAlpha());
     }
 
-    public void setColor(Color color) {
+    public void color(Color color) {
         this.color = color;
     }
 

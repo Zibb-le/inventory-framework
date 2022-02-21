@@ -14,27 +14,27 @@ public class Property {
         this.signature = signature;
     }
 
-    public String getProperty() {
+    public String property() {
         return property;
     }
 
-    public void setProperty(String property) {
+    public void property(String property) {
         this.property = property;
     }
 
-    public String getValue() {
+    public String value() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void value(String value) {
         this.value = value;
     }
 
-    public String getSignature() {
+    public String signature() {
         return signature;
     }
 
-    public void setSignature(String signature) {
+    public void signature(String signature) {
         this.signature = signature;
     }
 

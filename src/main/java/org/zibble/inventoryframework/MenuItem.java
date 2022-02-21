@@ -4,6 +4,10 @@ import org.zibble.inventoryframework.protocol.item.ItemStack;
 
 public class MenuItem<C> {
 
+    public static MenuItem<ItemStack> of(ItemStack itemStack) {
+        return new MenuItem<>(itemStack);
+    }
+
     private C content;
     private ClickAction clickAction;
 
@@ -11,23 +15,19 @@ public class MenuItem<C> {
         this.content = content;
     }
 
-    public static MenuItem<ItemStack> of(ItemStack itemStack) {
-        return new MenuItem<>(itemStack);
-    }
-
-    public ClickAction getClickAction() {
+    public ClickAction clickAction() {
         return clickAction;
     }
 
-    public void setClickAction(ClickAction clickAction) {
+    public void clickAction(ClickAction clickAction) {
         this.clickAction = clickAction;
     }
 
-    public C getContent() {
+    public C content() {
         return this.content;
     }
 
-    public void setContent(C content) {
+    public void content(C content) {
         this.content = content;
     }
 }

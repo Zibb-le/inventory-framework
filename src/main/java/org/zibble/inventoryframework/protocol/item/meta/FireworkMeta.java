@@ -1,6 +1,9 @@
 package org.zibble.inventoryframework.protocol.item.meta;
 
-import com.github.retrooper.packetevents.protocol.nbt.*;
+import com.github.retrooper.packetevents.protocol.nbt.NBTByte;
+import com.github.retrooper.packetevents.protocol.nbt.NBTCompound;
+import com.github.retrooper.packetevents.protocol.nbt.NBTList;
+import com.github.retrooper.packetevents.protocol.nbt.NBTType;
 import org.zibble.inventoryframework.protocol.item.objects.FireworkEffect;
 
 import java.util.ArrayList;
@@ -21,19 +24,19 @@ public class FireworkMeta extends ItemMeta {
         this.effects = new ArrayList<>();
     }
 
-    public List<FireworkEffect> getEffects() {
+    public List<FireworkEffect> effects() {
         return Collections.unmodifiableList(effects);
     }
 
-    public void setEffects(List<FireworkEffect> effects) {
+    public void effects(List<FireworkEffect> effects) {
         this.effects = effects;
     }
 
-    public int getPower() {
+    public int power() {
         return power;
     }
 
-    public void setPower(int power) {
+    public void power(int power) {
         this.power = power;
     }
 

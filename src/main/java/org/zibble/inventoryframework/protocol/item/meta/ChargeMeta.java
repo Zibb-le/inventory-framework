@@ -13,11 +13,11 @@ public class ChargeMeta extends ItemMeta {
         super();
     }
 
-    public FireworkEffect getFireworkEffect() {
+    public FireworkEffect effect() {
         return fireworkEffect;
     }
 
-    public void setFireworkEffect(FireworkEffect fireworkEffect) {
+    public void effect(FireworkEffect fireworkEffect) {
         this.fireworkEffect = fireworkEffect;
     }
 

@@ -15,22 +15,22 @@ public class EnchantOption {
     }
 
     public static EnchantOption shown(int xpLevelCost, Enchantment enchantment, int enchantLevel) {
-        return new EnchantOption(xpLevelCost, enchantment.getID(), enchantLevel);
+        return new EnchantOption(xpLevelCost, enchantment.id(), enchantLevel);
     }
 
     public static EnchantOption hidden(int xpLevelCost, int enchantLevel) {
         return new EnchantOption(xpLevelCost, -1, enchantLevel);
     }
 
-    public int getXpLevelCost() {
+    public int xpCost() {
         return this.xpLevelCost;
     }
 
-    public int getEnchantID() {
+    public int id() {
         return this.enchantID;
     }
 
-    public int getEnchantLevel() {
+    public int level() {
         return this.enchantLevel;
     }
 

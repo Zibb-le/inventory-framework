@@ -13,11 +13,10 @@ public class EnchantedBookMeta extends ItemMeta {
     private Map<Enchantment, Integer> bookEnchants;
 
     protected EnchantedBookMeta() {
-        super();
         this.bookEnchants = new EnumMap<>(Enchantment.class);
     }
 
-    public Map<Enchantment, Integer> getBookEnchants() {
+    public Map<Enchantment, Integer> bookEnchants() {
         return bookEnchants;
     }
 
@@ -29,7 +28,7 @@ public class EnchantedBookMeta extends ItemMeta {
         this.bookEnchants.remove(enchantment);
     }
 
-    public void setBookEnchants(Map<Enchantment, Integer> bookEnchants) {
+    public void bookEnchants(Map<Enchantment, Integer> bookEnchants) {
         this.bookEnchants = new EnumMap<>(bookEnchants);
     }
 

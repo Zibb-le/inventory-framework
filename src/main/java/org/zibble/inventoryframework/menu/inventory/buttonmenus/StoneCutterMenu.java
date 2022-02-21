@@ -1,11 +1,11 @@
 package org.zibble.inventoryframework.menu.inventory.buttonmenus;
 
-import com.github.retrooper.packetevents.protocol.player.User;
 import org.jetbrains.annotations.NotNull;
 import org.zibble.inventoryframework.InventoryType;
 import org.zibble.inventoryframework.menu.FixedButtonMenu;
 import org.zibble.inventoryframework.menu.Menu;
 import org.zibble.inventoryframework.menu.openinventory.FixedButtonOpenInventory;
+import org.zibble.inventoryframework.protocol.ProtocolPlayer;
 
 public class StoneCutterMenu extends FixedButtonMenu {
 
@@ -15,16 +15,16 @@ public class StoneCutterMenu extends FixedButtonMenu {
 
     @Override
     @NotNull
-    public InventoryType getInventoryType() {
+    public InventoryType type() {
         return InventoryType.STONE_CUTTER;
     }
 
     @Override
-    public void open(@NotNull final User user) {
+    public void open(@NotNull final ProtocolPlayer<?> user) {
         FixedButtonOpenInventory openInventory = new FixedButtonOpenInventory(user, this);
         Menu.OPEN_INVENTORIES.put(user, openInventory);
         openInventory.show();
-        openInventory.sendItems(this.getItems());
+        openInventory.sendItems(this.items());
     }
 
 }

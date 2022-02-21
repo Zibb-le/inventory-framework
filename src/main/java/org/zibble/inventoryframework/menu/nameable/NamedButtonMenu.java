@@ -22,7 +22,7 @@ public abstract class NamedButtonMenu<C> extends ButtonMenu<C> implements Nameab
 
     @Override
     @Nullable
-    public Component getTitle() {
+    public Component title() {
         return title;
     }
 

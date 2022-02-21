@@ -6,6 +6,6 @@ import org.jetbrains.annotations.Nullable;
 public interface NameableMenu {
 
     @Nullable
-    Component getTitle();
+    Component title();
 
 }

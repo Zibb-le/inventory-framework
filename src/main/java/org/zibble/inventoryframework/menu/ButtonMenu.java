@@ -27,21 +27,21 @@ public abstract class ButtonMenu<C> extends Menu {
 
     }
 
-    public int getButtonRows() {
+    public int buttonRows() {
         return buttonRows;
     }
 
-    public int getButtonColumns() {
+    public int buttonColumns() {
         return buttonColumns;
     }
 
     @NotNull
-    public MenuItem<C>[][] getButtons() {
+    public MenuItem<C>[][] buttons() {
         return buttons;
     }
 
     @NotNull
-    public List<MenuItem<C>> getButtonsAsList() {
+    public List<MenuItem<C>> buttonsAsList() {
         List<MenuItem<C>> buttons = new ArrayList<>(buttonRows * buttonColumns);
         for (MenuItem<C>[] button : this.buttons) {
             buttons.addAll(Arrays.asList(button));

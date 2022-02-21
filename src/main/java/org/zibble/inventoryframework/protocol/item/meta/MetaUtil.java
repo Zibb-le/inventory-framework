@@ -76,17 +76,17 @@ public class MetaUtil {
         if (effect.hasTrail()) {
             target.setTag(EXPLOSION_TRAIL, new NBTByte((byte) 1));
         }
-        int[] colors = new int[effect.getColors().size()];
-        for (int i = 0; i < effect.getColors().size(); i++) {
-            colors[i] = effect.getColors().get(i).getRGB();
+        int[] colors = new int[effect.colors().size()];
+        for (int i = 0; i < effect.colors().size(); i++) {
+            colors[i] = effect.colors().get(i).getRGB();
         }
         target.setTag(EXPLOSION_COLORS, new NBTIntArray(colors));
-        int[] fadeColors = new int[effect.getFadeColors().size()];
-        for (int i = 0; i < effect.getFadeColors().size(); i++) {
-            fadeColors[i] = effect.getFadeColors().get(i).getRGB();
+        int[] fadeColors = new int[effect.fadeColors().size()];
+        for (int i = 0; i < effect.fadeColors().size(); i++) {
+            fadeColors[i] = effect.fadeColors().get(i).getRGB();
         }
         target.setTag(EXPLOSION_FADE, new NBTIntArray(fadeColors));
-        target.setTag(EXPLOSION_TYPE, new NBTByte((byte) effect.getType().ordinal()));
+        target.setTag(EXPLOSION_TYPE, new NBTByte((byte) effect.type().ordinal()));
     }
 
     protected static void applyEnchants(Map<Enchantment, Integer> enchantments, NBTCompound target) {
@@ -94,7 +94,7 @@ public class MetaUtil {
             NBTList<NBTCompound> enchants = new NBTList<>(NBTType.COMPOUND);
             for (Map.Entry<Enchantment, Integer> entry : enchantments.entrySet()) {
                 NBTCompound enchant = new NBTCompound();
-                enchant.setTag(ENCHANT_ID, new NBTShort((short) entry.getKey().getID()));
+                enchant.setTag(ENCHANT_ID, new NBTShort((short) entry.getKey().id()));
                 enchant.setTag(ENCHANT_LVL, new NBTShort(entry.getValue().shortValue()));
                 enchants.addTag((short) entry.getKey().asProtocol().getId(), enchant);
             }

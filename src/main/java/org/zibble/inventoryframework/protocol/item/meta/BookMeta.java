@@ -20,27 +20,27 @@ public class BookMeta extends ItemMeta {
         super();
     }
 
-    public Component getTitle() {
+    public Component title() {
         return title;
     }
 
-    public void setTitle(Component title) {
+    public void title(Component title) {
         this.title = title;
     }
 
-    public Component getAuthor() {
+    public Component author() {
         return author;
     }
 
-    public void setAuthor(Component author) {
+    public void author(Component author) {
         this.author = author;
     }
 
-    public Generation getGeneration() {
+    public Generation generation() {
         return generation;
     }
 
-    public void setGeneration(Generation generation) {
+    public void generation(Generation generation) {
         this.generation = generation;
     }
 

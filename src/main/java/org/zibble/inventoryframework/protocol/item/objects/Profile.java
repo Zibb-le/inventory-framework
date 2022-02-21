@@ -18,23 +18,23 @@ public class Profile {
         this.name = name;
     }
 
-    public UUID getUuid() {
+    public UUID uuid() {
         return uuid;
     }
 
-    public void setUuid(UUID uuid) {
+    public void uuid(UUID uuid) {
         this.uuid = uuid;
     }
 
-    public String getName() {
+    public String name() {
         return name;
     }
 
-    public void setName(String name) {
+    public void name(String name) {
         this.name = name;
     }
 
-    public List<Property> getProperties() {
+    public List<Property> properties() {
         return this.properties;
     }
 

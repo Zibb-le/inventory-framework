@@ -20,7 +20,7 @@ public abstract class FixedNamedButtonMenu extends FixedButtonMenu implements Na
 
     @Override
     @Nullable
-    public Component getTitle() {
+    public Component title() {
         return this.title;
     }
 }

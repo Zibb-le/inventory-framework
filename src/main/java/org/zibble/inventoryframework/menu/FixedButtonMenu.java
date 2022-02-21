@@ -14,12 +14,12 @@ public abstract class FixedButtonMenu extends Menu {
         super(rows, columns);
     }
 
-    public void setButtonClickHandler(@Nullable final Consumer<Integer> buttonClicked) {
+    public void buttonClickHandler(@Nullable final Consumer<Integer> buttonClicked) {
         this.buttonClicked = buttonClicked;
     }
 
     @Nullable
-    public Consumer<Integer> getButtonClickHandler() {
+    public Consumer<Integer> buttonClickHandler() {
         return this.buttonClicked;
     }
 

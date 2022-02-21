@@ -1,6 +1,6 @@
 package org.zibble.inventoryframework.menu.inventory;
 
-import com.github.retrooper.packetevents.protocol.player.User;
+import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Range;
@@ -9,9 +9,9 @@ import org.zibble.inventoryframework.menu.Menu;
 import org.zibble.inventoryframework.menu.nameable.NamedMenu;
 import org.zibble.inventoryframework.menu.openinventory.AbstractOpenInventory;
 import org.zibble.inventoryframework.menu.openinventory.OpenInventory;
-import net.kyori.adventure.text.Component;
 import org.zibble.inventoryframework.menu.property.DataPropertyHolder;
 import org.zibble.inventoryframework.menu.property.PropertyPair;
+import org.zibble.inventoryframework.protocol.ProtocolPlayer;
 
 public class BrewingStandMenu extends NamedMenu implements DataPropertyHolder {
 
@@ -24,46 +24,46 @@ public class BrewingStandMenu extends NamedMenu implements DataPropertyHolder {
 
     @Override
     @NotNull
-    public InventoryType getInventoryType() {
+    public InventoryType type() {
         return InventoryType.BREWING_STAND;
     }
 
     @Override
-    public void open(@NotNull final User user) {
+    public void open(@NotNull final ProtocolPlayer<?> user) {
         OpenInventory openInventory = new OpenInventory(user, this);
         Menu.OPEN_INVENTORIES.put(user, openInventory);
         openInventory.show();
-        openInventory.sendItems(this.getItems());
+        openInventory.sendItems(this.items());
     }
 
-    public @Range(from = 0, to = 20) int getBrewTime() {
+    public @Range(from = 0, to = 20) int brewTime() {
         return brewTime;
     }
 
-    public void setBrewTime(@Range(from = 0, to = 20) final int brewTime) {
+    public void brewTime(@Range(from = 0, to = 20) final int brewTime) {
         this.brewTime = brewTime;
     }
 
-    public @Range(from = 0, to = 400) int getFuel() {
+    public @Range(from = 0, to = 400) int fuel() {
         return fuel;
     }
 
-    public void setFuel(@Range(from = 0, to = 400) final int fuel) {
+    public void fuel(@Range(from = 0, to = 400) final int fuel) {
         this.fuel = fuel;
     }
 
     @Override
-    public void update(@NotNull User user) {
+    public void update(@NotNull ProtocolPlayer<?> user) {
         AbstractOpenInventory openInventory = Menu.OPEN_INVENTORIES.get(user);
         if (openInventory != null) {
-            openInventory.sendItems(this.getItems());
-            openInventory.updateWindowData(this.getProperties());
+            openInventory.sendItems(this.items());
+            openInventory.updateWindowData(this.properties());
         }
     }
 
     @Override
     @NotNull
-    public PropertyPair[] getProperties() {
+    public PropertyPair[] properties() {
         return new PropertyPair[] {
                 PropertyPair.of(0, this.brewTime),
                 PropertyPair.of(1, this.fuel)

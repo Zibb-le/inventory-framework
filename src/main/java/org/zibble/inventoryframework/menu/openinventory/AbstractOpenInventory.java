@@ -1,6 +1,5 @@
 package org.zibble.inventoryframework.menu.openinventory;
 
-import com.github.retrooper.packetevents.protocol.player.User;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerCloseWindow;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerSetSlot;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerWindowItems;
@@ -11,6 +10,7 @@ import org.zibble.inventoryframework.InventoryType;
 import org.zibble.inventoryframework.MenuItem;
 import org.zibble.inventoryframework.menu.Menu;
 import org.zibble.inventoryframework.menu.property.PropertyPair;
+import org.zibble.inventoryframework.protocol.ProtocolPlayer;
 import org.zibble.inventoryframework.protocol.item.ItemStack;
 
 import java.util.ArrayList;
@@ -20,11 +20,11 @@ public abstract class AbstractOpenInventory {
 
     private static byte containerId = 100;
 
-    protected User user;
+    protected ProtocolPlayer<?> user;
     protected Menu menu;
     protected byte windowId;
 
-    public AbstractOpenInventory(User user, Menu menu) {
+    public AbstractOpenInventory(ProtocolPlayer<?> user, Menu menu) {
         this.user = user;
         this.menu = menu;
     }
@@ -39,7 +39,7 @@ public abstract class AbstractOpenInventory {
         for (MenuItem<ItemStack>[] a : items) {
             for (MenuItem<ItemStack> item : a) {
                 if (item == null) itemStacks.add(null);
-                else itemStacks.add(item.getContent().asProtocol());
+                else itemStacks.add(item.content().asProtocol());
             }
         }
         this.sendItems(itemStacks);
@@ -53,18 +53,18 @@ public abstract class AbstractOpenInventory {
     public void close() {
         WrapperPlayServerCloseWindow wrapper = new WrapperPlayServerCloseWindow(this.windowId);
         this.user.sendPacket(wrapper);
-        this.getInventoryListener().onClose();
+        this.listener().onClose();
     }
 
-    public User getUser() {
+    public ProtocolPlayer<?> player() {
         return user;
     }
 
-    public InventoryType getInventoryType() {
-        return this.menu.getInventoryType();
+    public InventoryType type() {
+        return this.menu.type();
     }
 
-    public byte getWindowId() {
+    public byte windowId() {
         return windowId;
     }
 
@@ -80,11 +80,11 @@ public abstract class AbstractOpenInventory {
 
     public void updateWindowData(PropertyPair[] propertyPairs) {
         for (PropertyPair propertyPair : propertyPairs) {
-            this.updateWindowData(propertyPair.getID(), propertyPair.getValue());
+            this.updateWindowData(propertyPair.id(), propertyPair.value());
         }
     }
 
-    public abstract InventoryListener getInventoryListener();
+    public abstract InventoryListener listener();
 
     public abstract void show();
 

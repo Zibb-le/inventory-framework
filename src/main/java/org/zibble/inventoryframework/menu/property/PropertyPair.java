@@ -2,19 +2,19 @@ package org.zibble.inventoryframework.menu.property;
 
 public interface PropertyPair {
 
-    int getID();
+    int id();
 
-    int getValue();
+    int value();
 
     static PropertyPair of(int id, int value) {
         return new PropertyPair() {
             @Override
-            public int getID() {
+            public int id() {
                 return id;
             }
 
             @Override
-            public int getValue() {
+            public int value() {
                 return value;
             }
         };

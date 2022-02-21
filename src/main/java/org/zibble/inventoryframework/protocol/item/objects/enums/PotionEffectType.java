@@ -39,17 +39,17 @@ public enum PotionEffectType {
     WITHER(PotionTypes.WITHER),
     ;
 
-    private final PotionType potionType;
+    private final PotionType protocol;
 
     PotionEffectType(PotionType potionType) {
-        this.potionType = potionType;
+        this.protocol = potionType;
     }
 
-    public PotionType getPacketType() {
-        return potionType;
+    public PotionType asProtocol() {
+        return protocol;
     }
 
-    public int getID() {
-        return this.potionType.getId();
+    public int id() {
+        return this.protocol.getId();
     }
 }

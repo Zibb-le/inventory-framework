@@ -26,7 +26,7 @@ public enum DyeColor {
         this.ID = (byte) (15 - this.ordinal());
     }
 
-    public byte getID() {
+    public byte id() {
         return ID;
     }
 }

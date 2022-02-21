@@ -1,6 +1,6 @@
 package org.zibble.inventoryframework.menu.inventory.furnace;
 
-import com.github.retrooper.packetevents.protocol.player.User;
+import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Range;
@@ -8,9 +8,9 @@ import org.zibble.inventoryframework.menu.Menu;
 import org.zibble.inventoryframework.menu.nameable.NamedMenu;
 import org.zibble.inventoryframework.menu.openinventory.AbstractOpenInventory;
 import org.zibble.inventoryframework.menu.openinventory.OpenInventory;
-import net.kyori.adventure.text.Component;
 import org.zibble.inventoryframework.menu.property.DataPropertyHolder;
 import org.zibble.inventoryframework.menu.property.PropertyPair;
+import org.zibble.inventoryframework.protocol.ProtocolPlayer;
 
 public abstract class AbstractFurnaceMenu extends NamedMenu implements DataPropertyHolder {
 
@@ -24,25 +24,25 @@ public abstract class AbstractFurnaceMenu extends NamedMenu implements DataPrope
     }
 
     @Override
-    public void open(@NotNull final User user) {
+    public void open(@NotNull final ProtocolPlayer<?> user) {
         OpenInventory openInventory = new OpenInventory(user, this);
         Menu.OPEN_INVENTORIES.put(user, openInventory);
         openInventory.show();
-        openInventory.sendItems(this.getItems());
+        openInventory.sendItems(this.items());
     }
 
     @Override
-    public void update(@NotNull final User user) {
+    public void update(@NotNull final ProtocolPlayer<?> user) {
         AbstractOpenInventory openInventory = Menu.OPEN_INVENTORIES.get(user);
         if (openInventory != null) {
-            openInventory.sendItems(this.getItems());
-            openInventory.updateWindowData(this.getProperties());
+            openInventory.sendItems(this.items());
+            openInventory.updateWindowData(this.properties());
         }
     }
 
     @Override
     @NotNull
-    public PropertyPair[] getProperties() {
+    public PropertyPair[] properties() {
         return new PropertyPair[] {
                 PropertyPair.of(0, this.burnTime),
                 PropertyPair.of(1, this.ticksForCurrentFuel),

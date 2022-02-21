@@ -20,7 +20,7 @@ public abstract class NamedMenu extends Menu implements NameableMenu {
 
     @Override
     @Nullable
-    public Component getTitle() {
+    public Component title() {
         return title;
     }
 

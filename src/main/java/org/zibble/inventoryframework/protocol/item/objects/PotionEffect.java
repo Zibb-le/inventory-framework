@@ -20,15 +20,15 @@ public class PotionEffect {
         this.particles = particles;
     }
 
-    public PotionEffectType getEffectType() {
+    public PotionEffectType type() {
         return effectType;
     }
 
-    public int getAmplifier() {
+    public int amplifier() {
         return amplifier;
     }
 
-    public Duration getDuration() {
+    public Duration duration() {
         return duration;
     }
 
@@ -39,4 +39,5 @@ public class PotionEffect {
     public boolean isParticles() {
         return particles;
     }
+
 }

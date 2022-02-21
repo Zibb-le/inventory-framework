@@ -1,9 +1,9 @@
 package org.zibble.inventoryframework;
 
-import com.github.retrooper.packetevents.protocol.player.User;
+import org.zibble.inventoryframework.protocol.ProtocolPlayer;
 
 public interface ClickAction {
 
-    void onClick(User clicker, ClickType clickType);
+    void onClick(ProtocolPlayer<?> clicker, ClickType clickType);
 
 }
