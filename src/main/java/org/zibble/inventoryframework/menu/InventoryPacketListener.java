@@ -31,6 +31,7 @@ public class InventoryPacketListener extends PacketListenerAbstract {
                     event.getUser().sendPacket(setSlot2);
                     inv.sendItems(inv.menu().items());
                     event.setCancelled(true);
+                    inv.player().updatePlayerInventory();
                 }
             }
         } else if (event.getPacketType() == PacketType.Play.Client.CLOSE_WINDOW) {

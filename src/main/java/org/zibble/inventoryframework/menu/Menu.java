@@ -20,7 +20,7 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
 
     protected @Range(from = 0, to = Integer.MAX_VALUE) final int rows;
     protected @Range(from = 0, to = Integer.MAX_VALUE) final int columns;
-    protected final char[][] mask;
+    protected char[][] mask;
     protected final @NotNull Map<Character, MenuItem<ItemStack>> itemMap;
 
     protected @Nullable Consumer<ProtocolPlayer<?>> onOpen;
@@ -33,10 +33,11 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
         this.columns = columns;
 
         this.mask = new char[rows][columns];
-        char[] fill = new char[columns];
-
-        Arrays.fill(fill, 'X');
-        Arrays.fill(this.mask, fill);
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                this.mask[i][j] = 'X';
+            }
+        }
 
         this.itemMap = new ConcurrentHashMap<>();
 
@@ -56,8 +57,7 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
                 throw new IllegalArgumentException("`" + mask + "` Mask length must be equal to columns");
             }
             for (int j = 0; j < mask.length(); j++) {
-                char c = mask.charAt(j);
-                this.mask[i][j] = c;
+                this.mask[i][j] = mask.charAt(j);
             }
         }
     }

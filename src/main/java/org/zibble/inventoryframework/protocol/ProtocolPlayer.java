@@ -24,4 +24,6 @@ public interface ProtocolPlayer<T> {
         this.asProtocol().sendPacket(wrapper);
     }
 
+    void updatePlayerInventory();
+
 }
