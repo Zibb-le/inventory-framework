@@ -3,6 +3,8 @@ package org.zibble.inventoryframework.menu;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Range;
 import org.zibble.inventoryframework.MenuItem;
+import org.zibble.inventoryframework.menu.openinventory.ButtonOpenInventory;
+import org.zibble.inventoryframework.protocol.ProtocolPlayer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,42 +12,44 @@ import java.util.List;
 
 public abstract class ButtonMenu<C> extends Menu {
 
-    protected @NotNull final MenuItem<C>[][] buttons;
+    protected @NotNull final MenuItem<C>[] buttons;
 
-    protected @Range(from = 0, to = Integer.MAX_VALUE) final int buttonRows;
-    protected @Range(from = 0, to = Integer.MAX_VALUE) final int buttonColumns;
+    protected @Range(from = 0, to = Integer.MAX_VALUE) final int buttonCount;
 
     public ButtonMenu(@Range(from = 0, to = Integer.MAX_VALUE) final int itemRows,
                       @Range(from = 0, to = Integer.MAX_VALUE) final int itemColumns,
-                      @Range(from = 0, to = Integer.MAX_VALUE) final int buttonRows,
-                      @Range(from = 0, to = Integer.MAX_VALUE) final int buttonColumns) {
+                      @Range(from = 0, to = Integer.MAX_VALUE) final int buttonCount) {
 
         super(itemRows, itemColumns);
-        this.buttonRows = buttonRows;
-        this.buttonColumns = buttonColumns;
-        this.buttons = new MenuItem[buttonRows][buttonColumns];
+        this.buttonCount = buttonCount;
+        this.buttons = new MenuItem[buttonCount];
 
     }
 
-    public @Range(from = 0, to = Integer.MAX_VALUE) int buttonRows() {
-        return buttonRows;
-    }
-
-    public @Range(from = 0, to = Integer.MAX_VALUE) int buttonColumns() {
-        return buttonColumns;
+    public @Range(from = 0, to = Integer.MAX_VALUE) int buttonCount() {
+        return buttonCount;
     }
 
     @NotNull
-    public MenuItem<C>[][] buttons() {
-        return buttons;
+    public MenuItem<C>[] buttons() {
+        return this.buttons;
+    }
+
+    public void button(int index, MenuItem<C> button) {
+        this.buttons[index] = button;
     }
 
     @NotNull
     public List<MenuItem<C>> buttonsAsList() {
-        List<MenuItem<C>> buttons = new ArrayList<>(buttonRows * buttonColumns);
-        for (MenuItem<C>[] button : this.buttons) {
-            buttons.addAll(Arrays.asList(button));
-        }
-        return buttons;
+        return Arrays.asList(this.buttons);
     }
+
+    @Override
+    public void open(@NotNull ProtocolPlayer<?> user) {
+        ButtonOpenInventory openInventory = new ButtonOpenInventory(user, this);
+        Menu.OPEN_INVENTORIES.put(user, openInventory);
+        openInventory.show();
+        this.update(openInventory);
+    }
+
 }

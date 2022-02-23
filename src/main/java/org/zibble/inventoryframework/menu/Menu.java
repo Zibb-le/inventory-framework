@@ -6,11 +6,14 @@ import org.jetbrains.annotations.Range;
 import org.zibble.inventoryframework.InventoryType;
 import org.zibble.inventoryframework.MenuItem;
 import org.zibble.inventoryframework.menu.openinventory.AbstractOpenInventory;
-import org.zibble.inventoryframework.menu.property.DataPropertyHolder;
+import org.zibble.inventoryframework.menu.openinventory.OpenInventory;
 import org.zibble.inventoryframework.protocol.ProtocolPlayer;
 import org.zibble.inventoryframework.protocol.item.ItemStack;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
@@ -122,12 +125,12 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
     }
 
     @Range(from = 0, to = Integer.MAX_VALUE)
-    public int getRows() {
+    public int rows() {
         return rows;
     }
 
     @Range(from = 0, to = Integer.MAX_VALUE)
-    public int getColumns() {
+    public int columns() {
         return columns;
     }
 
@@ -152,18 +155,22 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
     @NotNull
     public abstract InventoryType type();
 
-    public abstract void open(@NotNull final ProtocolPlayer<?> user);
+    public abstract boolean isSupported();
+
+    public void open(@NotNull final ProtocolPlayer<?> user) {
+        OpenInventory openInventory = new OpenInventory(user, this);
+        Menu.OPEN_INVENTORIES.put(user, openInventory);
+        openInventory.show();
+        this.update(openInventory);
+    }
+
+    protected abstract void update(@NotNull final AbstractOpenInventory openInventory);
 
     public void update(@NotNull final ProtocolPlayer<?> user) {
         AbstractOpenInventory openInventory = Menu.OPEN_INVENTORIES.get(user);
         if (openInventory == null) return;
 
-        openInventory.sendItems(this.items());
-        if (this instanceof DataPropertyHolder) {
-            DataPropertyHolder dataPropertyHolder = (DataPropertyHolder) this;
-            openInventory.updateWindowData(dataPropertyHolder.properties());
-        }
-
+        this.update(openInventory);
     }
 
     public void updateSlot(@Range(from = 0, to = Integer.MAX_VALUE) final int slot,

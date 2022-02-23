@@ -1,8 +1,11 @@
 package org.zibble.inventoryframework.menu.inventory;
 
+import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import org.jetbrains.annotations.NotNull;
+import org.zibble.inventoryframework.InventoryFramework;
 import org.zibble.inventoryframework.InventoryType;
 import org.zibble.inventoryframework.menu.Menu;
+import org.zibble.inventoryframework.menu.openinventory.AbstractOpenInventory;
 import org.zibble.inventoryframework.menu.openinventory.OpenInventory;
 import org.zibble.inventoryframework.protocol.ProtocolPlayer;
 
@@ -19,10 +22,13 @@ public class GrindStoneMenu extends Menu {
     }
 
     @Override
-    public void open(@NotNull final ProtocolPlayer<?> user) {
-        OpenInventory openInventory = new OpenInventory(user, this);
-        Menu.OPEN_INVENTORIES.put(user, openInventory);
-        openInventory.show();
+    public boolean isSupported() {
+        return InventoryFramework.framework().serverVersion().isNewerThanOrEquals(ServerVersion.V_1_14);
+    }
+
+    @Override
+    protected void update(@NotNull AbstractOpenInventory openInventory) {
         openInventory.sendItems(this.items());
     }
+
 }

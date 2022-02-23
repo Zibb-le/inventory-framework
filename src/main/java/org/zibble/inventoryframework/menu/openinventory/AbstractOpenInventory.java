@@ -1,16 +1,17 @@
 package org.zibble.inventoryframework.menu.openinventory;
 
-import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerCloseWindow;
-import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerSetSlot;
-import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerWindowItems;
-import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerWindowProperty;
+import com.github.retrooper.packetevents.manager.server.ServerVersion;
+import com.github.retrooper.packetevents.wrapper.play.server.*;
+import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Range;
+import org.zibble.inventoryframework.InventoryFramework;
 import org.zibble.inventoryframework.InventoryListener;
 import org.zibble.inventoryframework.InventoryType;
 import org.zibble.inventoryframework.MenuItem;
 import org.zibble.inventoryframework.menu.Menu;
+import org.zibble.inventoryframework.menu.nameable.NamedMenu;
 import org.zibble.inventoryframework.menu.property.PropertyPair;
 import org.zibble.inventoryframework.protocol.ProtocolPlayer;
 import org.zibble.inventoryframework.protocol.item.ItemStack;
@@ -29,6 +30,27 @@ public abstract class AbstractOpenInventory {
     public AbstractOpenInventory(@NotNull ProtocolPlayer<?> user, @NotNull Menu menu) {
         this.user = user;
         this.menu = menu;
+    }
+
+    public void show() {
+        Component title = this.menu instanceof NamedMenu ? ((NamedMenu) this.menu).title() : Component.empty();
+        this.windowId = this.nextContainerId();
+        WrapperPlayServerOpenWindow wrapper;
+        if (InventoryFramework.framework().serverVersion().isNewerThan(ServerVersion.V_1_13_2)) {
+            wrapper = new WrapperPlayServerOpenWindow(
+                    this.windowId,
+                    this.type().latestId(menu.columns() * menu.rows()),
+                    title);
+        } else {
+            wrapper = new WrapperPlayServerOpenWindow(
+                    this.windowId,
+                    this.type().legacyId(),
+                    title,
+                    this.type().legacySlots(menu.columns() * menu.rows()),
+                    0);
+        }
+        this.user.sendPacket(wrapper);
+        this.listener().onOpen();
     }
 
     public void sendItems(@NotNull List<com.github.retrooper.packetevents.protocol.item.ItemStack> items) {
@@ -96,7 +118,5 @@ public abstract class AbstractOpenInventory {
 
     @NotNull
     public abstract InventoryListener listener();
-
-    public abstract void show();
 
 }

@@ -29,7 +29,7 @@ public class InventoryPacketListener extends PacketListenerAbstract {
                     event.getUser().sendPacket(setSlot);
                     WrapperPlayServerSetSlot setSlot2 = new WrapperPlayServerSetSlot(-1, 0, -1, null);
                     event.getUser().sendPacket(setSlot2);
-                    inv.sendItems(inv.menu().items());
+                    inv.menu().update(inv.player());
                     event.setCancelled(true);
                     inv.player().updatePlayerInventory();
                 }
@@ -46,7 +46,7 @@ public class InventoryPacketListener extends PacketListenerAbstract {
             WrapperPlayClientClickWindowButton packet = new WrapperPlayClientClickWindowButton(event);
             for (AbstractOpenInventory inv : Menu.OPEN_INVENTORIES.values()) {
                 if (inv.windowId() == packet.getWindowId() && event.getUser().equals(inv.player().asProtocol())) {
-                    inv.listener().onButtonClick(packet.getWindowId());
+                    inv.listener().onButtonClick(packet.getButtonId());
                     event.setCancelled(true);
                 }
             }

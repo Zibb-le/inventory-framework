@@ -51,9 +51,4 @@ public class FixedButtonOpenInventory extends AbstractOpenInventory {
         return this.listener;
     }
 
-    @Override
-    public void show() {
-
-    }
-
 }

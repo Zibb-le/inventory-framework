@@ -11,11 +11,10 @@ public abstract class NamedButtonMenu<C> extends ButtonMenu<C> implements Nameab
 
     public NamedButtonMenu(@Range(from = 0, to = Integer.MAX_VALUE) final int itemRows,
                            @Range(from = 0, to = Integer.MAX_VALUE) final int itemColumns,
-                           @Range(from = 0, to = Integer.MAX_VALUE) final int buttonRows,
-                           @Range(from = 0, to = Integer.MAX_VALUE) final int buttonColumns,
+                           @Range(from = 0, to = Integer.MAX_VALUE) final int buttonCount,
                            @Nullable final Component title) {
 
-        super(itemRows, itemColumns, buttonRows, buttonColumns);
+        super(itemRows, itemColumns, buttonCount);
         this.title = title;
 
     }

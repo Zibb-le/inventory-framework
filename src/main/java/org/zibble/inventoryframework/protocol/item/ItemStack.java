@@ -6,12 +6,17 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Range;
 import org.zibble.inventoryframework.protocol.Material;
+import org.zibble.inventoryframework.protocol.Materials;
 import org.zibble.inventoryframework.protocol.item.meta.ItemMeta;
 import org.zibble.inventoryframework.protocol.item.meta.MetaUtil;
 
 import java.util.List;
 
 public class ItemStack {
+
+    public static ItemStack empty() {
+        return new ItemStack(Materials.AIR);
+    }
 
     private @NotNull Material material;
     private @Range(from = 0, to = 64) int amount;

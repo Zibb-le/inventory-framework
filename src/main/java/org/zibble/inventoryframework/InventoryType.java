@@ -63,11 +63,21 @@ public enum InventoryType {
         public int latestId(int size) {
             return 12;
         }
+
+        @Override
+        public int legacySlots(int slots) {
+            return 0;
+        }
     },
     WORKBENCH("minecraft:crafting_table", 1) {
         @Override
         public int latestId(int size) {
             return 11;
+        }
+
+        @Override
+        public int legacySlots(int slots) {
+            return 0;
         }
     },
     MERCHANT_GUI("minecraft:villager") {
@@ -152,5 +162,9 @@ public enum InventoryType {
     }
 
     public abstract int latestId(int size);
+
+    public int legacySlots(int slots) {
+        return slots;
+    }
 
 }

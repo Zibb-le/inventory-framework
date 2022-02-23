@@ -7,6 +7,7 @@ import org.jetbrains.annotations.Range;
 import org.zibble.inventoryframework.InventoryType;
 import org.zibble.inventoryframework.menu.Menu;
 import org.zibble.inventoryframework.menu.nameable.NamedMenu;
+import org.zibble.inventoryframework.menu.openinventory.AbstractOpenInventory;
 import org.zibble.inventoryframework.menu.openinventory.OpenInventory;
 import org.zibble.inventoryframework.protocol.ProtocolPlayer;
 
@@ -23,10 +24,12 @@ public class ChestMenu extends NamedMenu {
     }
 
     @Override
-    public void open(@NotNull final ProtocolPlayer<?> user) {
-        OpenInventory openInventory = new OpenInventory(user, this);
-        Menu.OPEN_INVENTORIES.put(user, openInventory);
-        openInventory.show();
+    public boolean isSupported() {
+        return true;
+    }
+
+    @Override
+    protected void update(@NotNull AbstractOpenInventory openInventory) {
         openInventory.sendItems(this.items());
     }
 

@@ -16,4 +16,9 @@ public class FurnaceMenu extends AbstractFurnaceMenu {
         return InventoryType.FURNACE;
     }
 
+    @Override
+    public boolean isSupported() {
+        return true;
+    }
+
 }

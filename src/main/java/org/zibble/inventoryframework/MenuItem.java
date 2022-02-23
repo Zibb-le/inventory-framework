@@ -2,11 +2,16 @@ package org.zibble.inventoryframework;
 
 import org.jetbrains.annotations.Nullable;
 import org.zibble.inventoryframework.protocol.item.ItemStack;
+import org.zibble.inventoryframework.protocol.item.objects.buttons.EnchantOption;
 
 public class MenuItem<C> {
 
     public static MenuItem<ItemStack> of(@Nullable ItemStack itemStack) {
         return new MenuItem<>(itemStack);
+    }
+
+    public static MenuItem<EnchantOption> of(@Nullable EnchantOption option) {
+        return new MenuItem<>(option);
     }
 
     private @Nullable C content;

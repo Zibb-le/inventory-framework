@@ -24,20 +24,9 @@ public abstract class AbstractFurnaceMenu extends NamedMenu implements DataPrope
     }
 
     @Override
-    public void open(@NotNull final ProtocolPlayer<?> user) {
-        OpenInventory openInventory = new OpenInventory(user, this);
-        Menu.OPEN_INVENTORIES.put(user, openInventory);
-        openInventory.show();
+    protected void update(AbstractOpenInventory openInventory) {
         openInventory.sendItems(this.items());
-    }
-
-    @Override
-    public void update(@NotNull final ProtocolPlayer<?> user) {
-        AbstractOpenInventory openInventory = Menu.OPEN_INVENTORIES.get(user);
-        if (openInventory != null) {
-            openInventory.sendItems(this.items());
-            openInventory.updateWindowData(this.properties());
-        }
+        openInventory.updateWindowData(this.properties());
     }
 
     @Override
@@ -51,27 +40,27 @@ public abstract class AbstractFurnaceMenu extends NamedMenu implements DataPrope
         };
     }
 
-    public @Range(from = 0, to = Integer.MAX_VALUE) int getBurnTime() {
+    public @Range(from = 0, to = Integer.MAX_VALUE) int burnTime() {
         return burnTime;
     }
 
-    public void setBurnTime(@Range(from = 0, to = Integer.MAX_VALUE) final int burnTime) {
+    public void burnTime(@Range(from = 0, to = Integer.MAX_VALUE) final int burnTime) {
         this.burnTime = burnTime;
     }
 
-    public @Range(from = 0, to = Integer.MAX_VALUE) int getTicksForCurrentFuel() {
+    public @Range(from = 0, to = Integer.MAX_VALUE) int ticksForCurrentFuel() {
         return ticksForCurrentFuel;
     }
 
-    public void setTicksForCurrentFuel(@Range(from = 0, to = Integer.MAX_VALUE) final int ticksForCurrentFuel) {
+    public void ticksForCurrentFuel(@Range(from = 0, to = Integer.MAX_VALUE) final int ticksForCurrentFuel) {
         this.ticksForCurrentFuel = ticksForCurrentFuel;
     }
 
-    public @Range(from = 0, to = 200) int getCookTime() {
+    public @Range(from = 0, to = 200) int cookTime() {
         return cookTime;
     }
 
-    public void setCookTime(@Range(from = 0, to = 200) final int cookTime) {
+    public void cookTime(@Range(from = 0, to = 200) final int cookTime) {
         this.cookTime = cookTime;
     }
 }
