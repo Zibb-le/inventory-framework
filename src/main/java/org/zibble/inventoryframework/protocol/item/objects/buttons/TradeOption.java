@@ -1,5 +1,6 @@
 package org.zibble.inventoryframework.protocol.item.objects.buttons;
 
+import com.github.retrooper.packetevents.protocol.recipe.data.MerchantRecipeData;
 import org.zibble.inventoryframework.protocol.item.ItemStack;
 
 public class TradeOption {
@@ -60,6 +61,10 @@ public class TradeOption {
 
     public int demand() {
         return demand;
+    }
+
+    public MerchantRecipeData asProtocol() {
+        return MerchantRecipeData.of(buyItem1.asProtocol(), buyItem2.asProtocol(), sellItem.asProtocol(), uses, maxUses, xp, priceMultiplier, demand, specialPrice);
     }
 
 }
