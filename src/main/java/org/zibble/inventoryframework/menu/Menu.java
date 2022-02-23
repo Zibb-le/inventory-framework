@@ -32,6 +32,8 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
     public Menu(@Range(from = 1, to = Integer.MAX_VALUE) final int rows,
                 @Range(from = 1, to = Integer.MAX_VALUE) final int columns) {
 
+        if (!this.isSupported()) throw new UnsupportedOperationException("This inventory type is not supported in this version");
+
         this.rows = rows;
         this.columns = columns;
 

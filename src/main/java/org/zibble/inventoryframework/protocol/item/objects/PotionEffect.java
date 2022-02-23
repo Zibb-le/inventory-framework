@@ -1,18 +1,18 @@
 package org.zibble.inventoryframework.protocol.item.objects;
 
-import org.zibble.inventoryframework.protocol.item.objects.enums.PotionEffectType;
+import org.zibble.inventoryframework.protocol.item.objects.enums.EffectType;
 
 import java.time.Duration;
 
 public class PotionEffect {
 
-    private final PotionEffectType effectType;
+    private final EffectType effectType;
     private final int amplifier;
     private final Duration duration;
     private final boolean ambient;
     private final boolean particles;
 
-    public PotionEffect(PotionEffectType effectType, int amplifier, Duration duration, boolean ambient, boolean particles) {
+    public PotionEffect(EffectType effectType, int amplifier, Duration duration, boolean ambient, boolean particles) {
         this.effectType = effectType;
         this.amplifier = amplifier;
         this.duration = duration;
@@ -20,7 +20,7 @@ public class PotionEffect {
         this.particles = particles;
     }
 
-    public PotionEffectType type() {
+    public EffectType type() {
         return effectType;
     }
 

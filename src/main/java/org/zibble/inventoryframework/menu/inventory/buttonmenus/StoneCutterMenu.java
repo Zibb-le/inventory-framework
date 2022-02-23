@@ -27,6 +27,7 @@ public class StoneCutterMenu extends FixedButtonMenu {
     @Override
     protected void update(@NotNull AbstractOpenInventory openInventory) {
         openInventory.sendItems(this.items());
+        openInventory.updateWindowData(this.properties());
     }
 
 }
