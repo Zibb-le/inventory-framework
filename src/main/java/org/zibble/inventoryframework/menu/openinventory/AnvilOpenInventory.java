@@ -5,20 +5,20 @@ import org.jetbrains.annotations.NotNull;
 import org.zibble.inventoryframework.ClickType;
 import org.zibble.inventoryframework.InventoryListener;
 import org.zibble.inventoryframework.MenuItem;
-import org.zibble.inventoryframework.menu.ButtonMenu;
+import org.zibble.inventoryframework.menu.inventory.AnvilMenu;
 import org.zibble.inventoryframework.protocol.ProtocolPlayer;
 import org.zibble.inventoryframework.protocol.item.ItemStack;
 
 import java.util.function.Consumer;
 
 @ApiStatus.Internal
-public class ButtonOpenInventory extends AbstractOpenInventory {
+public class AnvilOpenInventory extends AbstractOpenInventory {
 
-    private @NotNull final InventoryListener inventoryListener;
+    private final InventoryListener listener;
 
-    public ButtonOpenInventory(@NotNull ProtocolPlayer<?> user, @NotNull ButtonMenu<?> menu) {
+    public AnvilOpenInventory(@NotNull ProtocolPlayer<?> user, @NotNull AnvilMenu menu) {
         super(user, menu);
-        this.inventoryListener = new InventoryListener() {
+        this.listener = new InventoryListener() {
             @Override
             public void onOpen() {
                 Consumer<ProtocolPlayer<?>> open = menu.onOpen();
@@ -33,26 +33,26 @@ public class ButtonOpenInventory extends AbstractOpenInventory {
 
             @Override
             public void onClick(int slot, com.github.retrooper.packetevents.protocol.item.ItemStack clickItem, @NotNull ClickType clickType) {
-                if (slot < 0) return;
+                if (slot < 0 || slot >= 3) return;
+                if (slot == 2 && menu.getOutputClick() != null) {
+                    menu.getOutputClick().accept(this.getDisplayName(clickItem));
+                    return;
+                }
                 MenuItem<ItemStack> item = menu.asList().get(slot);
                 if (item == null || item.clickAction() == null) return;
                 item.clickAction().onClick(user, clickType);
             }
 
-            @Override
-            public void onButtonClick(int buttonID) {
-                if (buttonID < 0) return;
-                MenuItem<?> item = menu.getButtonsAsList().get(buttonID);
-                if (item == null || item.clickAction() == null) return;
-                item.clickAction().onClick(user, ClickType.SWAP);
+            private String getDisplayName(com.github.retrooper.packetevents.protocol.item.ItemStack item) {
+                if (item.getNBT() == null) return null;
+                return item.getNBT().getCompoundTagOrNull("display").getStringTagValueOrNull("Name");
             }
         };
     }
 
     @Override
-    @NotNull
-    public InventoryListener listener() {
-        return this.inventoryListener;
+    public @NotNull InventoryListener listener() {
+        return this.listener;
     }
 
 }
