@@ -1,5 +1,6 @@
 package org.zibble.inventoryframework.menu.openinventory;
 
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.zibble.inventoryframework.ClickType;
 import org.zibble.inventoryframework.InventoryListener;
@@ -10,6 +11,7 @@ import org.zibble.inventoryframework.protocol.item.ItemStack;
 
 import java.util.function.Consumer;
 
+@ApiStatus.Internal
 public class ButtonOpenInventory extends AbstractOpenInventory {
 
     private @NotNull final InventoryListener inventoryListener;
@@ -40,7 +42,7 @@ public class ButtonOpenInventory extends AbstractOpenInventory {
             @Override
             public void onButtonClick(int buttonID) {
                 if (buttonID < 0) return;
-                MenuItem<?> item = menu.buttonsAsList().get(buttonID);
+                MenuItem<?> item = menu.getButtonsAsList().get(buttonID);
                 if (item == null || item.clickAction() == null) return;
                 item.clickAction().onClick(user, ClickType.SWAP);
             }

@@ -4,6 +4,7 @@ import com.github.retrooper.packetevents.protocol.nbt.NBTCompound;
 import org.jetbrains.annotations.NotNull;
 import org.zibble.inventoryframework.protocol.item.objects.enums.Enchantment;
 
+import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -17,8 +18,8 @@ public class EnchantedBookMeta extends ItemMeta {
         this.bookEnchants = new EnumMap<>(Enchantment.class);
     }
 
-    public Map<Enchantment, Integer> bookEnchants() {
-        return bookEnchants;
+    public Map<Enchantment, Integer> getBookEnchants() {
+        return Collections.unmodifiableMap(this.bookEnchants);
     }
 
     public void addBookEnchant(Enchantment enchantment, int level) {
@@ -29,7 +30,7 @@ public class EnchantedBookMeta extends ItemMeta {
         this.bookEnchants.remove(enchantment);
     }
 
-    public void bookEnchants(Map<Enchantment, Integer> bookEnchants) {
+    public void setBookEnchants(Map<Enchantment, Integer> bookEnchants) {
         this.bookEnchants = new EnumMap<>(bookEnchants);
     }
 

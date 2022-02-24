@@ -12,8 +12,8 @@ import java.util.function.Consumer;
 
 public abstract class FixedButtonMenu extends Menu implements DataPropertyHolder {
 
-    private @Nullable Consumer<Integer> buttonClicked;
-    private int defaultSelectedButton;
+    private @Nullable Consumer<Integer> clickHandler;
+    private @Range(from = -1, to = Integer.MAX_VALUE) int defaultSelectedButton;
 
     public FixedButtonMenu(@Range(from = 0, to = Integer.MAX_VALUE) final int rows,
                            @Range(from = 0, to = Integer.MAX_VALUE) final int columns) {
@@ -21,20 +21,20 @@ public abstract class FixedButtonMenu extends Menu implements DataPropertyHolder
         this.defaultSelectedButton = -1;
     }
 
-    public void buttonClickHandler(@Nullable final Consumer<Integer> buttonClicked) {
-        this.buttonClicked = buttonClicked;
+    public void setButtonClickHandler(@Nullable final Consumer<Integer> clickHandler) {
+        this.clickHandler = clickHandler;
     }
 
     @Nullable
-    public Consumer<Integer> buttonClickHandler() {
-        return this.buttonClicked;
+    public Consumer<Integer> getButtonClickHandler() {
+        return this.clickHandler;
     }
 
-    public int defaultSelectedButton() {
+    public @Range(from = -1, to = Integer.MAX_VALUE) int getDefaultSelectedButton() {
         return defaultSelectedButton;
     }
 
-    public void defaultSelectedButton(int defaultSelectedButton) {
+    public void setDefaultSelectedButton(@Range(from = -1, to = Integer.MAX_VALUE) int defaultSelectedButton) {
         this.defaultSelectedButton = defaultSelectedButton;
     }
 

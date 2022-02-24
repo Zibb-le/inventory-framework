@@ -24,11 +24,11 @@ public class PotionEffect {
         return effectType;
     }
 
-    public int amplifier() {
+    public int getAmplifier() {
         return amplifier;
     }
 
-    public Duration duration() {
+    public Duration getDuration() {
         return duration;
     }
 

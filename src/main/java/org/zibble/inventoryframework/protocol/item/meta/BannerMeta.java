@@ -25,16 +25,16 @@ public class BannerMeta extends ItemMeta {
         this.patterns = new ArrayList<>();
     }
 
-    public DyeColor baseColor() {
+    public DyeColor getBaseColor() {
         return baseColor;
     }
 
-    public void baseColor(DyeColor baseColor) {
+    public void setBaseColor(DyeColor baseColor) {
         this.baseColor = baseColor;
     }
 
     @NotNull
-    public List<Pattern> patterns() {
+    public List<Pattern> getPatterns() {
         return Collections.unmodifiableList(this.patterns);
     }
 
@@ -56,7 +56,7 @@ public class BannerMeta extends ItemMeta {
         NBTList<NBTCompound> nbtList = new NBTList<>(NBTType.COMPOUND);
         for (Pattern pattern : this.patterns) {
             NBTCompound patternCompound = new NBTCompound();
-            patternCompound.setTag(COLOR, new NBTInt(pattern.dyeColor().id()));
+            patternCompound.setTag(COLOR, new NBTInt(pattern.getColor().id()));
             patternCompound.setTag(PATTERN, new NBTString(pattern.type().id()));
             nbtList.addTag(patternCompound);
         }

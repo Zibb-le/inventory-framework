@@ -1,5 +1,6 @@
 package org.zibble.inventoryframework.menu.openinventory;
 
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.zibble.inventoryframework.ClickType;
 import org.zibble.inventoryframework.InventoryListener;
@@ -10,6 +11,7 @@ import org.zibble.inventoryframework.protocol.item.ItemStack;
 
 import java.util.function.Consumer;
 
+@ApiStatus.Internal
 public class OpenInventory extends AbstractOpenInventory {
 
     private final InventoryListener listener;

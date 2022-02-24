@@ -33,25 +33,25 @@ public class ItemMeta {
     }
 
     @Nullable
-    public Component displayName() {
+    public Component getDisplayName() {
         return displayName;
     }
 
-    public void displayName(@Nullable Component displayName) {
+    public void setDisplayName(@Nullable Component displayName) {
         this.displayName = displayName;
     }
 
     @NotNull
-    public List<Component> lore() {
+    public List<Component> getLore() {
         return Collections.unmodifiableList(this.lore);
     }
 
-    public void lore(@NotNull List<Component> lore) {
+    public void setLore(@NotNull List<Component> lore) {
         this.lore = lore;
     }
 
     @NotNull
-    public Map<Enchantment, Integer> enchantments() {
+    public Map<Enchantment, Integer> getEnchantments() {
         return enchantments;
     }
 
@@ -63,21 +63,21 @@ public class ItemMeta {
         this.enchantments.remove(enchantment);
     }
 
-    public void enchantments(@NotNull Map<Enchantment, Integer> enchantments) {
+    public void setEnchantments(@NotNull Map<Enchantment, Integer> enchantments) {
         this.enchantments = new EnumMap<>(enchantments);
     }
 
     @Range(from = 0, to = Integer.MAX_VALUE)
-    public int repairCost() {
+    public int getRepairCost() {
         return repairCost;
     }
 
-    public void repairCost(@Range(from = 0, to = Integer.MAX_VALUE) int repairCost) {
+    public void setRepairCost(@Range(from = 0, to = Integer.MAX_VALUE) int repairCost) {
         this.repairCost = repairCost;
     }
 
     @NotNull
-    public Set<Flag> flags() {
+    public Set<Flag> getFlags() {
         return Collections.unmodifiableSet(flags);
     }
 
@@ -89,15 +89,15 @@ public class ItemMeta {
         this.flags.remove(flag);
     }
 
-    public void flags(@NotNull EnumSet<Flag> flags) {
+    public void setFlags(@NotNull EnumSet<Flag> flags) {
         this.flags = flags;
     }
 
-    public boolean unbreakable() {
+    public boolean isUnbreakable() {
         return unBreakable;
     }
 
-    public void unbreakable(boolean unBreakable) {
+    public void setUnbreakable(boolean unBreakable) {
         this.unBreakable = unBreakable;
     }
 

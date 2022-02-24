@@ -180,7 +180,7 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
         AbstractOpenInventory openInventory = Menu.OPEN_INVENTORIES.get(user);
         if (openInventory != null) {
             MenuItem<ItemStack> item = this.item(slot);
-            openInventory.setSlot(slot, item == null ? null : item.content());
+            openInventory.setSlot(slot, item == null ? null : item.getContent());
         }
     }
 

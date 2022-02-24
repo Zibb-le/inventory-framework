@@ -3,6 +3,7 @@ package org.zibble.inventoryframework.menu.openinventory;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import com.github.retrooper.packetevents.wrapper.play.server.*;
 import net.kyori.adventure.text.Component;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Range;
@@ -19,6 +20,7 @@ import org.zibble.inventoryframework.protocol.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
+@ApiStatus.Internal
 public abstract class AbstractOpenInventory {
 
     private static byte containerId = 100;
@@ -62,8 +64,8 @@ public abstract class AbstractOpenInventory {
         List<com.github.retrooper.packetevents.protocol.item.ItemStack> itemStacks = new ArrayList<>(items.length * items[0].length);
         for (MenuItem<ItemStack>[] a : items) {
             for (MenuItem<ItemStack> item : a) {
-                if (item == null || item.content() == null) itemStacks.add(null);
-                else itemStacks.add(item.content().asProtocol());
+                if (item == null || item.getContent() == null) itemStacks.add(null);
+                else itemStacks.add(item.getContent().asProtocol());
             }
         }
         this.sendItems(itemStacks);

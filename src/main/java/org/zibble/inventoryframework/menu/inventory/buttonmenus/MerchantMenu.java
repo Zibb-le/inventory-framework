@@ -23,7 +23,7 @@ import java.util.List;
 public class MerchantMenu extends NamedButtonMenu<TradeOption> {
 
     private int villagerLevel;
-    private int villagerXp;
+    private int villagerXP;
     private boolean showProgress;
     private boolean canRestock;
 
@@ -43,19 +43,20 @@ public class MerchantMenu extends NamedButtonMenu<TradeOption> {
     }
 
     @Override
+    @SuppressWarnings("ConstantConditions")
     protected void update(@NotNull AbstractOpenInventory openInventory) {
         openInventory.sendItems(this.items());
         List<MerchantRecipeData> recipes = new ArrayList<>();
         for (MenuItem<TradeOption> tradeOption : this.buttons) {
-            if (tradeOption == null || tradeOption.content() == null) continue;
-            recipes.add(tradeOption.content().asProtocol());
+            if (tradeOption == null || tradeOption.getContent() == null) continue;
+            recipes.add(tradeOption.getContent().asProtocol());
         }
         if (InventoryFramework.framework().serverVersion().isNewerThanOrEquals(ServerVersion.V_1_14)) {
             WrapperPlayServerTradeList packet = new WrapperPlayServerTradeList(
                     openInventory.windowId(),
                     recipes,
                     this.villagerLevel,
-                    this.villagerXp,
+                    this.villagerXP,
                     this.showProgress,
                     this.canRestock);
             openInventory.player().sendPacket(packet);
@@ -83,23 +84,23 @@ public class MerchantMenu extends NamedButtonMenu<TradeOption> {
         }
     }
 
-    public int villagerLevel() {
+    public int getVillagerLevel() {
         return villagerLevel;
     }
 
-    public void villagerLevel(int villagerLevel) {
+    public void setVillagerLevel(int villagerLevel) {
         this.villagerLevel = villagerLevel;
     }
 
-    public int villagerXp() {
-        return villagerXp;
+    public int getVillagerXP() {
+        return villagerXP;
     }
 
-    public void villagerXp(int villagerXp) {
-        this.villagerXp = villagerXp;
+    public void setVillagerXP(int villagerXP) {
+        this.villagerXP = villagerXP;
     }
 
-    public boolean showProgress() {
+    public boolean doesShowProgress() {
         return showProgress;
     }
 
@@ -111,7 +112,7 @@ public class MerchantMenu extends NamedButtonMenu<TradeOption> {
         return canRestock;
     }
 
-    public void canRestock(boolean canRestock) {
+    public void setRestock(boolean canRestock) {
         this.canRestock = canRestock;
     }
 

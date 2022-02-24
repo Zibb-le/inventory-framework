@@ -8,21 +8,20 @@ public class MapMeta extends ItemMeta {
         super();
     }
 
-    public Scaling scaling() {
+    public Scaling getScaling() {
         return scaling;
     }
 
-    public void scaling(Scaling scaling) {
+    public void setScaling(Scaling scaling) {
         this.scaling = scaling;
     }
 
     public enum Scaling {
-        ZOOM_0(),
-        ZOOM_1(),
-        ZOOM_2(),
-        ZOOM_3(),
-        ZOOM_4(),
-        ;
+        ZOOM_0,
+        ZOOM_1,
+        ZOOM_2,
+        ZOOM_3,
+        ZOOM_4
     }
 
 }

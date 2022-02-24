@@ -19,7 +19,7 @@ import java.util.Objects;
 
 public class EnchantingTableMenu extends NamedButtonMenu<EnchantOption> implements DataPropertyHolder {
 
-    private int xpSeed;
+    private int XPSeed;
 
     public EnchantingTableMenu(@Nullable final Component title) {
         super(1, 2, 3, title);
@@ -36,12 +36,12 @@ public class EnchantingTableMenu extends NamedButtonMenu<EnchantOption> implemen
         return true;
     }
 
-    public int xpSeed() {
-        return xpSeed;
+    public int getXPSeed() {
+        return XPSeed;
     }
 
-    public void xpSeed(int xpSeed) {
-        this.xpSeed = xpSeed;
+    public void setXPSeed(int XPSeed) {
+        this.XPSeed = XPSeed;
     }
 
     @Override
@@ -57,17 +57,17 @@ public class EnchantingTableMenu extends NamedButtonMenu<EnchantOption> implemen
 
         for (int i = 0; i < this.buttons.length; i++) {
             MenuItem<EnchantOption> button = this.buttons[i];
-            if (button == null || button.content() == null) continue;
-            properties.add(PropertyPair.of(i, button.content().xpCost()));
+            if (button == null || button.getContent() == null) continue;
+            properties.add(PropertyPair.of(i, button.getContent().xpCost()));
             if (InventoryFramework.framework().serverVersion().isNewerThanOrEquals(ServerVersion.V_1_9)) {
-                properties.add(PropertyPair.of(i + 4, button.content().id()));
-                properties.add(PropertyPair.of(i + 7, button.content().level()));
+                properties.add(PropertyPair.of(i + 4, button.getContent().id()));
+                properties.add(PropertyPair.of(i + 7, button.getContent().level()));
             } else {
-                properties.add(PropertyPair.of(i + 4, button.content().id() | button.content().level() << 8));
+                properties.add(PropertyPair.of(i + 4, button.getContent().id() | button.getContent().level() << 8));
             }
         }
 
-        properties.add(PropertyPair.of(3, this.xpSeed & -16));
+        properties.add(PropertyPair.of(3, this.XPSeed & -16));
         properties.removeIf(Objects::isNull);
 
         return properties.toArray(new PropertyPair[0]);

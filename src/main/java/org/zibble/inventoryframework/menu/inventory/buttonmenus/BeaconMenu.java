@@ -40,28 +40,28 @@ public class BeaconMenu extends NamedMenu implements DataPropertyHolder {
     }
 
     @Nullable
-    public EffectType primaryPower() {
+    public EffectType getPrimaryPower() {
         return primaryPower;
     }
 
     @Nullable
-    public EffectType secondaryPower() {
+    public EffectType getSecondaryPower() {
         return secondaryPower;
     }
 
-    public void primaryPower(@Nullable EffectType primaryPower) {
+    public void setPrimaryPower(@Nullable EffectType primaryPower) {
         this.primaryPower = primaryPower;
     }
 
-    public void secondaryPower(@Nullable EffectType secondaryPower) {
+    public void setSecondaryPower(@Nullable EffectType secondaryPower) {
         this.secondaryPower = secondaryPower;
     }
 
-    public @Range(from = 0, to = 4) int level() {
+    public @Range(from = 0, to = 4) int getLevel() {
         return level;
     }
 
-    public void level(@Range(from = 0, to = 4) int level) {
+    public void setLevel(@Range(from = 0, to = 4) int level) {
         this.level = level;
     }
 
@@ -79,11 +79,12 @@ public class BeaconMenu extends NamedMenu implements DataPropertyHolder {
         this.update(openInventory);
     }
 
-    public Consumer<Integer> buttonClickHandler() {
+    @Nullable
+    public Consumer<Integer> getButtonClickHandler() {
         return buttonClickHandler;
     }
 
-    public void buttonClickHandler(@Nullable Consumer<Integer> clickHandler) {
+    public void setButtonClickHandler(@Nullable Consumer<Integer> clickHandler) {
         this.buttonClickHandler = clickHandler;
     }
 

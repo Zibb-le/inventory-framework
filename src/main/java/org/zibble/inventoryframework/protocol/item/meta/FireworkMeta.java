@@ -25,19 +25,19 @@ public class FireworkMeta extends ItemMeta {
         this.effects = new ArrayList<>();
     }
 
-    public List<FireworkEffect> effects() {
+    public List<FireworkEffect> getEffects() {
         return Collections.unmodifiableList(effects);
     }
 
-    public void effects(List<FireworkEffect> effects) {
+    public void setEffects(List<FireworkEffect> effects) {
         this.effects = effects;
     }
 
-    public int power() {
+    public int getPower() {
         return power;
     }
 
-    public void power(int power) {
+    public void setPower(int power) {
         this.power = power;
     }
 

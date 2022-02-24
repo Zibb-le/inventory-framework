@@ -1,8 +1,10 @@
 package org.zibble.inventoryframework.menu.property;
 
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Range;
 
+@ApiStatus.Internal
 public interface PropertyPair {
 
     @Range(from = 0, to = Integer.MAX_VALUE) int id();

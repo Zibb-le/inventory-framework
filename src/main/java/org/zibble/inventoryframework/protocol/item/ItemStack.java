@@ -53,20 +53,20 @@ public class ItemStack {
 
     @Nullable
     public Component displayName() {
-        return this.itemMeta.displayName();
+        return this.itemMeta.getDisplayName();
     }
 
     public void displayName(@Nullable Component displayName) {
-        this.itemMeta.displayName(displayName);
+        this.itemMeta.setDisplayName(displayName);
     }
 
     @NotNull
     public List<Component> lore() {
-        return this.itemMeta.lore();
+        return this.itemMeta.getLore();
     }
 
     public void lore(@NotNull List<Component> lore) {
-        this.itemMeta.lore(lore);
+        this.itemMeta.setLore(lore);
     }
 
     @NotNull

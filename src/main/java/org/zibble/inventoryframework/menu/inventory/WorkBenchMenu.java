@@ -1,6 +1,7 @@
 package org.zibble.inventoryframework.menu.inventory;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.zibble.inventoryframework.InventoryType;
 import org.zibble.inventoryframework.MenuItem;
 import org.zibble.inventoryframework.menu.Menu;
@@ -12,7 +13,7 @@ import java.util.List;
 
 public class WorkBenchMenu extends Menu {
 
-    private MenuItem<ItemStack> resultItem;
+    private @Nullable MenuItem<ItemStack> resultItem;
 
     public WorkBenchMenu() {
         super(3, 3);
@@ -29,27 +30,29 @@ public class WorkBenchMenu extends Menu {
         return true;
     }
 
-    public MenuItem<ItemStack> resultItem() {
+    @Nullable
+    public MenuItem<ItemStack> getResultItem() {
         return resultItem;
     }
 
-    public void resultItem(MenuItem<ItemStack> resultItem) {
+    public void setResultItem(@Nullable MenuItem<ItemStack> resultItem) {
         this.resultItem = resultItem;
     }
 
     @Override
-    protected void update(AbstractOpenInventory openInventory) {
+    @SuppressWarnings("ConstantConditions")
+    protected void update(@NotNull AbstractOpenInventory openInventory) {
         List<com.github.retrooper.packetevents.protocol.item.ItemStack> itemStacks = new ArrayList<>(this.items().length * this.items()[0].length + 1);
         itemStacks.add(com.github.retrooper.packetevents.protocol.item.ItemStack.EMPTY);
         for (MenuItem<ItemStack>[] a : this.items()) {
             for (MenuItem<ItemStack> item : a) {
-                if (item == null || item.content() == null) itemStacks.add(null);
-                else itemStacks.add(item.content().asProtocol());
+                if (item == null || item.getContent() == null) itemStacks.add(null);
+                else itemStacks.add(item.getContent().asProtocol());
             }
         }
         openInventory.sendItems(itemStacks);
-        if (this.resultItem != null && this.resultItem.content() != null) {
-            openInventory.setSlot(0, this.resultItem.content());
+        if (this.resultItem != null && this.resultItem.getContent() != null) {
+            openInventory.setSlot(0, this.resultItem.getContent());
         }
     }
 

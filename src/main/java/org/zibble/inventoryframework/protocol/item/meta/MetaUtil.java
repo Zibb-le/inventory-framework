@@ -1,6 +1,7 @@
 package org.zibble.inventoryframework.protocol.item.meta;
 
 import com.github.retrooper.packetevents.protocol.nbt.*;
+import org.jetbrains.annotations.ApiStatus;
 import org.zibble.inventoryframework.protocol.Material;
 import org.zibble.inventoryframework.protocol.Materials;
 import org.zibble.inventoryframework.protocol.item.objects.FireworkEffect;
@@ -8,6 +9,7 @@ import org.zibble.inventoryframework.protocol.item.objects.enums.Enchantment;
 
 import java.util.Map;
 
+@ApiStatus.Internal
 public class MetaUtil {
 
     private static final String DISPLAY = "display";
@@ -22,6 +24,7 @@ public class MetaUtil {
     private static final String EXPLOSION_FADE = "FadeColors";
     private static final String EXPLOSION_TYPE = "Type";
 
+    @ApiStatus.Internal
     public static ItemMeta getMeta(final Material type) {
         if (Materials.WRITABLE_BOOK.equals(type) || Materials.WRITTEN_BOOK.equals(type)) {
             return new BookMeta();
@@ -76,14 +79,14 @@ public class MetaUtil {
         if (effect.hasTrail()) {
             target.setTag(EXPLOSION_TRAIL, new NBTByte((byte) 1));
         }
-        int[] colors = new int[effect.colors().size()];
-        for (int i = 0; i < effect.colors().size(); i++) {
-            colors[i] = effect.colors().get(i).getRGB();
+        int[] colors = new int[effect.getColors().size()];
+        for (int i = 0; i < effect.getColors().size(); i++) {
+            colors[i] = effect.getColors().get(i).getRGB();
         }
         target.setTag(EXPLOSION_COLORS, new NBTIntArray(colors));
-        int[] fadeColors = new int[effect.fadeColors().size()];
-        for (int i = 0; i < effect.fadeColors().size(); i++) {
-            fadeColors[i] = effect.fadeColors().get(i).getRGB();
+        int[] fadeColors = new int[effect.getFadeColors().size()];
+        for (int i = 0; i < effect.getFadeColors().size(); i++) {
+            fadeColors[i] = effect.getFadeColors().get(i).getRGB();
         }
         target.setTag(EXPLOSION_FADE, new NBTIntArray(fadeColors));
         target.setTag(EXPLOSION_TYPE, new NBTByte((byte) effect.type().ordinal()));

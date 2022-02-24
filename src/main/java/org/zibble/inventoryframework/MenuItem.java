@@ -31,11 +31,11 @@ public class MenuItem<C> {
     }
 
     @Nullable
-    public C content() {
+    public C getContent() {
         return this.content;
     }
 
-    public void content(@Nullable C content) {
+    public void setContent(@Nullable C content) {
         this.content = content;
     }
 }

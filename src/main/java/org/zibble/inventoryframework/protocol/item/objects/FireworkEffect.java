@@ -32,11 +32,11 @@ public class FireworkEffect {
         return this.trail;
     }
 
-    public List<Color> colors() {
+    public List<Color> getColors() {
         return Collections.unmodifiableList(this.colors);
     }
 
-    public List<Color> fadeColors() {
+    public List<Color> getFadeColors() {
         return Collections.unmodifiableList(this.fadeColors);
     }
 
