@@ -97,7 +97,7 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
     }
 
     @NotNull
-    public MenuItem<ItemStack>[][] items() {
+    public MenuItem<ItemStack>[][] getItems() {
         MenuItem<ItemStack>[][] items = new MenuItem[this.rows][this.columns];
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.columns; j++) {

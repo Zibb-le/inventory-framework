@@ -5,11 +5,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Range;
 import org.zibble.inventoryframework.InventoryType;
-import org.zibble.inventoryframework.menu.Menu;
 import org.zibble.inventoryframework.menu.nameable.NamedMenu;
 import org.zibble.inventoryframework.menu.openinventory.AbstractOpenInventory;
-import org.zibble.inventoryframework.menu.openinventory.OpenInventory;
-import org.zibble.inventoryframework.protocol.ProtocolPlayer;
 
 public class ChestMenu extends NamedMenu {
 
@@ -30,7 +27,7 @@ public class ChestMenu extends NamedMenu {
 
     @Override
     protected void update(@NotNull AbstractOpenInventory openInventory) {
-        openInventory.sendItems(this.items());
+        openInventory.sendItems(this.getItems());
     }
 
 }

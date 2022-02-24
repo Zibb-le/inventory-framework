@@ -68,7 +68,7 @@ public class BrewingStandMenu extends NamedMenu implements DataPropertyHolder {
                 && POWDER_SUPPORT) {
             openInventory.setSlot(4, this.powderSlot.getContent());
         }
-        openInventory.sendItems(this.items());
+        openInventory.sendItems(this.getItems());
         openInventory.updateWindowData(this.properties());
     }
 

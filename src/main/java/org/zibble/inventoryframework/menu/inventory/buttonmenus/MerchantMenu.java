@@ -45,7 +45,7 @@ public class MerchantMenu extends NamedButtonMenu<TradeOption> {
     @Override
     @SuppressWarnings("ConstantConditions")
     protected void update(@NotNull AbstractOpenInventory openInventory) {
-        openInventory.sendItems(this.items());
+        openInventory.sendItems(this.getItems());
         List<MerchantRecipeData> recipes = new ArrayList<>();
         for (MenuItem<TradeOption> tradeOption : this.buttons) {
             if (tradeOption == null || tradeOption.getContent() == null) continue;

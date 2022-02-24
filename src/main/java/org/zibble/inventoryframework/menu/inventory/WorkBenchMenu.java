@@ -42,9 +42,9 @@ public class WorkBenchMenu extends Menu {
     @Override
     @SuppressWarnings("ConstantConditions")
     protected void update(@NotNull AbstractOpenInventory openInventory) {
-        List<com.github.retrooper.packetevents.protocol.item.ItemStack> itemStacks = new ArrayList<>(this.items().length * this.items()[0].length + 1);
+        List<com.github.retrooper.packetevents.protocol.item.ItemStack> itemStacks = new ArrayList<>(this.getItems().length * this.getItems()[0].length + 1);
         itemStacks.add(com.github.retrooper.packetevents.protocol.item.ItemStack.EMPTY);
-        for (MenuItem<ItemStack>[] a : this.items()) {
+        for (MenuItem<ItemStack>[] a : this.getItems()) {
             for (MenuItem<ItemStack> item : a) {
                 if (item == null || item.getContent() == null) itemStacks.add(null);
                 else itemStacks.add(item.getContent().asProtocol());

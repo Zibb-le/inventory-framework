@@ -6,8 +6,6 @@ import org.zibble.inventoryframework.InventoryFramework;
 import org.zibble.inventoryframework.InventoryType;
 import org.zibble.inventoryframework.menu.Menu;
 import org.zibble.inventoryframework.menu.openinventory.AbstractOpenInventory;
-import org.zibble.inventoryframework.menu.openinventory.OpenInventory;
-import org.zibble.inventoryframework.protocol.ProtocolPlayer;
 
 public class SmithingTableMenu extends Menu {
 
@@ -28,7 +26,7 @@ public class SmithingTableMenu extends Menu {
 
     @Override
     protected void update(@NotNull AbstractOpenInventory openInventory) {
-        openInventory.sendItems(this.items());
+        openInventory.sendItems(this.getItems());
     }
 
 }

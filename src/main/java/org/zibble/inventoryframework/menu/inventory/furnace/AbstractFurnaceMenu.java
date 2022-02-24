@@ -23,7 +23,7 @@ public abstract class AbstractFurnaceMenu extends NamedMenu implements DataPrope
 
     @Override
     protected void update(AbstractOpenInventory openInventory) {
-        openInventory.sendItems(this.items());
+        openInventory.sendItems(this.getItems());
         openInventory.updateWindowData(this.properties());
     }
 

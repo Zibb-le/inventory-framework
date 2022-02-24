@@ -1,4 +1,4 @@
-#INVENTORY FRAMEWORK
+# INVENTORY FRAMEWORK
 
 
 ## Introduction
@@ -7,7 +7,7 @@ A completely **packet based** inventory framework supporting all versions from 1
 The GUIs are based on a mask system. Each GUI has a mask for the items and each character in the mask can be associated with an item.
 
 ## Dependency
-###Maven
+### Maven
 ```xml
     <repository>
         <id>zibble</id>
@@ -22,7 +22,7 @@ The GUIs are based on a mask system. Each GUI has a mask for the items and each 
     </dependency>
 ```
 
-###Gradle
+### Gradle
 ```groovy
     repositories {
         maven {
@@ -38,14 +38,14 @@ The GUIs are based on a mask system. Each GUI has a mask for the items and each 
     }
 ```
 
-##Shading
+## Shading
 
 **THIS FRAMEWORK IS COMPLETELY SHADEABLE**
 
 You will have to shade both inventoryframework and packetevents to make the plugin work *(Unless packetevents is supplied from another source)*.
 
 Relocating is entirely upto you but you should always do that for safety
-###Maven
+### Maven
 For maven, we are going to take the example of `maven-shade-plugin`.
 Make sure to change the `[YOUR PACKAGE]` to your project's package
 
@@ -73,7 +73,7 @@ Make sure to change the `[YOUR PACKAGE]` to your project's package
 </plugin>
 ```
 
-###Gradle
+### Gradle
 For gradle, we are going to take the example of `shadowJar` plugin. Make sure to change the `[YOUR PACKAGE]` to your project's package
 ```groovy
 shadowJar {
@@ -81,7 +81,7 @@ shadowJar {
 }
 ```
 
-##What is Component?
+## What is Component?
 This framework uses <a href="https://github.com/KyoriPowered/adventure">Adventure</a> for most of the works like GUI titles, ItemStack display names, lore, book author etc. This allows us to serialize packets easily and provides a lot of features for you as a dev. If you have experience with Adventure, this should not be an issue
 
 But if you don't and want to use legacy text like `&aStarThisRepoOrIWillKillYou`, You can turn them into components using the following code:
