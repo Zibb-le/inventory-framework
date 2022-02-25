@@ -24,7 +24,7 @@ public class InventoryPacketListener extends PacketListenerAbstract {
             WrapperPlayClientClickWindow packet = new WrapperPlayClientClickWindow(event);
             for (AbstractOpenInventory inv : Menu.OPEN_INVENTORIES.values()) {
                 if (inv.windowId() == packet.getWindowId() && event.getUser().equals(inv.player().asProtocol())) {
-                    inv.listener().onClick(packet.getSlot(), ClickType.fromProtocol(packet.getWindowClickType()));
+                    inv.listener().onClick(packet.getSlot(), packet.getClickedItemStack(), ClickType.fromProtocol(packet.getWindowClickType()));
                     WrapperPlayServerSetSlot setSlot = new WrapperPlayServerSetSlot(packet.getWindowId(), 0, packet.getSlot(), packet.getClickedItemStack());
                     event.getUser().sendPacket(setSlot);
                     WrapperPlayServerSetSlot setSlot2 = new WrapperPlayServerSetSlot(-1, 0, -1, null);
