@@ -22,17 +22,17 @@ publishing {
             from(components.java)
         }
     }
-
-    repositories {
-        mavenLocal()
-        maven {
-            credentials {
-                username = "$usr"
-                password = "$pwd"
-            }
-            url 'https://repo.zibble.org/nexus/repository/maven-snapshots/'
-        }
-    }
+//
+//    repositories {
+//        mavenLocal()
+//        maven {
+//            credentials {
+//                username = "$usr"
+//                password = "$pwd"
+//            }
+//            url 'https://repo.zibble.org/nexus/repository/maven-snapshots/'
+//        }
+//    }
 }
 
 build {
