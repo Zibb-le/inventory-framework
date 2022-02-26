@@ -3,6 +3,7 @@ package org.zibble.inventoryframework.menu.openinventory;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.zibble.inventoryframework.ClickType;
+import org.zibble.inventoryframework.InventoryFramework;
 import org.zibble.inventoryframework.InventoryListener;
 import org.zibble.inventoryframework.MenuItem;
 import org.zibble.inventoryframework.menu.inventory.AnvilMenu;
@@ -22,25 +23,25 @@ public class AnvilOpenInventory extends AbstractOpenInventory {
             @Override
             public void onOpen() {
                 Consumer<ProtocolPlayer<?>> open = menu.onOpen();
-                if (open != null) open.accept(user);
+                if (open != null) InventoryFramework.framework().run(() -> open.accept(user));
             }
 
             @Override
             public void onClose() {
                 Consumer<ProtocolPlayer<?>> close = menu.onClose();
-                if (close != null) close.accept(user);
+                if (close != null) InventoryFramework.framework().run(() -> close.accept(user));
             }
 
             @Override
             public void onClick(int slot, com.github.retrooper.packetevents.protocol.item.ItemStack clickItem, @NotNull ClickType clickType) {
                 if (slot < 0 || slot >= 3) return;
                 if (slot == 2 && menu.getOutputClick() != null) {
-                    menu.getOutputClick().accept(this.getDisplayName(clickItem));
+                    InventoryFramework.framework().run(() -> menu.getOutputClick().accept(this.getDisplayName(clickItem)));
                     return;
                 }
                 MenuItem<ItemStack> item = menu.asList().get(slot);
                 if (item == null || item.clickAction() == null) return;
-                item.clickAction().onClick(user, clickType);
+                InventoryFramework.framework().run(() -> item.clickAction().onClick(user, clickType));
             }
 
             private String getDisplayName(com.github.retrooper.packetevents.protocol.item.ItemStack item) {
