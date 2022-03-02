@@ -3,6 +3,7 @@ package org.zibble.inventoryframework.menu.openinventory;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.zibble.inventoryframework.ClickType;
+import org.zibble.inventoryframework.InventoryFramework;
 import org.zibble.inventoryframework.InventoryListener;
 import org.zibble.inventoryframework.MenuItem;
 import org.zibble.inventoryframework.menu.FixedButtonMenu;
@@ -22,13 +23,13 @@ public class FixedButtonOpenInventory extends AbstractOpenInventory {
             @Override
             public void onOpen() {
                 Consumer<ProtocolPlayer<?>> open = menu.onOpen();
-                if (open != null) open.accept(user);
+                if (open != null) InventoryFramework.framework().run(() -> open.accept(user));
             }
 
             @Override
             public void onClose() {
                 Consumer<ProtocolPlayer<?>> close = menu.onClose();
-                if (close != null) close.accept(user);
+                if (close != null) InventoryFramework.framework().run(() -> close.accept(user));
             }
 
             @Override
@@ -36,14 +37,14 @@ public class FixedButtonOpenInventory extends AbstractOpenInventory {
                 if (slot < 0) return;
                 MenuItem<ItemStack> item = menu.asList().get(slot);
                 if (item == null || item.clickAction() == null) return;
-                item.clickAction().onClick(user, clickType);
+                InventoryFramework.framework().run(() -> item.clickAction().onClick(user, clickType));
             }
 
             @Override
             public void onButtonClick(int buttonID) {
                 if (buttonID < 0) return;
                 if (menu.getButtonClickHandler() == null) return;
-                menu.getButtonClickHandler().accept(buttonID);
+                InventoryFramework.framework().run(() -> menu.getButtonClickHandler().accept(buttonID));
             }
         };
     }

@@ -5,7 +5,13 @@ import com.github.retrooper.packetevents.protocol.item.type.ItemType;
 import com.github.retrooper.packetevents.protocol.item.type.ItemTypes;
 import org.zibble.inventoryframework.InventoryFramework;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Optional;
+
 public class Materials {
+
+    private static final Map<String, Material> BY_NAME = new LinkedHashMap<>();
 
     private static final boolean IS_LEGACY = InventoryFramework.framework().serverVersion().isOlderThan(ServerVersion.V_1_13);
 
@@ -1112,15 +1118,57 @@ public class Materials {
     public static final Material ZOMBIFIED_PIGLIN_SPAWN_EGG = define(57, ItemTypes.EGG, ItemTypes.ZOMBIFIED_PIGLIN_SPAWN_EGG);
 
     public static Material define(ItemType type) {
-        return new Material(type);
+        Material material = new Material(type);
+        BY_NAME.put(type.getName().getKey(), material);
+        return material;
     }
 
     public static Material define(int data, ItemType legacy, ItemType modern) {
+        Material material;
         if (IS_LEGACY) {
-            return new Material((byte) data, legacy);
+            material = new Material((byte) data, legacy);
         } else {
-            return new Material(modern);
+            material = new Material(modern);
         }
+
+        BY_NAME.put(modern.getName().getKey(), material);
+
+        return material;
+    }
+
+    public static Optional<Material> getByName(String material) {
+        String sub = material.toLowerCase().trim().replace("minecraft:", "");
+        String[] split = sub.split(":");
+        Material result = BY_NAME.get(split[0]);
+        if (result == null) {
+            for (Material value : BY_NAME.values()) {
+                if (value.asProtocol().getName().getKey().equalsIgnoreCase(split[0])) {
+                    if (split.length > 1) {
+                        if (value.legacyData() == Byte.parseByte(split[1])) {
+                            return Optional.of(value);
+                        }
+                    } else {
+                        result = value;
+                        break;
+                    }
+                }
+            }
+        }
+
+        return Optional.ofNullable(result);
+    }
+
+    public static Optional<Material> getById(int id) {
+        return getById(id, (byte) 0);
+    }
+
+    public static Optional<Material> getById(int id, byte data) {
+        for (Material value : BY_NAME.values()) {
+            if (value.asProtocol().getId() == id && value.legacyData() == data) {
+                return Optional.of(value);
+            }
+        }
+        return Optional.empty();
     }
 
     private static boolean supports(ServerVersion version) {
