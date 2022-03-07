@@ -11,7 +11,7 @@ The GUIs are based on a mask system. Each GUI has a mask for the items and each 
 ```xml
     <repository>
         <id>zibble</id>
-        <url>https://zibble.org/nexus/maven-public/</url>
+        <url>https://repo.zibble.org/nexus/repository/maven-public/</url>
     </repository>
 ```
 ```xml
@@ -27,7 +27,7 @@ The GUIs are based on a mask system. Each GUI has a mask for the items and each 
     repositories {
         maven {
             id 'zibble'
-            url 'https://zibble.org/nexus/maven-public/'
+            url 'https://repo.zibble.org/nexus/repository/maven-public/'
         }
     }
 ```
@@ -58,7 +58,7 @@ Make sure to change the `[YOUR PACKAGE]` to your project's package
         <relocations>
             <relocation>
                 <pattern>org.zibble.inventoryframework</pattern>
-                <shadedPattern>[YOUR PACKAGE].inventoryframework</shadedPattern>
+                <shadedPattern>[YOUR PACKAGE].libs.inventoryframework</shadedPattern>
             </relocation>
         </relocations>
     </configuration>
@@ -77,7 +77,7 @@ Make sure to change the `[YOUR PACKAGE]` to your project's package
 For gradle, we are going to take the example of `shadowJar` plugin. Make sure to change the `[YOUR PACKAGE]` to your project's package
 ```groovy
 shadowJar {
-    relocate 'org.zibble.inventoryframework', '[YOUR PACKAGE].inventoryframework'
+    relocate 'org.zibble.inventoryframework', '[YOUR PACKAGE].libs.inventoryframework'
 }
 ```
 
