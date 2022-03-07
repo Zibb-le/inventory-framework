@@ -12,15 +12,14 @@ import com.github.retrooper.packetevents.util.AdventureSerializer;
 import com.github.retrooper.packetevents.util.StringUtil;
 import com.github.retrooper.packetevents.util.Vector3i;
 import net.kyori.adventure.text.Component;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
-/**
- * Methods from packetevents
- */
+@ApiStatus.Internal
 public final class ByteBufferUtil {
 
     private static final int MODERN_MESSAGE_LENGTH = 262144;
@@ -82,7 +81,7 @@ public final class ByteBufferUtil {
 
     @NotNull
     public static ItemStack readItemStack(Object buffer) {
-        boolean v1_13_2 = InventoryFramework.framework().serverVersion().isNewerThanOrEquals(ServerVersion.V_1_13_2);
+        boolean v1_13_2 = InventoryFramework.framework().getServerVersion().isNewerThanOrEquals(ServerVersion.V_1_13_2);
         if (v1_13_2) {
             if (!readBoolean(buffer)) {
                 return ItemStack.EMPTY;
@@ -108,7 +107,7 @@ public final class ByteBufferUtil {
         if (itemStack == null) {
             itemStack = ItemStack.EMPTY;
         }
-        boolean v1_13_2 = InventoryFramework.framework().serverVersion().isNewerThanOrEquals(ServerVersion.V_1_13_2);
+        boolean v1_13_2 = InventoryFramework.framework().getServerVersion().isNewerThanOrEquals(ServerVersion.V_1_13_2);
         if (v1_13_2) {
             if (ItemStack.EMPTY.equals(itemStack)) {
                 writeBoolean(buffer, false);
@@ -143,11 +142,11 @@ public final class ByteBufferUtil {
     }
 
     public static NBTCompound readNBT(Object buffer) {
-        return NBTCodec.readNBT(buffer, InventoryFramework.framework().serverVersion());
+        return NBTCodec.readNBT(buffer, InventoryFramework.framework().getServerVersion());
     }
 
     public static void writeNBT(Object buffer, NBTCompound nbt) {
-        NBTCodec.writeNBT(buffer, InventoryFramework.framework().serverVersion(), nbt);
+        NBTCodec.writeNBT(buffer, InventoryFramework.framework().getServerVersion(), nbt);
     }
 
     public static String readString(Object buffer) {
@@ -397,11 +396,11 @@ public final class ByteBufferUtil {
 
     public static Vector3i readBlockPosition(Object buffer) {
         long val = readLong(buffer);
-        return new Vector3i(val, InventoryFramework.framework().serverVersion());
+        return new Vector3i(val, InventoryFramework.framework().getServerVersion());
     }
 
     public static void writeBlockPosition(Object buffer, Vector3i pos) {
-        long val = pos.getSerializedPosition(InventoryFramework.framework().serverVersion());
+        long val = pos.getSerializedPosition(InventoryFramework.framework().getServerVersion());
         writeLong(buffer, val);
     }
 
@@ -419,7 +418,7 @@ public final class ByteBufferUtil {
     }
 
     public static int getMaxMessageLength() {
-        return InventoryFramework.framework().serverVersion().isNewerThanOrEquals(ServerVersion.V_1_13) ? MODERN_MESSAGE_LENGTH : LEGACY_MESSAGE_LENGTH;
+        return InventoryFramework.framework().getServerVersion().isNewerThanOrEquals(ServerVersion.V_1_13) ? MODERN_MESSAGE_LENGTH : LEGACY_MESSAGE_LENGTH;
     }
 
 }

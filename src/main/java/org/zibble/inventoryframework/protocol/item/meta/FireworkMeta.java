@@ -4,6 +4,7 @@ import com.github.retrooper.packetevents.protocol.nbt.NBTByte;
 import com.github.retrooper.packetevents.protocol.nbt.NBTCompound;
 import com.github.retrooper.packetevents.protocol.nbt.NBTList;
 import com.github.retrooper.packetevents.protocol.nbt.NBTType;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.zibble.inventoryframework.protocol.item.objects.FireworkEffect;
 
@@ -41,6 +42,7 @@ public class FireworkMeta extends ItemMeta {
         this.power = power;
     }
 
+    @ApiStatus.Internal
     @Override
     public void applyTo(@NotNull NBTCompound compound) {
         super.applyTo(compound);

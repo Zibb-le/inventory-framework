@@ -2,6 +2,7 @@ package org.zibble.inventoryframework.protocol.item.meta;
 
 import com.github.retrooper.packetevents.protocol.nbt.NBTCompound;
 import com.github.retrooper.packetevents.protocol.nbt.NBTInt;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
@@ -24,6 +25,7 @@ public class LeatherArmorMeta extends ItemMeta {
         this.color = color;
     }
 
+    @ApiStatus.Internal
     @Override
     public void applyTo(@NotNull NBTCompound compound) {
         super.applyTo(compound);

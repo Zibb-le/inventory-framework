@@ -93,8 +93,8 @@ public class BeaconMenu extends NamedMenu implements DataPropertyHolder {
     public PropertyPair[] properties() {
         return new PropertyPair[]{
                 PropertyPair.of(0, this.level),
-                PropertyPair.of(1, (this.primaryPower == null ? 0 : this.primaryPower.id())),
-                PropertyPair.of(2, (this.secondaryPower == null ? 0 : this.secondaryPower.id()))
+                PropertyPair.of(1, (this.primaryPower == null ? 0 : this.primaryPower.getID())),
+                PropertyPair.of(2, (this.secondaryPower == null ? 0 : this.secondaryPower.getID()))
         };
     }
 }

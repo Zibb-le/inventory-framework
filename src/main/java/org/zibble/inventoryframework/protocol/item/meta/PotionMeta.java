@@ -1,6 +1,7 @@
 package org.zibble.inventoryframework.protocol.item.meta;
 
 import com.github.retrooper.packetevents.protocol.nbt.*;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.zibble.inventoryframework.protocol.item.objects.PotionEffect;
 
@@ -39,6 +40,7 @@ public class PotionMeta extends ItemMeta {
         this.potionEffects.remove(potionEffect);
     }
 
+    @ApiStatus.Internal
     @Override
     public void applyTo(@NotNull NBTCompound compound) {
         super.applyTo(compound);
@@ -46,11 +48,11 @@ public class PotionMeta extends ItemMeta {
         NBTList<NBTCompound> list = new NBTList<>(NBTType.COMPOUND);
         for (PotionEffect potionEffect : this.potionEffects) {
             NBTCompound potion = new NBTCompound();
-            potion.setTag(ID, new NBTByte((byte) potionEffect.type().id()));
+            potion.setTag(ID, new NBTByte((byte) potionEffect.getType().getID()));
             potion.setTag(AMPLIFIER, new NBTByte((byte) potionEffect.getAmplifier()));
             potion.setTag(DURATION, new NBTInt((int) (potionEffect.getDuration().toMillis() / 50)));
             potion.setTag(AMBIENT, new NBTByte((byte) (potionEffect.isAmbient() ? 1 : 0)));
-            potion.setTag(SHOW_PARTICLES, new NBTByte((byte) (potionEffect.isParticles() ? 1 : 0)));
+            potion.setTag(SHOW_PARTICLES, new NBTByte((byte) (potionEffect.hasParticles() ? 1 : 0)));
             list.addTag(potion);
         }
         compound.setTag(POTION_EFFECTS, list);

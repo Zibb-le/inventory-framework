@@ -48,7 +48,7 @@ public enum PatternType {
         this.ID = ID;
     }
 
-    public String id() {
+    public String getID() {
         return ID;
     }
 }

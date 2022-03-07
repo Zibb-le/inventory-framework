@@ -5,6 +5,7 @@ import com.github.retrooper.packetevents.protocol.nbt.NBTInt;
 import com.github.retrooper.packetevents.protocol.nbt.NBTString;
 import com.github.retrooper.packetevents.util.AdventureSerializer;
 import net.kyori.adventure.text.Component;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
 public class BookMeta extends ItemMeta {
@@ -45,6 +46,7 @@ public class BookMeta extends ItemMeta {
         this.generation = generation;
     }
 
+    @ApiStatus.Internal
     @Override
     public void applyTo(@NotNull NBTCompound compound) {
         super.applyTo(compound);

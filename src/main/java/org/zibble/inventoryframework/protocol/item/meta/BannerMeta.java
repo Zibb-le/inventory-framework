@@ -1,6 +1,7 @@
 package org.zibble.inventoryframework.protocol.item.meta;
 
 import com.github.retrooper.packetevents.protocol.nbt.*;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.zibble.inventoryframework.protocol.Material;
 import org.zibble.inventoryframework.protocol.item.objects.Pattern;
@@ -46,18 +47,19 @@ public class BannerMeta extends ItemMeta {
         this.patterns.remove(pattern);
     }
 
+    @ApiStatus.Internal
     @Override
     public void applyTo(@NotNull NBTCompound compound) {
         super.applyTo(compound);
         NBTCompound entityTag = new NBTCompound();
         if (this.baseColor != null) {
-            entityTag.setTag(BASE, new NBTInt(this.baseColor.id()));
+            entityTag.setTag(BASE, new NBTInt(this.baseColor.getID()));
         }
         NBTList<NBTCompound> nbtList = new NBTList<>(NBTType.COMPOUND);
         for (Pattern pattern : this.patterns) {
             NBTCompound patternCompound = new NBTCompound();
-            patternCompound.setTag(COLOR, new NBTInt(pattern.getColor().id()));
-            patternCompound.setTag(PATTERN, new NBTString(pattern.type().id()));
+            patternCompound.setTag(COLOR, new NBTInt(pattern.getColor().getID()));
+            patternCompound.setTag(PATTERN, new NBTString(pattern.getType().getID()));
             nbtList.addTag(patternCompound);
         }
         entityTag.setTag(PATTERNS, nbtList);

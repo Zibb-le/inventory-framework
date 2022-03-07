@@ -36,10 +36,18 @@ public class EnchantingTableMenu extends NamedButtonMenu<EnchantOption> implemen
         return true;
     }
 
+    /**
+     * @return the XP Seed for the enchanting table options
+     *         Refer to this if <a href="https://www.youtube.com/watch?v=hfiTZF0hlzw">YT Video</a> you are interested to know more about this
+     */
     public int getXPSeed() {
         return XPSeed;
     }
 
+    /**
+     * @param XPSeed The new XP Seed for the enchanting table options
+     *               Refer to this if <a href="https://www.youtube.com/watch?v=hfiTZF0hlzw">YT Video</a> you are interested to know more about this
+     */
     public void setXPSeed(int XPSeed) {
         this.XPSeed = XPSeed;
     }
@@ -58,12 +66,12 @@ public class EnchantingTableMenu extends NamedButtonMenu<EnchantOption> implemen
         for (int i = 0; i < this.buttons.length; i++) {
             MenuItem<EnchantOption> button = this.buttons[i];
             if (button == null || button.getContent() == null) continue;
-            properties.add(PropertyPair.of(i, button.getContent().xpCost()));
-            if (InventoryFramework.framework().serverVersion().isNewerThanOrEquals(ServerVersion.V_1_9)) {
-                properties.add(PropertyPair.of(i + 4, button.getContent().id()));
-                properties.add(PropertyPair.of(i + 7, button.getContent().level()));
+            properties.add(PropertyPair.of(i, button.getContent().getXPLevelCost()));
+            if (InventoryFramework.framework().getServerVersion().isNewerThanOrEquals(ServerVersion.V_1_9)) {
+                properties.add(PropertyPair.of(i + 4, button.getContent().getEnchantmentID()));
+                properties.add(PropertyPair.of(i + 7, button.getContent().getEnchantLevel()));
             } else {
-                properties.add(PropertyPair.of(i + 4, button.getContent().id() | button.getContent().level() << 8));
+                properties.add(PropertyPair.of(i + 4, button.getContent().getEnchantmentID() | button.getContent().getEnchantLevel() << 8));
             }
         }
 

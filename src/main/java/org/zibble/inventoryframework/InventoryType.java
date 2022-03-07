@@ -6,119 +6,119 @@ public enum InventoryType {
 
     CHEST("minecraft:chest", 0) {
         @Override
-        public int latestId(int size) {
+        public int getLatestID(int size) {
             return Math.max(size / 9 - 1, 0);
         }
     },
     ANVIL("minecraft:anvil", 8) {
         @Override
-        public int latestId(int size) {
+        public int getLatestID(int size) {
             return 7;
         }
     },
     DISPENSER("minecraft:dispenser", 3) {
         @Override
-        public int latestId(int size) {
+        public int getLatestID(int size) {
             return 6;
         }
     },
     FURNACE("minecraft:furnace", 2) {
         @Override
-        public int latestId(int size) {
+        public int getLatestID(int size) {
             return 13;
         }
     },
     BLAST_FURNACE(ServerVersion.V_1_14) {
         @Override
-        public int latestId(int size) {
+        public int getLatestID(int size) {
             return 9;
         }
     },
     SMOKER(ServerVersion.V_1_14) {
         @Override
-        public int latestId(int size) {
+        public int getLatestID(int size) {
             return 21;
         }
     },
     HOPPER("minecraft:hopper", 9) {
         @Override
-        public int latestId(int size) {
+        public int getLatestID(int size) {
             return 15;
         }
     },
     BREWING_STAND("minecraft:brewing_stand", 5) {
         @Override
-        public int latestId(int size) {
+        public int getLatestID(int size) {
             return 10;
         }
     },
     BEACON("minecraft:beacon", 7) {
         @Override
-        public int latestId(int size) {
+        public int getLatestID(int size) {
             return 8;
         }
     },
     ENCHANTING_TABLE("minecraft:enchanting_table", 4) {
         @Override
-        public int latestId(int size) {
+        public int getLatestID(int size) {
             return 12;
         }
 
         @Override
-        public int legacySlots(int slots) {
+        public int getLegacySlots(int slots) {
             return 0;
         }
     },
     WORKBENCH("minecraft:crafting_table", 1) {
         @Override
-        public int latestId(int size) {
+        public int getLatestID(int size) {
             return 11;
         }
 
         @Override
-        public int legacySlots(int slots) {
+        public int getLegacySlots(int slots) {
             return 0;
         }
     },
     MERCHANT_GUI("minecraft:villager") {
         @Override
-        public int latestId(int size) {
+        public int getLatestID(int size) {
             return 18;
         }
     },
     GRINDSTONE(ServerVersion.V_1_14) {
         @Override
-        public int latestId(int size) {
+        public int getLatestID(int size) {
             return 14;
         }
     },
     LECTERN(ServerVersion.V_1_14) {
         @Override
-        public int latestId(int size) {
+        public int getLatestID(int size) {
             return 16;
         }
     },
     LOOM(ServerVersion.V_1_14) {
         @Override
-        public int latestId(int size) {
+        public int getLatestID(int size) {
             return 17;
         }
     },
     SMITHING(ServerVersion.V_1_14) {
         @Override
-        public int latestId(int size) {
+        public int getLatestID(int size) {
             return 20;
         }
     },
     CARTOGRAPHY_TABLE(ServerVersion.V_1_14) {
         @Override
-        public int latestId(int size) {
+        public int getLatestID(int size) {
             return 22;
         }
     },
     STONE_CUTTER(ServerVersion.V_1_14) {
         @Override
-        public int latestId(int size) {
+        public int getLatestID(int size) {
             return 23;
         }
     },
@@ -149,21 +149,21 @@ public enum InventoryType {
         this.introduced_version = ServerVersion.V_1_7_10;
     }
 
-    public String legacyId() {
+    public String getLegacyID() {
         return legacy_id;
     }
 
-    public int notchInvId() {
+    public int getNotchInvID() {
         return notch_inv_id;
     }
 
-    public ServerVersion introducedVersion() {
+    public ServerVersion getIntroducedVersion() {
         return introduced_version;
     }
 
-    public abstract int latestId(int size);
+    public abstract int getLatestID(int size);
 
-    public int legacySlots(int slots) {
+    public int getLegacySlots(int slots) {
         return slots;
     }
 

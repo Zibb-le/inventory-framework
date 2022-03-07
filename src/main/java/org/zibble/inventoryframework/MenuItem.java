@@ -1,16 +1,20 @@
 package org.zibble.inventoryframework;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.zibble.inventoryframework.protocol.item.ItemStack;
 import org.zibble.inventoryframework.protocol.item.objects.buttons.EnchantOption;
 
 public class MenuItem<C> {
 
-    public static MenuItem<ItemStack> of(@Nullable ItemStack itemStack) {
+    @Contract(value = "_ -> new", pure = true)
+    public static @NotNull MenuItem<ItemStack> of(@Nullable ItemStack itemStack) {
         return new MenuItem<>(itemStack);
     }
 
-    public static MenuItem<EnchantOption> of(@Nullable EnchantOption option) {
+    @Contract(value = "_ -> new", pure = true)
+    public static @NotNull MenuItem<EnchantOption> of(@Nullable EnchantOption option) {
         return new MenuItem<>(option);
     }
 
@@ -22,11 +26,11 @@ public class MenuItem<C> {
     }
 
     @Nullable
-    public ClickAction clickAction() {
+    public ClickAction getClickAction() {
         return clickAction;
     }
 
-    public void clickAction(@Nullable ClickAction clickAction) {
+    public void setClickAction(@Nullable ClickAction clickAction) {
         this.clickAction = clickAction;
     }
 

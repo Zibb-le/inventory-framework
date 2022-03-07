@@ -2,6 +2,7 @@ package org.zibble.inventoryframework.protocol.item.meta;
 
 import com.github.retrooper.packetevents.protocol.nbt.*;
 import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.NotNull;
 import org.zibble.inventoryframework.protocol.Material;
 import org.zibble.inventoryframework.protocol.Materials;
 import org.zibble.inventoryframework.protocol.item.objects.FireworkEffect;
@@ -89,7 +90,7 @@ public class MetaUtil {
             fadeColors[i] = effect.getFadeColors().get(i).getRGB();
         }
         target.setTag(EXPLOSION_FADE, new NBTIntArray(fadeColors));
-        target.setTag(EXPLOSION_TYPE, new NBTByte((byte) effect.type().ordinal()));
+        target.setTag(EXPLOSION_TYPE, new NBTByte((byte) effect.getType().ordinal()));
     }
 
     protected static void applyEnchants(Map<Enchantment, Integer> enchantments, NBTCompound target) {
@@ -97,7 +98,7 @@ public class MetaUtil {
             NBTList<NBTCompound> enchants = new NBTList<>(NBTType.COMPOUND);
             for (Map.Entry<Enchantment, Integer> entry : enchantments.entrySet()) {
                 NBTCompound enchant = new NBTCompound();
-                enchant.setTag(ENCHANT_ID, new NBTShort((short) entry.getKey().id()));
+                enchant.setTag(ENCHANT_ID, new NBTShort((short) entry.getKey().getID()));
                 enchant.setTag(ENCHANT_LVL, new NBTShort(entry.getValue().shortValue()));
                 enchants.addTag((short) entry.getKey().asProtocol().getId(), enchant);
             }
@@ -105,7 +106,7 @@ public class MetaUtil {
         }
     }
 
-    protected static void applyDisplayTag(String key, NBT value, NBTCompound target) {
+    protected static void applyDisplayTag(String key, NBT value, @NotNull NBTCompound target) {
         NBTCompound display = target.getCompoundTagOrNull(DISPLAY);
         if (display == null) {
             target.setTag(DISPLAY, display = new NBTCompound());

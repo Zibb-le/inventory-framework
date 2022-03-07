@@ -2,11 +2,15 @@ package org.zibble.inventoryframework.protocol.item.objects;
 
 import com.github.retrooper.packetevents.protocol.player.TextureProperty;
 import com.github.retrooper.packetevents.protocol.player.UserProfile;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Representation of Mojang's GameProfile for Inventory Framework.
+ */
 public class Profile {
 
     private UUID uuid;
@@ -38,6 +42,7 @@ public class Profile {
         return this.properties;
     }
 
+    @ApiStatus.Internal
     public UserProfile asProtocol() {
         UserProfile profile = new UserProfile(uuid, name);
         List<TextureProperty> properties = new ArrayList<>();

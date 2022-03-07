@@ -51,7 +51,7 @@ public class MerchantMenu extends NamedButtonMenu<TradeOption> {
             if (tradeOption == null || tradeOption.getContent() == null) continue;
             recipes.add(tradeOption.getContent().asProtocol());
         }
-        if (InventoryFramework.framework().serverVersion().isNewerThanOrEquals(ServerVersion.V_1_14)) {
+        if (InventoryFramework.framework().getServerVersion().isNewerThanOrEquals(ServerVersion.V_1_14)) {
             WrapperPlayServerTradeList packet = new WrapperPlayServerTradeList(
                     openInventory.windowId(),
                     recipes,

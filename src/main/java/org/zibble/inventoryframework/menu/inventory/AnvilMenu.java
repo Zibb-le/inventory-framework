@@ -1,6 +1,8 @@
 package org.zibble.inventoryframework.menu.inventory;
 
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.zibble.inventoryframework.InventoryType;
 import org.zibble.inventoryframework.menu.Menu;
 import org.zibble.inventoryframework.menu.openinventory.AbstractOpenInventory;
@@ -11,17 +13,19 @@ import java.util.function.Consumer;
 
 public class AnvilMenu extends Menu {
 
-    private Consumer<String> outputClick;
+    private @Nullable  Consumer<@Nullable String> outputClick;
 
     public AnvilMenu() {
         super(1, 2);
     }
 
-    public Consumer<String> getOutputClick() {
+    @ApiStatus.Internal
+    @Nullable
+    public Consumer<@Nullable String> getOutputClick() {
         return outputClick;
     }
 
-    public void setOutputClick(Consumer<String> outputClick) {
+    public void setOutputClick(@Nullable Consumer<@Nullable String> outputClick) {
         this.outputClick = outputClick;
     }
 

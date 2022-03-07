@@ -8,12 +8,19 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
+/**
+ * Representation of player for Inventory Framework.
+ * @param <T> The server's implementation of Player
+ */
 public interface ProtocolPlayer<T> {
 
-    @NotNull UUID uuid();
+    @NotNull UUID getUniqueID();
 
-    @NotNull String name();
+    @NotNull String getName();
 
+    /**
+     * @return The server's implementation of Player
+     */
     @NotNull T handle();
 
     @NotNull
@@ -27,6 +34,10 @@ public interface ProtocolPlayer<T> {
         this.asProtocol().sendPacket(wrapper);
     }
 
+    /**
+     * Implementations are advised to try to implement this method in any way possible.
+     * Not doing so can lead to ghost items in the player's inventory & the GUI.
+     */
     @ApiStatus.Internal
     void updatePlayerInventory();
 

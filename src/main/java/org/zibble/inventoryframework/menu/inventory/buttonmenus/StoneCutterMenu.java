@@ -21,7 +21,7 @@ public class StoneCutterMenu extends FixedButtonMenu {
 
     @Override
     public boolean isSupported() {
-        return InventoryFramework.framework().serverVersion().isNewerThanOrEquals(ServerVersion.V_1_14);
+        return InventoryFramework.framework().getServerVersion().isNewerThanOrEquals(ServerVersion.V_1_14);
     }
 
     @Override

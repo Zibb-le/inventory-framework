@@ -20,7 +20,7 @@ public class FireworkEffect {
         this.fadeColors = fadeColors;
     }
 
-    public Type type() {
+    public Type getType() {
         return this.type;
     }
 
