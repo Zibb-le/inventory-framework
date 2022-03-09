@@ -213,7 +213,7 @@ public class ItemMeta {
         }
 
         public void applyTo(ItemStack item) {
-            if (item == null || item.getItemMeta().getClass().isAssignableFrom(this.meta.getClass())) return;
+            if (item == null || item.getItemMeta().getClass().equals(this.meta.getClass())) return;
             item.setItemMeta(this.build());
         }
 

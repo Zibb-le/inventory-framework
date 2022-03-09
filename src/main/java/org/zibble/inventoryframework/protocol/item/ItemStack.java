@@ -9,6 +9,7 @@ import org.zibble.inventoryframework.protocol.item.meta.ItemMeta;
 import org.zibble.inventoryframework.protocol.item.meta.MetaUtil;
 
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * Vanilla ItemStack representation for use in Inventory Framework.
@@ -199,11 +200,11 @@ public class ItemStack {
             return this;
         }
 
-        public Builder meta(@NotNull ItemMeta.Builder metaBuilder) {
-            ItemMeta meta = metaBuilder.build();
-            if (!this.meta.getClass().isAssignableFrom(meta.getClass()))
+        public Builder meta(Function<ItemMeta, ItemMeta> meta) {
+            ItemMeta newMeta = meta.apply(this.meta);
+            if (!this.meta.getClass().equals(newMeta.getClass()))
                 throw new IllegalArgumentException("The provided ItemMeta is not compatible with this ItemStack.");
-            this.meta = meta;
+            this.meta = newMeta;
             return this;
         }
 
