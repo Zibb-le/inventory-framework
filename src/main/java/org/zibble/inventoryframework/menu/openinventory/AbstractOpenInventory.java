@@ -35,7 +35,7 @@ public abstract class AbstractOpenInventory {
     }
 
     public void show() {
-        Component title = this.menu instanceof NamedMenu ? ((NamedMenu) this.menu).title() : Component.empty();
+        Component title = this.menu instanceof NamedMenu ? ((NamedMenu) this.menu).title() == null ? Component.empty() : ((NamedMenu) this.menu).title() : Component.empty();
         this.windowId = this.nextContainerId();
         WrapperPlayServerOpenWindow wrapper;
         if (InventoryFramework.framework().serverVersion().isNewerThan(ServerVersion.V_1_13_2)) {

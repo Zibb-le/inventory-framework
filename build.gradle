@@ -18,21 +18,21 @@ publishing {
     publications {
         maven(MavenPublication) { publication ->
             groupId = 'org.zibble'
-            artifactId = project.name
+            artifactId = 'inventory-framework'
             from(components.java)
         }
     }
-//
-//    repositories {
-//        mavenLocal()
-//        maven {
-//            credentials {
-//                username = "$usr"
-//                password = "$pwd"
-//            }
-//            url 'https://repo.zibble.org/nexus/repository/maven-snapshots/'
-//        }
-//    }
+
+    repositories {
+        mavenLocal()
+        maven {
+            credentials {
+                username = "$usr"
+                password = "$pwd"
+            }
+            url 'https://repo.zibble.org/nexus/repository/maven-snapshots/'
+        }
+    }
 }
 
 build {
@@ -43,4 +43,5 @@ publish.shouldRunAfter build
 
 dependencies {
     compileOnly 'com.github.retrooper.packetevents:api:2.0-SNAPSHOT'
+    compileOnly 'net.kyori:adventure-api:4.10.1'
 }
