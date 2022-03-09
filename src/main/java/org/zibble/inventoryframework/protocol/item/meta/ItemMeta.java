@@ -4,6 +4,8 @@ import com.github.retrooper.packetevents.protocol.nbt.*;
 import com.github.retrooper.packetevents.util.AdventureSerializer;
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.*;
+import org.zibble.inventoryframework.protocol.Material;
+import org.zibble.inventoryframework.protocol.item.ItemStack;
 import org.zibble.inventoryframework.protocol.item.objects.enums.Enchantment;
 
 import java.util.*;
@@ -28,6 +30,15 @@ public class ItemMeta {
         this.enchantments = new EnumMap<>(Enchantment.class);
         this.flags = EnumSet.noneOf(Flag.class);
         this.unBreakable = false;
+    }
+
+    /**
+     * @return new {@link Builder}
+     */
+    @SuppressWarnings("unchecked")
+    @Contract(value = "_ -> new", pure = true)
+    public static <T extends ItemMeta> Builder<T> builder(@NotNull Material material) {
+        return new Builder<>((T) MetaUtil.getMeta(material));
     }
 
     @Nullable
@@ -125,7 +136,8 @@ public class ItemMeta {
         HIDE_POTION_EFFECTS;
     }
 
-    public static class Builder {
+    public static class Builder<T extends ItemMeta> {
+
         private Component displayName;
         private List<@Nullable Component> lore;
         private final Map<@NotNull Enchantment, @Range(from = 1, to = Integer.MAX_VALUE) Integer> enchantments;
@@ -133,38 +145,49 @@ public class ItemMeta {
         private int repairCost;
         private boolean unBreakable;
 
-        public Builder() {
-            this.lore = new ArrayList<>();
-            this.enchantments = new EnumMap<>(Enchantment.class);
-            this.flags = EnumSet.noneOf(Flag.class);
+        private final T meta;
+
+        public Builder(T meta) {
+            this.displayName = meta.getDisplayName();
+            this.lore = meta.getLore();
+            this.enchantments = new EnumMap<>(meta.getEnchantments());
+            this.flags = EnumSet.copyOf(meta.getFlags());
+            this.repairCost = meta.getRepairCost();
+            this.unBreakable = meta.isUnbreakable();
+
+            this.meta = meta;
         }
 
-        public Builder withDisplayName(@Nullable Component displayName) {
+        public T getHandle() {
+            return this.meta;
+        }
+
+        public Builder<T> withDisplayName(@Nullable Component displayName) {
             this.displayName = displayName;
             return this;
         }
 
-        public Builder withLore(@NotNull List<@Nullable Component> lore) {
+        public Builder<T> withLore(@NotNull List<@Nullable Component> lore) {
             this.lore = lore;
             return this;
         }
 
-        public Builder withLore(@NotNull Component... lore) {
+        public Builder<T> withLore(@NotNull Component... lore) {
             this.lore = Arrays.asList(lore);
             return this;
         }
 
-        public Builder withEnchantment(@NotNull Enchantment enchantment, @Range(from = 1, to = Integer.MAX_VALUE) int level) {
+        public Builder<T> withEnchantment(@NotNull Enchantment enchantment, @Range(from = 1, to = Integer.MAX_VALUE) int level) {
             this.enchantments.put(enchantment, level);
             return this;
         }
 
-        public Builder withFlags(@NotNull Set<Flag> flags) {
+        public Builder<T> withFlags(@NotNull Set<Flag> flags) {
             this.flags.addAll(flags);
             return this;
         }
 
-        public Builder withFlags(@NotNull Flag... flags) {
+        public Builder<T> withFlags(@NotNull Flag... flags) {
             this.flags.addAll(Arrays.asList(flags));
             return this;
         }
@@ -174,20 +197,24 @@ public class ItemMeta {
             return repairCost;
         }
 
-        public Builder withUnbreakability(boolean unBreakable) {
+        public Builder<T> withUnbreakability(boolean unBreakable) {
             this.unBreakable = unBreakable;
             return this;
         }
 
-        public ItemMeta build() {
-            ItemMeta meta = new ItemMeta();
-            meta.setDisplayName(this.displayName);
-            meta.setLore(this.lore);
-            this.enchantments.forEach(meta::addEnchant);
-            this.flags.forEach(meta::addFlag);
-            meta.setRepairCost(this.repairCost);
-            meta.setUnbreakable(this.unBreakable);
+        public T build() {
+            this.meta.setDisplayName(this.displayName);
+            this.meta.setLore(this.lore);
+            this.enchantments.forEach(this.meta::addEnchant);
+            this.flags.forEach(this.meta::addFlag);
+            this.meta.setRepairCost(this.repairCost);
+            this.meta.setUnbreakable(this.unBreakable);
             return meta;
+        }
+
+        public void applyTo(ItemStack item) {
+            if (item == null || item.getItemMeta().getClass().isAssignableFrom(this.meta.getClass())) return;
+            item.setItemMeta(this.build());
         }
 
     }

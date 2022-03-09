@@ -23,6 +23,24 @@ public class ItemStack {
         return new ItemStack(Materials.AIR);
     }
 
+    /**
+     * @param material Material for builder
+     * @return new {@link Builder}
+     */
+    @Contract(value = "_ -> new", pure = true)
+    public static @NotNull Builder builder(@NotNull Material material) {
+        return new Builder(material);
+    }
+
+    /**
+     * @param item Item for builder
+     * @return new {@link Builder}
+     */
+    @Contract(value = "_ -> new", pure = true)
+    public static @NotNull Builder builder(@NotNull ItemStack item) {
+        return new Builder(item);
+    }
+
     private @NotNull final Material material;
     private @Range(from = 0, to = 64) int amount;
     /**
@@ -151,6 +169,7 @@ public class ItemStack {
     }
 
     public static class Builder {
+
         private final Material material;
         private int amount;
         private ItemMeta meta;
