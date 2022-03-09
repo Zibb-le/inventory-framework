@@ -8,10 +8,12 @@ import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientCl
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientClickWindowButton;
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientCloseWindow;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerSetSlot;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.zibble.inventoryframework.ClickType;
 import org.zibble.inventoryframework.menu.openinventory.AbstractOpenInventory;
 
+@ApiStatus.Internal
 public class InventoryPacketListener extends PacketListenerAbstract {
 
     public InventoryPacketListener() {

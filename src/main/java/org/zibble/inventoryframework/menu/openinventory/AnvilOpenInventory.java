@@ -2,6 +2,7 @@ package org.zibble.inventoryframework.menu.openinventory;
 
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.zibble.inventoryframework.ClickType;
 import org.zibble.inventoryframework.InventoryFramework;
 import org.zibble.inventoryframework.InventoryListener;
@@ -39,12 +40,12 @@ public class AnvilOpenInventory extends AbstractOpenInventory {
                     InventoryFramework.framework().run(() -> menu.getOutputClick().accept(this.getDisplayName(clickItem)));
                     return;
                 }
-                MenuItem<ItemStack> item = menu.asList().get(slot);
-                if (item == null || item.clickAction() == null) return;
-                InventoryFramework.framework().run(() -> item.clickAction().onClick(user, clickType));
+                MenuItem<ItemStack> item = menu.asItemList().get(slot);
+                if (item == null || item.getClickAction() == null) return;
+                InventoryFramework.framework().run(() -> item.getClickAction().onClick(user, clickType));
             }
 
-            private String getDisplayName(com.github.retrooper.packetevents.protocol.item.ItemStack item) {
+            private @Nullable String getDisplayName(com.github.retrooper.packetevents.protocol.item.@NotNull ItemStack item) {
                 if (item.getNBT() == null) return null;
                 return item.getNBT().getCompoundTagOrNull("display").getStringTagValueOrNull("Name");
             }

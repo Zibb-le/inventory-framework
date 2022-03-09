@@ -3,9 +3,7 @@ package org.zibble.inventoryframework.protocol.item.meta;
 import com.github.retrooper.packetevents.protocol.nbt.*;
 import com.github.retrooper.packetevents.util.AdventureSerializer;
 import net.kyori.adventure.text.Component;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.jetbrains.annotations.Range;
+import org.jetbrains.annotations.*;
 import org.zibble.inventoryframework.protocol.item.objects.enums.Enchantment;
 
 import java.util.*;
@@ -19,10 +17,10 @@ public class ItemMeta {
     private static final String REPAIR_COST = "RepairCost";
 
     private @Nullable Component displayName;
-    private @NotNull List<Component> lore;
-    private Map<Enchantment, Integer> enchantments;
+    private @NotNull List<@Nullable Component> lore;
+    private final Map<@NotNull Enchantment, @Range(from = 1, to = Integer.MAX_VALUE) Integer> enchantments;
     private @Range(from = 0, to = Integer.MAX_VALUE) int repairCost;
-    private @NotNull EnumSet<Flag> flags;
+    private final @NotNull EnumSet<Flag> flags;
     private boolean unBreakable;
 
     protected ItemMeta() {
@@ -42,16 +40,16 @@ public class ItemMeta {
     }
 
     @NotNull
-    public List<Component> getLore() {
+    public List<@Nullable Component> getLore() {
         return Collections.unmodifiableList(this.lore);
     }
 
-    public void setLore(@NotNull List<Component> lore) {
+    public void setLore(@NotNull List<@Nullable Component> lore) {
         this.lore = lore;
     }
 
     @NotNull
-    public Map<Enchantment, Integer> getEnchantments() {
+    public Map<@NotNull Enchantment, @Range(from = 1, to = Integer.MAX_VALUE) Integer> getEnchantments() {
         return enchantments;
     }
 
@@ -61,10 +59,6 @@ public class ItemMeta {
 
     public void removeEnchantment(@NotNull Enchantment enchantment) {
         this.enchantments.remove(enchantment);
-    }
-
-    public void setEnchantments(@NotNull Map<Enchantment, Integer> enchantments) {
-        this.enchantments = new EnumMap<>(enchantments);
     }
 
     @Range(from = 0, to = Integer.MAX_VALUE)
@@ -89,10 +83,6 @@ public class ItemMeta {
         this.flags.remove(flag);
     }
 
-    public void setFlags(@NotNull EnumSet<Flag> flags) {
-        this.flags = flags;
-    }
-
     public boolean isUnbreakable() {
         return unBreakable;
     }
@@ -101,6 +91,7 @@ public class ItemMeta {
         this.unBreakable = unBreakable;
     }
 
+    @ApiStatus.Internal
     public void applyTo(@NotNull NBTCompound compound) {
         if (this.displayName != null || !this.lore.isEmpty()) {
             if (this.displayName != null)
@@ -108,7 +99,8 @@ public class ItemMeta {
             if (!this.lore.isEmpty()) {
                 NBTList<NBTString> strings = new NBTList<>(NBTType.STRING);
                 for (Component component : this.lore) {
-                    strings.addTag(new NBTString(AdventureSerializer.asVanilla(component)));
+                    if (component == null) strings.addTag(new NBTString(""));
+                    else strings.addTag(new NBTString(AdventureSerializer.asVanilla(component)));
                 }
                 MetaUtil.applyDisplayTag(LORE, strings, compound);
             }
@@ -131,6 +123,73 @@ public class ItemMeta {
         HIDE_DESTROYS,
         HIDE_PLACED_ON,
         HIDE_POTION_EFFECTS;
+    }
+
+    public static class Builder {
+        private Component displayName;
+        private List<@Nullable Component> lore;
+        private final Map<@NotNull Enchantment, @Range(from = 1, to = Integer.MAX_VALUE) Integer> enchantments;
+        private final Set<Flag> flags;
+        private int repairCost;
+        private boolean unBreakable;
+
+        public Builder() {
+            this.lore = new ArrayList<>();
+            this.enchantments = new EnumMap<>(Enchantment.class);
+            this.flags = EnumSet.noneOf(Flag.class);
+        }
+
+        public Builder withDisplayName(@Nullable Component displayName) {
+            this.displayName = displayName;
+            return this;
+        }
+
+        public Builder withLore(@NotNull List<@Nullable Component> lore) {
+            this.lore = lore;
+            return this;
+        }
+
+        public Builder withLore(@NotNull Component... lore) {
+            this.lore = Arrays.asList(lore);
+            return this;
+        }
+
+        public Builder withEnchantment(@NotNull Enchantment enchantment, @Range(from = 1, to = Integer.MAX_VALUE) int level) {
+            this.enchantments.put(enchantment, level);
+            return this;
+        }
+
+        public Builder withFlags(@NotNull Set<Flag> flags) {
+            this.flags.addAll(flags);
+            return this;
+        }
+
+        public Builder withFlags(@NotNull Flag... flags) {
+            this.flags.addAll(Arrays.asList(flags));
+            return this;
+        }
+
+        public int withRepairCost(@Range(from = 0, to = Integer.MAX_VALUE) int repairCost) {
+            this.repairCost = repairCost;
+            return repairCost;
+        }
+
+        public Builder withUnbreakability(boolean unBreakable) {
+            this.unBreakable = unBreakable;
+            return this;
+        }
+
+        public ItemMeta build() {
+            ItemMeta meta = new ItemMeta();
+            meta.setDisplayName(this.displayName);
+            meta.setLore(this.lore);
+            this.enchantments.forEach(meta::addEnchant);
+            this.flags.forEach(meta::addFlag);
+            meta.setRepairCost(this.repairCost);
+            meta.setUnbreakable(this.unBreakable);
+            return meta;
+        }
+
     }
 
 }

@@ -6,8 +6,6 @@ import org.zibble.inventoryframework.InventoryFramework;
 import org.zibble.inventoryframework.InventoryType;
 import org.zibble.inventoryframework.menu.Menu;
 import org.zibble.inventoryframework.menu.openinventory.AbstractOpenInventory;
-import org.zibble.inventoryframework.menu.openinventory.OpenInventory;
-import org.zibble.inventoryframework.protocol.ProtocolPlayer;
 
 public class GrindStoneMenu extends Menu {
 
@@ -23,12 +21,12 @@ public class GrindStoneMenu extends Menu {
 
     @Override
     public boolean isSupported() {
-        return InventoryFramework.framework().serverVersion().isNewerThanOrEquals(ServerVersion.V_1_14);
+        return InventoryFramework.framework().getServerVersion().isNewerThanOrEquals(ServerVersion.V_1_14);
     }
 
     @Override
     protected void update(@NotNull AbstractOpenInventory openInventory) {
-        openInventory.sendItems(this.items());
+        openInventory.sendItems(this.getItems());
     }
 
 }

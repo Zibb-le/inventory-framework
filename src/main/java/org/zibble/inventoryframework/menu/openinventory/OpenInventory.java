@@ -34,10 +34,10 @@ public class OpenInventory extends AbstractOpenInventory {
 
             @Override
             public void onClick(int slot, com.github.retrooper.packetevents.protocol.item.ItemStack clickItem, @NotNull ClickType clickType) {
-                if (slot < 0 || slot >= menu.columns() * menu.rows()) return;
-                MenuItem<ItemStack> item = menu.asList().get(slot);
-                if (item == null || item.clickAction() == null) return;
-                InventoryFramework.framework().run(() -> item.clickAction().onClick(user, clickType));
+                if (slot < 0 || slot >= menu.getColumns() * menu.getRows()) return;
+                MenuItem<ItemStack> item = menu.asItemList().get(slot);
+                if (item == null || item.getClickAction() == null) return;
+                InventoryFramework.framework().run(() -> item.getClickAction().onClick(user, clickType));
             }
         };
     }

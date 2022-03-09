@@ -12,7 +12,7 @@ import org.zibble.inventoryframework.InventoryListener;
 import org.zibble.inventoryframework.InventoryType;
 import org.zibble.inventoryframework.MenuItem;
 import org.zibble.inventoryframework.menu.Menu;
-import org.zibble.inventoryframework.menu.nameable.NamedMenu;
+import org.zibble.inventoryframework.menu.nameable.NameableMenu;
 import org.zibble.inventoryframework.menu.property.PropertyPair;
 import org.zibble.inventoryframework.protocol.ProtocolPlayer;
 import org.zibble.inventoryframework.protocol.item.ItemStack;
@@ -35,20 +35,20 @@ public abstract class AbstractOpenInventory {
     }
 
     public void show() {
-        Component title = this.menu instanceof NamedMenu ? ((NamedMenu) this.menu).title() == null ? Component.empty() : ((NamedMenu) this.menu).title() : Component.empty();
+        Component title = this.menu instanceof NameableMenu ? ((NameableMenu) this.menu).title() == null ? Component.empty() : ((NameableMenu) this.menu).title() : Component.empty();
         this.windowId = this.nextContainerId();
         WrapperPlayServerOpenWindow wrapper;
-        if (InventoryFramework.framework().serverVersion().isNewerThan(ServerVersion.V_1_13_2)) {
+        if (InventoryFramework.framework().getServerVersion().isNewerThan(ServerVersion.V_1_13_2)) {
             wrapper = new WrapperPlayServerOpenWindow(
                     this.windowId,
-                    this.type().latestId(menu.columns() * menu.rows()),
+                    this.type().getLatestID(menu.getColumns() * menu.getRows()),
                     title);
         } else {
             wrapper = new WrapperPlayServerOpenWindow(
                     this.windowId,
-                    this.type().legacyId(),
+                    this.type().getLegacyID(),
                     title,
-                    this.type().legacySlots(menu.columns() * menu.rows()),
+                    this.type().getLegacySlots(menu.getColumns() * menu.getRows()),
                     0);
         }
         this.user.sendPacket(wrapper);
@@ -60,6 +60,7 @@ public abstract class AbstractOpenInventory {
         this.user.sendPacket(wrapper);
     }
 
+    @SuppressWarnings("ConstantConditions")
     public void sendItems(@NotNull MenuItem<ItemStack>[][] items) {
         List<com.github.retrooper.packetevents.protocol.item.ItemStack> itemStacks = new ArrayList<>(items.length * items[0].length);
         for (MenuItem<ItemStack>[] a : items) {

@@ -2,6 +2,7 @@ package org.zibble.inventoryframework.protocol.item.objects.enums;
 
 import com.github.retrooper.packetevents.protocol.potion.PotionType;
 import com.github.retrooper.packetevents.protocol.potion.PotionTypes;
+import org.jetbrains.annotations.ApiStatus;
 
 public enum EffectType {
 
@@ -46,11 +47,12 @@ public enum EffectType {
         this.protocol = potionType;
     }
 
+    @ApiStatus.Internal
     public PotionType asProtocol() {
         return protocol;
     }
 
-    public int id() {
+    public int getID() {
         return this.protocol.getId();
     }
 }

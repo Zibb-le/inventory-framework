@@ -17,7 +17,7 @@ public class Pattern {
         return dyeColor;
     }
 
-    public PatternType type() {
+    public PatternType getType() {
         return patternType;
     }
 }

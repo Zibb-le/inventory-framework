@@ -35,17 +35,17 @@ public class ButtonOpenInventory extends AbstractOpenInventory {
             @Override
             public void onClick(int slot, com.github.retrooper.packetevents.protocol.item.ItemStack clickItem, @NotNull ClickType clickType) {
                 if (slot < 0) return;
-                MenuItem<ItemStack> item = menu.asList().get(slot);
-                if (item == null || item.clickAction() == null) return;
-                InventoryFramework.framework().run(() -> item.clickAction().onClick(user, clickType));
+                MenuItem<ItemStack> item = menu.asItemList().get(slot);
+                if (item == null || item.getClickAction() == null) return;
+                InventoryFramework.framework().run(() -> item.getClickAction().onClick(user, clickType));
             }
 
             @Override
             public void onButtonClick(int buttonID) {
                 if (buttonID < 0) return;
                 MenuItem<?> item = menu.getButtonsAsList().get(buttonID);
-                if (item == null || item.clickAction() == null) return;
-                InventoryFramework.framework().run(() -> item.clickAction().onClick(user, ClickType.SWAP));
+                if (item == null || item.getClickAction() == null) return;
+                InventoryFramework.framework().run(() -> item.getClickAction().onClick(user, ClickType.SWAP));
             }
         };
     }

@@ -1,5 +1,6 @@
 package org.zibble.inventoryframework.menu;
 
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Range;
@@ -10,13 +11,25 @@ import org.zibble.inventoryframework.menu.openinventory.OpenInventory;
 import org.zibble.inventoryframework.protocol.ProtocolPlayer;
 import org.zibble.inventoryframework.protocol.item.ItemStack;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
+/**
+ * Represents an GUI that can be opened for a player.
+ * This class is meant to be extended and not for direct use.
+ * Each menu represents what items and inventory type need to be displayed to the player.
+ * <p>
+ *
+ * Each menu can be opened by any amount of players and contents can be updated for each player.
+ * Menu contains {@link MenuItem}s that can be added to it.
+ * Other implementations of menu like {@link ButtonMenu} also support buttons that may or may not be configurable.
+ * <p>
+ *
+ * Adding items in a menu requires a mask to be created.
+ * The mask determines which slots can be filled by any item linked to the character.
+ * By default, the mask is entirely filled with 'X'.
+ */
 public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
 
     protected static final Map<ProtocolPlayer<?>, AbstractOpenInventory> OPEN_INVENTORIES = new ConcurrentHashMap<>();
@@ -29,6 +42,12 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
     protected @Nullable Consumer<ProtocolPlayer<?>> onOpen;
     protected @Nullable Consumer<ProtocolPlayer<?>> onClose;
 
+    /**
+     * Creates a menu with the specified number of rows and columns.
+     * <strong>NOT NECESSARILY A CHEST MENU</strong>
+     * @param rows number of rows
+     * @param columns number of columns
+     */
     public Menu(@Range(from = 1, to = Integer.MAX_VALUE) final int rows,
                 @Range(from = 1, to = Integer.MAX_VALUE) final int columns) {
 
@@ -48,11 +67,17 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
 
     }
 
-    public char[][] mask() {
+    /**
+     * @return Returns the mask of the menu.
+     */
+    public char[][] getMask() {
         return mask;
     }
 
-    public void mask(@NotNull final String... masks) {
+    /**
+     * @param masks The new mask of the menu.
+     */
+    public void setMask(@NotNull final String... masks) {
         if (masks.length > rows) {
             throw new IllegalArgumentException("Mask length must be equal to rows. " + masks.length);
         }
@@ -67,12 +92,19 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
         }
     }
 
+    /**
+     * @return Returns a non-modifiable map listing the {@link MenuItem}s linked to the characters that can be used in mask.
+     */
     @NotNull
-    public Map<Character, MenuItem<ItemStack>> itemMap() {
-        return this.itemMap;
+    public Map<Character, MenuItem<ItemStack>> getItemMap() {
+        return Collections.unmodifiableMap(this.itemMap);
     }
 
-    public void item(final char c, @Nullable final MenuItem<ItemStack> item) {
+    /**
+     * @param c The character whose linked {@link MenuItem} has to be set/changed
+     * @param item The new {@link MenuItem} to be linked to the character
+     */
+    public void setItem(final char c, @Nullable final MenuItem<ItemStack> item) {
         if (item == null) {
             this.itemMap.remove(c);
         } else {
@@ -80,24 +112,41 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
         }
     }
 
+    /**
+     * @param maskKey The character whose linked {@link MenuItem} has to be returned
+     * @return The menu item linked to the character or null if no item is linked to the character
+     */
     @Nullable
-    public MenuItem<ItemStack> maskItem(final char maskKey) {
+    public MenuItem<ItemStack> getMaskItem(final char maskKey) {
         return this.itemMap.get(maskKey);
     }
 
+    /**
+     * @param slot The slot whose {@link MenuItem} has to be returned
+     * @return The menu item linked to the slot or null if no item is linked to the slot
+     */
     @Nullable
-    public MenuItem<ItemStack> item(@Range(from = 0, to = Integer.MAX_VALUE) final int slot) {
-        return this.item(slot % this.columns, slot / this.rows);
+    public MenuItem<ItemStack> getItemAt(@Range(from = 0, to = Integer.MAX_VALUE) final int slot) {
+        return this.getItemAt(slot % this.columns, slot / this.rows);
     }
 
+    /**
+     * @param x The x coordinate of the slot whose {@link MenuItem} has to be returned
+     * @param y The y coordinate of the slot whose {@link MenuItem} has to be returned
+     * @return The menu item linked to the slot or null if no item is linked to the slot
+     */
     @Nullable
-    public MenuItem<ItemStack> item(@Range(from = 0, to = Integer.MAX_VALUE) final int x,
-                                    @Range(from = 0, to = Integer.MAX_VALUE) final int y) {
+    public MenuItem<ItemStack> getItemAt(@Range(from = 0, to = Integer.MAX_VALUE) final int x,
+                                         @Range(from = 0, to = Integer.MAX_VALUE) final int y) {
         return this.itemMap.get(this.mask[y][x]);
     }
 
+
+    /**
+     * @return The items in the menu as a 2D array imitating a rectangle of the GUI
+     */
     @NotNull
-    public MenuItem<ItemStack>[][] items() {
+    public MenuItem<ItemStack>[][] getItems() {
         MenuItem<ItemStack>[][] items = new MenuItem[this.rows][this.columns];
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.columns; j++) {
@@ -108,8 +157,11 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
         return items;
     }
 
+    /**
+     * @return List of items in the menu in order of their slots
+     */
     @NotNull
-    public List<MenuItem<ItemStack>> asList() {
+    public List<MenuItem<ItemStack>> asItemList() {
         List<MenuItem<ItemStack>> items = new ArrayList<>(rows * columns);
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.columns; j++) {
@@ -123,42 +175,63 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
     @NotNull
     @Override
     public Iterator<MenuItem<ItemStack>> iterator() {
-        return this.asList().iterator();
+        return this.asItemList().iterator();
     }
 
     @Range(from = 0, to = Integer.MAX_VALUE)
-    public int rows() {
+    public int getRows() {
         return rows;
     }
 
     @Range(from = 0, to = Integer.MAX_VALUE)
-    public int columns() {
+    public int getColumns() {
         return columns;
     }
 
+    /**
+     * @return The {@link Consumer} handling tasks to be run when the inventory is opened
+     */
+    @ApiStatus.Internal
     @Nullable
-    public Consumer<ProtocolPlayer<?>> onOpen() {
+    public Consumer<@NotNull ProtocolPlayer<?>> onOpen() {
         return onOpen;
     }
 
-    public void onOpen(@Nullable final Consumer<ProtocolPlayer<?>> onOpen) {
+    /**
+     * @param onOpen A {@link Consumer} that can be used to run tasks when the inventory is opened
+     */
+    public void onOpen(@Nullable final Consumer<@NotNull ProtocolPlayer<?>> onOpen) {
         this.onOpen = onOpen;
     }
 
-    public void onClose(@Nullable final Consumer<ProtocolPlayer<?>> onClose) {
+    /**
+     * @param onClose A {@link Consumer} that can be used to run tasks when the inventory is closed
+     */
+    public void onClose(@Nullable final Consumer<@NotNull ProtocolPlayer<?>> onClose) {
         this.onClose = onClose;
     }
 
+    @ApiStatus.Internal
     @Nullable
-    public Consumer<ProtocolPlayer<?>> onClose() {
+    public Consumer<@NotNull ProtocolPlayer<?>> onClose() {
         return onClose;
     }
 
+    /**
+     * @return The {@link InventoryType} of the menu
+     */
     @NotNull
     public abstract InventoryType type();
 
+    /**
+     * @return true if the menu is supported in the current server version, false in all other cases
+     */
     public abstract boolean isSupported();
 
+    /**
+     * Opens the Menu for a {@link ProtocolPlayer}
+     * @param user The {@link ProtocolPlayer} to open the menu for
+     */
     public void open(@NotNull final ProtocolPlayer<?> user) {
         OpenInventory openInventory = new OpenInventory(user, this);
         Menu.OPEN_INVENTORIES.put(user, openInventory);
@@ -168,6 +241,10 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
 
     protected abstract void update(@NotNull final AbstractOpenInventory openInventory);
 
+    /**
+     * Updates the Menu for a {@link ProtocolPlayer}
+     * @param user The {@link ProtocolPlayer} to update the menu for
+     */
     public void update(@NotNull final ProtocolPlayer<?> user) {
         AbstractOpenInventory openInventory = Menu.OPEN_INVENTORIES.get(user);
         if (openInventory == null) return;
@@ -175,15 +252,36 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
         this.update(openInventory);
     }
 
+    /**
+     * Updates a slot in the menu for a {@link ProtocolPlayer}
+     * @param slot the slot to be updated
+     * @param user The {@link ProtocolPlayer} to update the slot for
+     */
     public void updateSlot(@Range(from = 0, to = Integer.MAX_VALUE) final int slot,
                            @NotNull final ProtocolPlayer<?> user) {
         AbstractOpenInventory openInventory = Menu.OPEN_INVENTORIES.get(user);
         if (openInventory != null) {
-            MenuItem<ItemStack> item = this.item(slot);
+            MenuItem<ItemStack> item = this.getItemAt(slot);
             openInventory.setSlot(slot, item == null ? null : item.getContent());
         }
     }
 
+    /**
+     * @return A {@link Set} of all {@link ProtocolPlayer}s currently viewing the menu
+     */
+    @ApiStatus.Experimental
+    public Set<ProtocolPlayer<?>> getViewers() {
+        Set<ProtocolPlayer<?>> viewers = new HashSet<>();
+        Menu.OPEN_INVENTORIES.forEach((user, openInventory) -> {
+           if (openInventory.menu().equals(this)) viewers.add(user);
+        });
+        return viewers;
+    }
+
+    /**
+     * Closes the Menu for a {@link ProtocolPlayer}
+     * @param user The {@link ProtocolPlayer} to close the menu for
+     */
     public void close(@NotNull final ProtocolPlayer<?> user) {
         AbstractOpenInventory inv = OPEN_INVENTORIES.remove(user);
         if (inv != null) {

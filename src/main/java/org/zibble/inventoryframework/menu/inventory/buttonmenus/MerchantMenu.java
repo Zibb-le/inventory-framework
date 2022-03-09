@@ -45,13 +45,13 @@ public class MerchantMenu extends NamedButtonMenu<TradeOption> {
     @Override
     @SuppressWarnings("ConstantConditions")
     protected void update(@NotNull AbstractOpenInventory openInventory) {
-        openInventory.sendItems(this.items());
+        openInventory.sendItems(this.getItems());
         List<MerchantRecipeData> recipes = new ArrayList<>();
         for (MenuItem<TradeOption> tradeOption : this.buttons) {
             if (tradeOption == null || tradeOption.getContent() == null) continue;
             recipes.add(tradeOption.getContent().asProtocol());
         }
-        if (InventoryFramework.framework().serverVersion().isNewerThanOrEquals(ServerVersion.V_1_14)) {
+        if (InventoryFramework.framework().getServerVersion().isNewerThanOrEquals(ServerVersion.V_1_14)) {
             WrapperPlayServerTradeList packet = new WrapperPlayServerTradeList(
                     openInventory.windowId(),
                     recipes,

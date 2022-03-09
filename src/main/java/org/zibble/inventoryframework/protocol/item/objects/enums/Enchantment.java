@@ -2,6 +2,7 @@ package org.zibble.inventoryframework.protocol.item.objects.enums;
 
 import com.github.retrooper.packetevents.protocol.item.enchantment.type.EnchantmentType;
 import com.github.retrooper.packetevents.protocol.item.enchantment.type.EnchantmentTypes;
+import org.jetbrains.annotations.ApiStatus;
 
 public enum Enchantment {
 
@@ -50,11 +51,12 @@ public enum Enchantment {
         this.protocol = enchantmentType;
     }
 
+    @ApiStatus.Internal
     public EnchantmentType asProtocol() {
         return protocol;
     }
 
-    public int id() {
+    public int getID() {
         return this.protocol.getId();
     }
 }

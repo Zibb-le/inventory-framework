@@ -1,5 +1,6 @@
 package org.zibble.inventoryframework.menu;
 
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Range;
@@ -10,6 +11,9 @@ import org.zibble.inventoryframework.protocol.ProtocolPlayer;
 
 import java.util.function.Consumer;
 
+/**
+ * An extension of {@link Menu} that can also contain fixed, non-changeable & client-side-determined buttons.
+ */
 public abstract class FixedButtonMenu extends Menu implements DataPropertyHolder {
 
     private @Nullable Consumer<Integer> clickHandler;
@@ -21,19 +25,31 @@ public abstract class FixedButtonMenu extends Menu implements DataPropertyHolder
         this.defaultSelectedButton = -1;
     }
 
+    /**
+     * Sets the handler for when a button is clicked.
+     * @param clickHandler The handler handling tasks to run which button/slot was clicked by the user.
+     */
     public void setButtonClickHandler(@Nullable final Consumer<Integer> clickHandler) {
         this.clickHandler = clickHandler;
     }
 
+    @ApiStatus.Internal
     @Nullable
     public Consumer<Integer> getButtonClickHandler() {
         return this.clickHandler;
     }
 
+    /**
+     * @return The default selected button for this menu.
+     */
+    @ApiStatus.Internal
     public @Range(from = -1, to = Integer.MAX_VALUE) int getDefaultSelectedButton() {
         return defaultSelectedButton;
     }
 
+    /**
+     * @param defaultSelectedButton The button to be selected as default for this menu.
+     */
     public void setDefaultSelectedButton(@Range(from = -1, to = Integer.MAX_VALUE) int defaultSelectedButton) {
         this.defaultSelectedButton = defaultSelectedButton;
     }
@@ -46,6 +62,7 @@ public abstract class FixedButtonMenu extends Menu implements DataPropertyHolder
         this.update(openInventory);
     }
 
+    @ApiStatus.Internal
     @Override
     public @NotNull PropertyPair[] properties() {
         return new PropertyPair[]{

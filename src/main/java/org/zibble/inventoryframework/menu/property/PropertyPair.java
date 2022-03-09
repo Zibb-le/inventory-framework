@@ -4,11 +4,21 @@ import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Range;
 
+/**
+ * A window data property that can be sent to the {@link org.zibble.inventoryframework.protocol.ProtocolPlayer}.
+ * Refer to <a href = "https://wiki.vg/Protocol#Window_Property">Window Property</a>
+ */
 @ApiStatus.Internal
 public interface PropertyPair {
 
+    /**
+     * @return the id of this property
+     */
     @Range(from = 0, to = Integer.MAX_VALUE) int id();
 
+    /**
+     * @return the data of this property
+     */
     @Range(from = 0, to = Integer.MAX_VALUE) int value();
 
     @NotNull

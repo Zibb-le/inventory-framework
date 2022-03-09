@@ -20,7 +20,7 @@ public class PotionEffect {
         this.particles = particles;
     }
 
-    public EffectType type() {
+    public EffectType getType() {
         return effectType;
     }
 
@@ -36,7 +36,7 @@ public class PotionEffect {
         return ambient;
     }
 
-    public boolean isParticles() {
+    public boolean hasParticles() {
         return particles;
     }
 

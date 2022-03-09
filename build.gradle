@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'org.zibble'
-version '1.0-SNAPSHOT'
+version '1.0'
 
 repositories {
     mavenLocal()
@@ -30,13 +30,9 @@ publishing {
                 username = "$usr"
                 password = "$pwd"
             }
-            url 'https://repo.zibble.org/nexus/repository/maven-snapshots/'
+            url 'https://repo.zibble.org/nexus/repository/maven-releases/'
         }
     }
-}
-
-build {
-    dependsOn publish
 }
 
 publish.shouldRunAfter build

@@ -16,10 +16,10 @@ import org.zibble.inventoryframework.protocol.item.ItemStack;
 
 public class BrewingStandMenu extends NamedMenu implements DataPropertyHolder {
 
-    private static final boolean POWDER_SUPPORT = InventoryFramework.framework().serverVersion().isNewerThanOrEquals(ServerVersion.V_1_9);
+    private static final boolean POWDER_SUPPORT = InventoryFramework.framework().getServerVersion().isNewerThanOrEquals(ServerVersion.V_1_9);
 
-    private @Range(from = 0, to = 20) int brewTime;
-    private @Range(from = 0, to = 400) int fuel;
+    private @Range(from = 0, to = 20) int fuel;
+    private @Range(from = 0, to = 400) int brewTime;
     private MenuItem<ItemStack> powderSlot;
 
     public BrewingStandMenu(@Nullable final Component title) {
@@ -45,20 +45,36 @@ public class BrewingStandMenu extends NamedMenu implements DataPropertyHolder {
         return true;
     }
 
-    public @Range(from = 0, to = 20) int getBrewTime() {
-        return brewTime;
-    }
-
-    public void setBrewTime(@Range(from = 0, to = 20) final int brewTime) {
-        this.brewTime = brewTime;
-    }
-
-    public @Range(from = 0, to = 400) int getFuel() {
+    /**
+     * @return The current fuel left in the brewing stand
+     *         Refer to <a href="https://wiki.vg/Protocol#Window_Property">Window Property</a>
+     */
+    public @Range(from = 0, to = 20) int getFuel() {
         return fuel;
     }
 
-    public void setFuel(@Range(from = 0, to = 400) final int fuel) {
+    /**
+     * @param fuel The fuel level to set
+     *             Refer to <a href="https://wiki.vg/Protocol#Window_Property">Window Property</a>
+     */
+    public void setFuel(@Range(from = 0, to = 20) final int fuel) {
         this.fuel = fuel;
+    }
+
+    /**
+     * @return The current brew time of the brewing stand
+     *         Refer to <a href="https://wiki.vg/Protocol#Window_Property">Window Property</a>
+     */
+    public @Range(from = 0, to = 400) int getBrewTime() {
+        return brewTime;
+    }
+
+    /**
+     * @param brewTime The brew time to set
+     *                 Refer to <a href="https://wiki.vg/Protocol#Window_Property">Window Property</a>
+     */
+    public void setBrewTime(@Range(from = 0, to = 400) final int brewTime) {
+        this.brewTime = brewTime;
     }
 
     @Override
@@ -68,7 +84,7 @@ public class BrewingStandMenu extends NamedMenu implements DataPropertyHolder {
                 && POWDER_SUPPORT) {
             openInventory.setSlot(4, this.powderSlot.getContent());
         }
-        openInventory.sendItems(this.items());
+        openInventory.sendItems(this.getItems());
         openInventory.updateWindowData(this.properties());
     }
 
@@ -76,8 +92,8 @@ public class BrewingStandMenu extends NamedMenu implements DataPropertyHolder {
     @NotNull
     public PropertyPair[] properties() {
         return new PropertyPair[] {
-                PropertyPair.of(0, this.brewTime),
-                PropertyPair.of(1, this.fuel)
+                PropertyPair.of(0, this.fuel),
+                PropertyPair.of(1, this.brewTime)
         };
     }
 }
