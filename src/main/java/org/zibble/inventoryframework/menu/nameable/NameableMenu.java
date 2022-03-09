@@ -8,4 +8,6 @@ public interface NameableMenu {
     @Nullable
     Component title();
 
+    void title(@Nullable Component title);
+
 }

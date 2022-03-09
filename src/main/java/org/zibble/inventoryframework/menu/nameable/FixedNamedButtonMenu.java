@@ -7,7 +7,7 @@ import org.zibble.inventoryframework.menu.FixedButtonMenu;
 
 public abstract class FixedNamedButtonMenu extends FixedButtonMenu implements NameableMenu {
 
-    private final @Nullable Component title;
+    private @Nullable Component title;
 
     public FixedNamedButtonMenu(@Range(from = 0, to = Integer.MAX_VALUE) final int rows,
                                 @Range(from = 0, to = Integer.MAX_VALUE) final int columns,
@@ -23,4 +23,10 @@ public abstract class FixedNamedButtonMenu extends FixedButtonMenu implements Na
     public Component title() {
         return this.title;
     }
+
+    @Override
+    public void title(@Nullable Component title) {
+        this.title = title;
+    }
+
 }

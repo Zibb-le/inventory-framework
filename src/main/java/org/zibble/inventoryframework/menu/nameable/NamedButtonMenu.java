@@ -7,7 +7,7 @@ import org.zibble.inventoryframework.menu.ButtonMenu;
 
 public abstract class NamedButtonMenu<C> extends ButtonMenu<C> implements NameableMenu {
 
-    private final @Nullable Component title;
+    private @Nullable Component title;
 
     public NamedButtonMenu(@Range(from = 0, to = Integer.MAX_VALUE) final int itemRows,
                            @Range(from = 0, to = Integer.MAX_VALUE) final int itemColumns,
@@ -23,6 +23,11 @@ public abstract class NamedButtonMenu<C> extends ButtonMenu<C> implements Nameab
     @Nullable
     public Component title() {
         return title;
+    }
+
+    @Override
+    public void title(@Nullable Component title) {
+        this.title = title;
     }
 
 }
