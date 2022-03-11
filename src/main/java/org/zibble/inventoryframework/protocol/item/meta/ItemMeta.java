@@ -127,6 +127,10 @@ public class ItemMeta {
             compound.setTag(REPAIR_COST, new NBTInt(this.repairCost));
     }
 
+    public <T extends ItemMeta> Builder<T> toBuilder() {
+        return new Builder<>((T) this);
+    }
+
     public enum Flag {
         HIDE_ENCHANTS,
         HIDE_ATTRIBUTES,

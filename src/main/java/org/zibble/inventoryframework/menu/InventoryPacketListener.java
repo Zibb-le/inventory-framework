@@ -34,6 +34,7 @@ public class InventoryPacketListener extends PacketListenerAbstract {
                     inv.menu().update(inv.player());
                     event.setCancelled(true);
                     inv.player().updatePlayerInventory();
+                    break;
                 }
             }
         } else if (event.getPacketType() == PacketType.Play.Client.CLOSE_WINDOW) {
@@ -41,7 +42,9 @@ public class InventoryPacketListener extends PacketListenerAbstract {
             for (AbstractOpenInventory inv : Menu.OPEN_INVENTORIES.values()) {
                 if (inv.windowId() == packet.getWindowId() && event.getUser().equals(inv.player().asProtocol())) {
                     inv.listener().onClose();
+                    Menu.OPEN_INVENTORIES.remove(inv.player());
                     event.setCancelled(true);
+                    break;
                 }
             }
         } else if (event.getPacketType() == PacketType.Play.Client.CLICK_WINDOW_BUTTON) {
@@ -50,6 +53,7 @@ public class InventoryPacketListener extends PacketListenerAbstract {
                 if (inv.windowId() == packet.getWindowId() && event.getUser().equals(inv.player().asProtocol())) {
                     inv.listener().onButtonClick(packet.getButtonId());
                     event.setCancelled(true);
+                    break;
                 }
             }
         }

@@ -6,6 +6,7 @@ import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.zibble.inventoryframework.menu.InventoryPacketListener;
 
 import java.util.concurrent.ExecutorService;
@@ -15,8 +16,8 @@ import java.util.function.Consumer;
  * The main class of Inventory Framework.
  * This class is responsible for registering the packet listener and running the actions defined in click actions.
  * <p>
- * Initialize this class with {@link #init(ExecutorService)}
- * And when the server stops run {@link #terminate()}
+ * Initialize this class with {@link #init(ExecutorService)} or {@link #init(Consumer)}
+ * And when the server stops, run {@link #terminate()}
  */
 public class InventoryFramework {
 
@@ -25,15 +26,27 @@ public class InventoryFramework {
     private final PacketListenerCommon listener;
     private final ServerVersion serverVersion;
 
-    private final ExecutorService actionRunner;
+    private final Consumer<Runnable> actionRunner;
 
     @Contract("_ -> new")
     @NotNull
     public static InventoryFramework init(@NotNull ExecutorService actionRunner) {
+        return init(actionRunner::submit);
+    }
+
+    @Contract("_ -> new")
+    @NotNull
+    public static InventoryFramework init(@NotNull Consumer<Runnable> actionRunner) {
         return new InventoryFramework(actionRunner);
     }
 
-    private InventoryFramework(@NotNull ExecutorService runner) {
+    @Contract(" -> new")
+    @NotNull
+    public static InventoryFramework init() {
+        return new InventoryFramework(null);
+    }
+
+    private InventoryFramework(@Nullable Consumer<Runnable> runner) {
         if (instance != null) {
             throw new IllegalStateException("InventoryFramework is already initialized");
         }
@@ -51,7 +64,11 @@ public class InventoryFramework {
 
     @ApiStatus.Internal
     public void run(Runnable runnable) {
-        actionRunner.submit(runnable);
+        if (actionRunner != null) {
+            actionRunner.accept(runnable);
+        } else {
+            runnable.run();
+        }
     }
 
     /**
@@ -59,7 +76,6 @@ public class InventoryFramework {
      */
     public void terminate() {
         PacketEvents.getAPI().getEventManager().unregisterListener(this.listener);
-        actionRunner.shutdown();
         instance = null;
     }
 
