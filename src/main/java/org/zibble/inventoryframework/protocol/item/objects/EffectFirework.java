@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.Collections;
 import java.util.List;
 
-public class FireworkEffect {
+public class EffectFirework {
 
     private final Type type;
     private final boolean flicker;
@@ -12,7 +12,7 @@ public class FireworkEffect {
     private final List<Color> colors;
     private final List<Color> fadeColors;
 
-    public FireworkEffect(Type type, boolean flicker, boolean trail, List<Color> colors, List<Color> fadeColors) {
+    public EffectFirework(Type type, boolean flicker, boolean trail, List<Color> colors, List<Color> fadeColors) {
         this.type = type;
         this.flicker = flicker;
         this.trail = trail;

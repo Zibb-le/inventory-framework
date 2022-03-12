@@ -7,13 +7,13 @@ import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 
-public class LeatherArmorMeta extends ItemMeta {
+public class MetaLeatherArmor extends MetaItem {
 
     private static final String COLOR = "color";
 
     private Color color;
 
-    protected LeatherArmorMeta() {
+    protected MetaLeatherArmor() {
         super();
     }
 

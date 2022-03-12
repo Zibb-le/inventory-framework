@@ -9,13 +9,13 @@ import org.jetbrains.annotations.NotNull;
 import org.zibble.inventoryframework.protocol.item.objects.Profile;
 import org.zibble.inventoryframework.protocol.item.objects.Property;
 
-public class SkullMeta extends ItemMeta {
+public class MetaSkull extends MetaItem {
 
     public static final String SKULL_OWNER = "SkullOwner";
 
     private Profile profile;
 
-    protected SkullMeta() {
+    protected MetaSkull() {
         super();
     }
 

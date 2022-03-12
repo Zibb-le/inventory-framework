@@ -15,7 +15,7 @@ import org.zibble.inventoryframework.menu.Menu;
 import org.zibble.inventoryframework.menu.nameable.NameableMenu;
 import org.zibble.inventoryframework.menu.property.PropertyPair;
 import org.zibble.inventoryframework.protocol.ProtocolPlayer;
-import org.zibble.inventoryframework.protocol.item.ItemStack;
+import org.zibble.inventoryframework.protocol.item.StackItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,10 +61,10 @@ public abstract class AbstractOpenInventory {
     }
 
     @SuppressWarnings("ConstantConditions")
-    public void sendItems(@NotNull MenuItem<ItemStack>[][] items) {
+    public void sendItems(@NotNull MenuItem<StackItem>[][] items) {
         List<com.github.retrooper.packetevents.protocol.item.ItemStack> itemStacks = new ArrayList<>(items.length * items[0].length);
-        for (MenuItem<ItemStack>[] a : items) {
-            for (MenuItem<ItemStack> item : a) {
+        for (MenuItem<StackItem>[] a : items) {
+            for (MenuItem<StackItem> item : a) {
                 if (item == null || item.getContent() == null) itemStacks.add(null);
                 else itemStacks.add(item.getContent().asProtocol());
             }
@@ -72,7 +72,7 @@ public abstract class AbstractOpenInventory {
         this.sendItems(itemStacks);
     }
 
-    public void setSlot(@Range(from = 0, to = Integer.MAX_VALUE) int slot, @Nullable ItemStack itemStack) {
+    public void setSlot(@Range(from = 0, to = Integer.MAX_VALUE) int slot, @Nullable StackItem itemStack) {
         WrapperPlayServerSetSlot wrapper = new WrapperPlayServerSetSlot(this.windowId, 0, slot, itemStack == null ? null : itemStack.asProtocol());
         this.user.sendPacket(wrapper);
     }

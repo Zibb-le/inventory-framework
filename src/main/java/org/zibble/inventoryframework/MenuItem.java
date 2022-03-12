@@ -3,13 +3,13 @@ package org.zibble.inventoryframework;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.zibble.inventoryframework.protocol.item.ItemStack;
+import org.zibble.inventoryframework.protocol.item.StackItem;
 import org.zibble.inventoryframework.protocol.item.objects.buttons.EnchantOption;
 
 public class MenuItem<C> {
 
     @Contract(value = "_ -> new", pure = true)
-    public static @NotNull MenuItem<ItemStack> of(@Nullable ItemStack itemStack) {
+    public static @NotNull MenuItem<StackItem> of(@Nullable StackItem itemStack) {
         return new MenuItem<>(itemStack);
     }
 

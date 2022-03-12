@@ -1,6 +1,6 @@
 package org.zibble.inventoryframework.protocol.item.objects.enums;
 
-public enum DyeColor {
+public enum EnumDye {
 
     WHITE,
     ORANGE,
@@ -22,7 +22,7 @@ public enum DyeColor {
 
     private final byte ID;
 
-    DyeColor() {
+    EnumDye() {
         this.ID = (byte) (15 - this.ordinal());
     }
 

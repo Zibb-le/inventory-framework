@@ -3,13 +3,13 @@ package org.zibble.inventoryframework.protocol.item.meta;
 import com.github.retrooper.packetevents.protocol.nbt.*;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
-import org.zibble.inventoryframework.protocol.item.objects.PotionEffect;
+import org.zibble.inventoryframework.protocol.item.objects.EffectPotion;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class PotionMeta extends ItemMeta {
+public class MetaPotion extends MetaItem {
 
     private static final String AMPLIFIER = "Amplifier";
     private static final String AMBIENT = "Ambient";
@@ -18,25 +18,25 @@ public class PotionMeta extends ItemMeta {
     private static final String POTION_EFFECTS = "CustomPotionEffects";
     private static final String ID = "Id";
 
-    private List<PotionEffect> potionEffects;
+    private List<EffectPotion> potionEffects;
 
-    protected PotionMeta() {
+    protected MetaPotion() {
         this.potionEffects = new ArrayList<>();
     }
 
-    public List<PotionEffect> getPotionEffects() {
+    public List<EffectPotion> getPotionEffects() {
         return Collections.unmodifiableList(potionEffects);
     }
 
-    public void setPotionEffects(List<PotionEffect> potionEffects) {
+    public void setPotionEffects(List<EffectPotion> potionEffects) {
         this.potionEffects = potionEffects;
     }
 
-    public void addPotionEffect(PotionEffect potionEffect) {
+    public void addPotionEffect(EffectPotion potionEffect) {
         this.potionEffects.add(potionEffect);
     }
 
-    public void removePotionEffect(PotionEffect potionEffect) {
+    public void removePotionEffect(EffectPotion potionEffect) {
         this.potionEffects.remove(potionEffect);
     }
 
@@ -46,7 +46,7 @@ public class PotionMeta extends ItemMeta {
         super.applyTo(compound);
         if (this.potionEffects.isEmpty()) return;
         NBTList<NBTCompound> list = new NBTList<>(NBTType.COMPOUND);
-        for (PotionEffect potionEffect : this.potionEffects) {
+        for (EffectPotion potionEffect : this.potionEffects) {
             NBTCompound potion = new NBTCompound();
             potion.setTag(ID, new NBTByte((byte) potionEffect.getType().getID()));
             potion.setTag(AMPLIFIER, new NBTByte((byte) potionEffect.getAmplifier()));

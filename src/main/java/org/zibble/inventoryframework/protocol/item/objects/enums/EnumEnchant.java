@@ -4,7 +4,7 @@ import com.github.retrooper.packetevents.protocol.item.enchantment.type.Enchantm
 import com.github.retrooper.packetevents.protocol.item.enchantment.type.EnchantmentTypes;
 import org.jetbrains.annotations.ApiStatus;
 
-public enum Enchantment {
+public enum EnumEnchant {
 
     POWER(EnchantmentTypes.POWER_ARROWS),
     FLAMING(EnchantmentTypes.FLAMING_ARROWS),
@@ -47,7 +47,7 @@ public enum Enchantment {
 
     private final EnchantmentType protocol;
 
-    Enchantment(EnchantmentType enchantmentType) {
+    EnumEnchant(EnchantmentType enchantmentType) {
         this.protocol = enchantmentType;
     }
 

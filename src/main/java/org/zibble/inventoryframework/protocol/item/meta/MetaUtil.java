@@ -3,10 +3,10 @@ package org.zibble.inventoryframework.protocol.item.meta;
 import com.github.retrooper.packetevents.protocol.nbt.*;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
-import org.zibble.inventoryframework.protocol.Material;
-import org.zibble.inventoryframework.protocol.Materials;
-import org.zibble.inventoryframework.protocol.item.objects.FireworkEffect;
-import org.zibble.inventoryframework.protocol.item.objects.enums.Enchantment;
+import org.zibble.inventoryframework.protocol.ItemMaterial;
+import org.zibble.inventoryframework.protocol.ItemMaterials;
+import org.zibble.inventoryframework.protocol.item.objects.EffectFirework;
+import org.zibble.inventoryframework.protocol.item.objects.enums.EnumEnchant;
 
 import java.util.Map;
 
@@ -26,54 +26,54 @@ public class MetaUtil {
     private static final String EXPLOSION_TYPE = "Type";
 
     @ApiStatus.Internal
-    public static ItemMeta getMeta(final Material type) {
-        if (Materials.WRITABLE_BOOK.equals(type) || Materials.WRITTEN_BOOK.equals(type)) {
-            return new BookMeta();
-        } else if (Materials.PLAYER_HEAD.equals(type)) {
-            return new SkullMeta();
-        } else if (Materials.LEATHER_HELMET.equals(type)
-                || Materials.LEATHER_CHESTPLATE.equals(type)
-                || Materials.LEATHER_LEGGINGS.equals(type)
-                || Materials.LEATHER_BOOTS.equals(type)) {
-            return new LeatherArmorMeta();
-        } else if (Materials.POTION.equals(type)) {
-            return new PotionMeta();
-        } else if (Materials.MAP.equals(type)) {
-            return new MapMeta();
-        } else if (Materials.FIREWORK_ROCKET.equals(type)) {
-            return new FireworkMeta();
-        } else if (Materials.FIRE_CHARGE.equals(type)) {
-            return new ChargeMeta();
-        } else if (Materials.ENCHANTED_BOOK.equals(type)) {
-            return new EnchantedBookMeta();
-        } else if (Materials.BLACK_BANNER.equals(type)
-                || Materials.BLUE_BANNER.equals(type)
-                || Materials.BROWN_BANNER.equals(type)
-                || Materials.CYAN_BANNER.equals(type)
-                || Materials.GRAY_BANNER.equals(type)
-                || Materials.GREEN_BANNER.equals(type)
-                || Materials.LIGHT_BLUE_BANNER.equals(type)
-                || Materials.LIGHT_GRAY_BANNER.equals(type)
-                || Materials.LIME_BANNER.equals(type)
-                || Materials.MAGENTA_BANNER.equals(type)
-                || Materials.ORANGE_BANNER.equals(type)
-                || Materials.PINK_BANNER.equals(type)
-                || Materials.PURPLE_BANNER.equals(type)
-                || Materials.RED_BANNER.equals(type)
-                || Materials.WHITE_BANNER.equals(type)
-                || Materials.YELLOW_BANNER.equals(type)
-                || Materials.CREEPER_BANNER_PATTERN.equals(type)
-                || Materials.SKULL_BANNER_PATTERN.equals(type)
-                || Materials.MOJANG_BANNER_PATTERN.equals(type)
-                || Materials.FLOWER_BANNER_PATTERN.equals(type)
-                || Materials.GLOBE_BANNER_PATTERN.equals(type)
-                || Materials.PIGLIN_BANNER_PATTERN.equals(type)) {
-            return new BannerMeta(type);
+    public static MetaItem getMeta(final ItemMaterial type) {
+        if (ItemMaterials.WRITABLE_BOOK.equals(type) || ItemMaterials.WRITTEN_BOOK.equals(type)) {
+            return new MetaBook();
+        } else if (ItemMaterials.PLAYER_HEAD.equals(type)) {
+            return new MetaSkull();
+        } else if (ItemMaterials.LEATHER_HELMET.equals(type)
+                || ItemMaterials.LEATHER_CHESTPLATE.equals(type)
+                || ItemMaterials.LEATHER_LEGGINGS.equals(type)
+                || ItemMaterials.LEATHER_BOOTS.equals(type)) {
+            return new MetaLeatherArmor();
+        } else if (ItemMaterials.POTION.equals(type)) {
+            return new MetaPotion();
+        } else if (ItemMaterials.MAP.equals(type)) {
+            return new MetaMap();
+        } else if (ItemMaterials.FIREWORK_ROCKET.equals(type)) {
+            return new MetaFirework();
+        } else if (ItemMaterials.FIRE_CHARGE.equals(type)) {
+            return new MetaCharge();
+        } else if (ItemMaterials.ENCHANTED_BOOK.equals(type)) {
+            return new MetaEnchantedBook();
+        } else if (ItemMaterials.BLACK_BANNER.equals(type)
+                || ItemMaterials.BLUE_BANNER.equals(type)
+                || ItemMaterials.BROWN_BANNER.equals(type)
+                || ItemMaterials.CYAN_BANNER.equals(type)
+                || ItemMaterials.GRAY_BANNER.equals(type)
+                || ItemMaterials.GREEN_BANNER.equals(type)
+                || ItemMaterials.LIGHT_BLUE_BANNER.equals(type)
+                || ItemMaterials.LIGHT_GRAY_BANNER.equals(type)
+                || ItemMaterials.LIME_BANNER.equals(type)
+                || ItemMaterials.MAGENTA_BANNER.equals(type)
+                || ItemMaterials.ORANGE_BANNER.equals(type)
+                || ItemMaterials.PINK_BANNER.equals(type)
+                || ItemMaterials.PURPLE_BANNER.equals(type)
+                || ItemMaterials.RED_BANNER.equals(type)
+                || ItemMaterials.WHITE_BANNER.equals(type)
+                || ItemMaterials.YELLOW_BANNER.equals(type)
+                || ItemMaterials.CREEPER_BANNER_PATTERN.equals(type)
+                || ItemMaterials.SKULL_BANNER_PATTERN.equals(type)
+                || ItemMaterials.MOJANG_BANNER_PATTERN.equals(type)
+                || ItemMaterials.FLOWER_BANNER_PATTERN.equals(type)
+                || ItemMaterials.GLOBE_BANNER_PATTERN.equals(type)
+                || ItemMaterials.PIGLIN_BANNER_PATTERN.equals(type)) {
+            return new MetaBanner(type);
         }
-        return new ItemMeta();
+        return new MetaItem();
     }
 
-    protected static void applyFireworkEffect(FireworkEffect effect, NBTCompound target) {
+    protected static void applyFireworkEffect(EffectFirework effect, NBTCompound target) {
         if (effect.hasFlicker()) {
             target.setTag(EXPLOSION_FLICKER, new NBTByte((byte) 1));
         }
@@ -93,10 +93,10 @@ public class MetaUtil {
         target.setTag(EXPLOSION_TYPE, new NBTByte((byte) effect.getType().ordinal()));
     }
 
-    protected static void applyEnchants(Map<Enchantment, Integer> enchantments, NBTCompound target) {
+    protected static void applyEnchants(Map<EnumEnchant, Integer> enchantments, NBTCompound target) {
         if (enchantments.size() > 0) {
             NBTList<NBTCompound> enchants = new NBTList<>(NBTType.COMPOUND);
-            for (Map.Entry<Enchantment, Integer> entry : enchantments.entrySet()) {
+            for (Map.Entry<EnumEnchant, Integer> entry : enchantments.entrySet()) {
                 NBTCompound enchant = new NBTCompound();
                 enchant.setTag(ENCHANT_ID, new NBTShort((short) entry.getKey().getID()));
                 enchant.setTag(ENCHANT_LVL, new NBTShort(entry.getValue().shortValue()));

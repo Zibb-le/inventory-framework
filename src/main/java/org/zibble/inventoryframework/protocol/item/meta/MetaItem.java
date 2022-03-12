@@ -4,13 +4,13 @@ import com.github.retrooper.packetevents.protocol.nbt.*;
 import com.github.retrooper.packetevents.util.AdventureSerializer;
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.*;
-import org.zibble.inventoryframework.protocol.Material;
-import org.zibble.inventoryframework.protocol.item.ItemStack;
-import org.zibble.inventoryframework.protocol.item.objects.enums.Enchantment;
+import org.zibble.inventoryframework.protocol.ItemMaterial;
+import org.zibble.inventoryframework.protocol.item.StackItem;
+import org.zibble.inventoryframework.protocol.item.objects.enums.EnumEnchant;
 
 import java.util.*;
 
-public class ItemMeta {
+public class MetaItem {
 
     private static final String NAME = "Name";
     private static final String LORE = "Lore";
@@ -20,14 +20,14 @@ public class ItemMeta {
 
     private @Nullable Component displayName;
     private @NotNull List<@Nullable Component> lore;
-    private final Map<@NotNull Enchantment, @Range(from = 1, to = Integer.MAX_VALUE) Integer> enchantments;
+    private final Map<@NotNull EnumEnchant, @Range(from = 1, to = Integer.MAX_VALUE) Integer> enchantments;
     private @Range(from = 0, to = Integer.MAX_VALUE) int repairCost;
     private final @NotNull EnumSet<Flag> flags;
     private boolean unBreakable;
 
-    protected ItemMeta() {
+    protected MetaItem() {
         this.lore = new ArrayList<>();
-        this.enchantments = new EnumMap<>(Enchantment.class);
+        this.enchantments = new EnumMap<>(EnumEnchant.class);
         this.flags = EnumSet.noneOf(Flag.class);
         this.unBreakable = false;
     }
@@ -37,7 +37,7 @@ public class ItemMeta {
      */
     @SuppressWarnings("unchecked")
     @Contract(value = "_ -> new", pure = true)
-    public static <T extends ItemMeta> Builder<T> builder(@NotNull Material material) {
+    public static <T extends MetaItem> Builder<T> builder(@NotNull ItemMaterial material) {
         return new Builder<>((T) MetaUtil.getMeta(material));
     }
 
@@ -60,15 +60,15 @@ public class ItemMeta {
     }
 
     @NotNull
-    public Map<@NotNull Enchantment, @Range(from = 1, to = Integer.MAX_VALUE) Integer> getEnchantments() {
+    public Map<@NotNull EnumEnchant, @Range(from = 1, to = Integer.MAX_VALUE) Integer> getEnchantments() {
         return enchantments;
     }
 
-    public void addEnchant(@NotNull Enchantment enchantment, @Range(from = 0, to = Integer.MAX_VALUE) int level) {
+    public void addEnchant(@NotNull EnumEnchant enchantment, @Range(from = 0, to = Integer.MAX_VALUE) int level) {
         this.enchantments.put(enchantment, level);
     }
 
-    public void removeEnchantment(@NotNull Enchantment enchantment) {
+    public void removeEnchantment(@NotNull EnumEnchant enchantment) {
         this.enchantments.remove(enchantment);
     }
 
@@ -127,7 +127,7 @@ public class ItemMeta {
             compound.setTag(REPAIR_COST, new NBTInt(this.repairCost));
     }
 
-    public <T extends ItemMeta> Builder<T> toBuilder() {
+    public <T extends MetaItem> Builder<T> toBuilder() {
         return new Builder<>((T) this);
     }
 
@@ -140,11 +140,11 @@ public class ItemMeta {
         HIDE_POTION_EFFECTS;
     }
 
-    public static class Builder<T extends ItemMeta> {
+    public static class Builder<T extends MetaItem> {
 
         private Component displayName;
         private List<@Nullable Component> lore;
-        private final Map<@NotNull Enchantment, @Range(from = 1, to = Integer.MAX_VALUE) Integer> enchantments;
+        private final Map<@NotNull EnumEnchant, @Range(from = 1, to = Integer.MAX_VALUE) Integer> enchantments;
         private final Set<Flag> flags;
         private int repairCost;
         private boolean unBreakable;
@@ -181,7 +181,7 @@ public class ItemMeta {
             return this;
         }
 
-        public Builder<T> withEnchantment(@NotNull Enchantment enchantment, @Range(from = 1, to = Integer.MAX_VALUE) int level) {
+        public Builder<T> withEnchantment(@NotNull EnumEnchant enchantment, @Range(from = 1, to = Integer.MAX_VALUE) int level) {
             this.enchantments.put(enchantment, level);
             return this;
         }
@@ -216,7 +216,7 @@ public class ItemMeta {
             return meta;
         }
 
-        public void applyTo(ItemStack item) {
+        public void applyTo(StackItem item) {
             if (item == null || item.getItemMeta().getClass().equals(this.meta.getClass())) return;
             item.setItemMeta(this.build());
         }

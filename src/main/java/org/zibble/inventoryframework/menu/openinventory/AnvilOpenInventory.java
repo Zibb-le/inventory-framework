@@ -9,7 +9,7 @@ import org.zibble.inventoryframework.InventoryListener;
 import org.zibble.inventoryframework.MenuItem;
 import org.zibble.inventoryframework.menu.inventory.AnvilMenu;
 import org.zibble.inventoryframework.protocol.ProtocolPlayer;
-import org.zibble.inventoryframework.protocol.item.ItemStack;
+import org.zibble.inventoryframework.protocol.item.StackItem;
 
 import java.util.function.Consumer;
 
@@ -40,7 +40,7 @@ public class AnvilOpenInventory extends AbstractOpenInventory {
                     InventoryFramework.framework().run(() -> menu.getOutputClick().accept(this.getDisplayName(clickItem)));
                     return;
                 }
-                MenuItem<ItemStack> item = menu.asItemList().get(slot);
+                MenuItem<StackItem> item = menu.asItemList().get(slot);
                 if (item == null || item.getClickAction() == null) return;
                 InventoryFramework.framework().run(() -> item.getClickAction().onClick(user, clickType));
             }

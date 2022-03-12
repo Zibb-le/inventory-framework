@@ -8,7 +8,7 @@ import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
-public class BookMeta extends ItemMeta {
+public class MetaBook extends MetaItem {
 
     protected static final String BOOK_TITLE = "title";
     protected static final String BOOK_AUTHOR = "author";
@@ -18,7 +18,7 @@ public class BookMeta extends ItemMeta {
     private Component author;
     private Generation generation;
 
-    protected BookMeta() {
+    protected MetaBook() {
         super();
     }
 

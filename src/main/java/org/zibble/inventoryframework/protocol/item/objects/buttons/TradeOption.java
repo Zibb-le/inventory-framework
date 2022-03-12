@@ -2,7 +2,7 @@ package org.zibble.inventoryframework.protocol.item.objects.buttons;
 
 import com.github.retrooper.packetevents.protocol.recipe.data.MerchantRecipeData;
 import org.jetbrains.annotations.ApiStatus;
-import org.zibble.inventoryframework.protocol.item.ItemStack;
+import org.zibble.inventoryframework.protocol.item.StackItem;
 
 /**
  * Class meant to be used a type parameter for {@link org.zibble.inventoryframework.MenuItem} class to allow displaying enchants in {@link org.zibble.inventoryframework.menu.inventory.buttonmenus.MerchantMenu}
@@ -10,9 +10,9 @@ import org.zibble.inventoryframework.protocol.item.ItemStack;
  */
 public class TradeOption {
 
-    private final ItemStack buyItem1;
-    private final ItemStack buyItem2;
-    private final ItemStack sellItem;
+    private final StackItem buyItem1;
+    private final StackItem buyItem2;
+    private final StackItem sellItem;
     private final int uses;
     private final int maxUses;
     private final int xp;
@@ -20,7 +20,7 @@ public class TradeOption {
     private final int specialPrice;
     private final int demand;
 
-    private TradeOption(ItemStack buyItem1, ItemStack buyItem2, ItemStack sellItem, int uses, int maxUses, int xp, float priceMultiplier, int demand, int specialPrice) {
+    private TradeOption(StackItem buyItem1, StackItem buyItem2, StackItem sellItem, int uses, int maxUses, int xp, float priceMultiplier, int demand, int specialPrice) {
         this.buyItem1 = buyItem1;
         this.buyItem2 = buyItem2;
         this.sellItem = sellItem;
@@ -35,21 +35,21 @@ public class TradeOption {
     /**
      * @return The primary buy item
      */
-    public ItemStack getPrimaryBuyItem() {
+    public StackItem getPrimaryBuyItem() {
         return buyItem1;
     }
 
     /**
      * @return The secondary buy item or null if empty
      */
-    public ItemStack getSecondaryBuyItem() {
+    public StackItem getSecondaryBuyItem() {
         return buyItem2;
     }
 
     /**
      * @return The sell item
      */
-    public ItemStack getSellItem() {
+    public StackItem getSellItem() {
         return sellItem;
     }
 

@@ -4,7 +4,7 @@ import com.github.retrooper.packetevents.protocol.potion.PotionType;
 import com.github.retrooper.packetevents.protocol.potion.PotionTypes;
 import org.jetbrains.annotations.ApiStatus;
 
-public enum EffectType {
+public enum EnumEffect {
 
     ABSORPTION(PotionTypes.ABSORPTION),
     BAD_OMEN(PotionTypes.BAD_OMEN),
@@ -43,7 +43,7 @@ public enum EffectType {
 
     private final PotionType protocol;
 
-    EffectType(PotionType potionType) {
+    EnumEffect(PotionType potionType) {
         this.protocol = potionType;
     }
 

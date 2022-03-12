@@ -6,14 +6,14 @@ import org.zibble.inventoryframework.InventoryType;
 import org.zibble.inventoryframework.MenuItem;
 import org.zibble.inventoryframework.menu.Menu;
 import org.zibble.inventoryframework.menu.openinventory.AbstractOpenInventory;
-import org.zibble.inventoryframework.protocol.item.ItemStack;
+import org.zibble.inventoryframework.protocol.item.StackItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class WorkBenchMenu extends Menu {
 
-    private @Nullable MenuItem<ItemStack> resultItem;
+    private @Nullable MenuItem<StackItem> resultItem;
 
     public WorkBenchMenu() {
         super(3, 3);
@@ -31,11 +31,11 @@ public class WorkBenchMenu extends Menu {
     }
 
     @Nullable
-    public MenuItem<ItemStack> getResultItem() {
+    public MenuItem<StackItem> getResultItem() {
         return resultItem;
     }
 
-    public void setResultItem(@Nullable MenuItem<ItemStack> resultItem) {
+    public void setResultItem(@Nullable MenuItem<StackItem> resultItem) {
         this.resultItem = resultItem;
     }
 
@@ -44,8 +44,8 @@ public class WorkBenchMenu extends Menu {
     protected void update(@NotNull AbstractOpenInventory openInventory) {
         List<com.github.retrooper.packetevents.protocol.item.ItemStack> itemStacks = new ArrayList<>(this.getItems().length * this.getItems()[0].length + 1);
         itemStacks.add(com.github.retrooper.packetevents.protocol.item.ItemStack.EMPTY);
-        for (MenuItem<ItemStack>[] a : this.getItems()) {
-            for (MenuItem<ItemStack> item : a) {
+        for (MenuItem<StackItem>[] a : this.getItems()) {
+            for (MenuItem<StackItem> item : a) {
                 if (item == null || item.getContent() == null) itemStacks.add(null);
                 else itemStacks.add(item.getContent().asProtocol());
             }

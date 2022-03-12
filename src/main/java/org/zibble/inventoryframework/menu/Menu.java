@@ -9,7 +9,7 @@ import org.zibble.inventoryframework.MenuItem;
 import org.zibble.inventoryframework.menu.openinventory.AbstractOpenInventory;
 import org.zibble.inventoryframework.menu.openinventory.OpenInventory;
 import org.zibble.inventoryframework.protocol.ProtocolPlayer;
-import org.zibble.inventoryframework.protocol.item.ItemStack;
+import org.zibble.inventoryframework.protocol.item.StackItem;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -30,14 +30,14 @@ import java.util.function.Consumer;
  * The mask determines which slots can be filled by any item linked to the character.
  * By default, the mask is entirely filled with 'X'.
  */
-public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
+public abstract class Menu implements Iterable<MenuItem<StackItem>> {
 
     protected static final Map<ProtocolPlayer<?>, AbstractOpenInventory> OPEN_INVENTORIES = new ConcurrentHashMap<>();
 
     protected @Range(from = 0, to = Integer.MAX_VALUE) final int rows;
     protected @Range(from = 0, to = Integer.MAX_VALUE) final int columns;
     protected char[][] mask;
-    protected final @NotNull Map<Character, MenuItem<ItemStack>> itemMap;
+    protected final @NotNull Map<Character, MenuItem<StackItem>> itemMap;
 
     protected @Nullable Consumer<ProtocolPlayer<?>> onOpen;
     protected @Nullable Consumer<ProtocolPlayer<?>> onClose;
@@ -96,7 +96,7 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
      * @return Returns a non-modifiable map listing the {@link MenuItem}s linked to the characters that can be used in mask.
      */
     @NotNull
-    public Map<Character, MenuItem<ItemStack>> getItemMap() {
+    public Map<Character, MenuItem<StackItem>> getItemMap() {
         return Collections.unmodifiableMap(this.itemMap);
     }
 
@@ -104,7 +104,7 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
      * @param c The character whose linked {@link MenuItem} has to be set/changed
      * @param item The new {@link MenuItem} to be linked to the character
      */
-    public void setItem(final char c, @Nullable final MenuItem<ItemStack> item) {
+    public void setItem(final char c, @Nullable final MenuItem<StackItem> item) {
         if (item == null) {
             this.itemMap.remove(c);
         } else {
@@ -117,7 +117,7 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
      * @return The menu item linked to the character or null if no item is linked to the character
      */
     @Nullable
-    public MenuItem<ItemStack> getMaskItem(final char maskKey) {
+    public MenuItem<StackItem> getMaskItem(final char maskKey) {
         return this.itemMap.get(maskKey);
     }
 
@@ -126,7 +126,7 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
      * @return The menu item linked to the slot or null if no item is linked to the slot
      */
     @Nullable
-    public MenuItem<ItemStack> getItemAt(@Range(from = 0, to = Integer.MAX_VALUE) final int slot) {
+    public MenuItem<StackItem> getItemAt(@Range(from = 0, to = Integer.MAX_VALUE) final int slot) {
         return this.getItemAt(slot % this.columns, slot / this.rows);
     }
 
@@ -136,7 +136,7 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
      * @return The menu item linked to the slot or null if no item is linked to the slot
      */
     @Nullable
-    public MenuItem<ItemStack> getItemAt(@Range(from = 0, to = Integer.MAX_VALUE) final int x,
+    public MenuItem<StackItem> getItemAt(@Range(from = 0, to = Integer.MAX_VALUE) final int x,
                                          @Range(from = 0, to = Integer.MAX_VALUE) final int y) {
         return this.itemMap.get(this.mask[y][x]);
     }
@@ -146,8 +146,8 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
      * @return The items in the menu as a 2D array imitating a rectangle of the GUI
      */
     @NotNull
-    public MenuItem<ItemStack>[][] getItems() {
-        MenuItem<ItemStack>[][] items = new MenuItem[this.rows][this.columns];
+    public MenuItem<StackItem>[][] getItems() {
+        MenuItem<StackItem>[][] items = new MenuItem[this.rows][this.columns];
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.columns; j++) {
                 char c = this.mask[i][j];
@@ -161,8 +161,8 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
      * @return List of items in the menu in order of their slots
      */
     @NotNull
-    public List<MenuItem<ItemStack>> asItemList() {
-        List<MenuItem<ItemStack>> items = new ArrayList<>(rows * columns);
+    public List<MenuItem<StackItem>> asItemList() {
+        List<MenuItem<StackItem>> items = new ArrayList<>(rows * columns);
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.columns; j++) {
                 char c = this.mask[i][j];
@@ -174,7 +174,7 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
 
     @NotNull
     @Override
-    public Iterator<MenuItem<ItemStack>> iterator() {
+    public Iterator<MenuItem<StackItem>> iterator() {
         return this.asItemList().iterator();
     }
 
@@ -261,7 +261,7 @@ public abstract class Menu implements Iterable<MenuItem<ItemStack>> {
                            @NotNull final ProtocolPlayer<?> user) {
         AbstractOpenInventory openInventory = Menu.OPEN_INVENTORIES.get(user);
         if (openInventory != null) {
-            MenuItem<ItemStack> item = this.getItemAt(slot);
+            MenuItem<StackItem> item = this.getItemAt(slot);
             openInventory.setSlot(slot, item == null ? null : item.getContent());
         }
     }

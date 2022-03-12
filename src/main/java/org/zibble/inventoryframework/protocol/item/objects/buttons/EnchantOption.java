@@ -1,6 +1,6 @@
 package org.zibble.inventoryframework.protocol.item.objects.buttons;
 
-import org.zibble.inventoryframework.protocol.item.objects.enums.Enchantment;
+import org.zibble.inventoryframework.protocol.item.objects.enums.EnumEnchant;
 
 /**
  * Class meant to be used a type parameter for {@link org.zibble.inventoryframework.MenuItem} class to allow displaying enchants in {@link org.zibble.inventoryframework.menu.inventory.buttonmenus.EnchantingTableMenu}
@@ -24,7 +24,7 @@ public class EnchantOption {
      * @param enchantLevel The level of the enchantment to be shown
      * @return An instance of {@link EnchantOption} with the given parameters
      */
-    public static EnchantOption shown(int xpLevelCost, Enchantment enchantment, int enchantLevel) {
+    public static EnchantOption shown(int xpLevelCost, EnumEnchant enchantment, int enchantLevel) {
         return new EnchantOption(xpLevelCost, enchantment.getID(), enchantLevel);
     }
 

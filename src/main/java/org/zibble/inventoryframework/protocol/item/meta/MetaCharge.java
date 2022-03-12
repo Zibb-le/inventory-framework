@@ -3,23 +3,23 @@ package org.zibble.inventoryframework.protocol.item.meta;
 import com.github.retrooper.packetevents.protocol.nbt.NBTCompound;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
-import org.zibble.inventoryframework.protocol.item.objects.FireworkEffect;
+import org.zibble.inventoryframework.protocol.item.objects.EffectFirework;
 
-public class ChargeMeta extends ItemMeta {
+public class MetaCharge extends MetaItem {
 
     private static final String EXPLOSION = "Explosion";
 
-    private FireworkEffect fireworkEffect;
+    private EffectFirework fireworkEffect;
 
-    protected ChargeMeta() {
+    protected MetaCharge() {
         super();
     }
 
-    public FireworkEffect getEffect() {
+    public EffectFirework getEffect() {
         return fireworkEffect;
     }
 
-    public void setEffect(FireworkEffect fireworkEffect) {
+    public void setEffect(EffectFirework fireworkEffect) {
         this.fireworkEffect = fireworkEffect;
     }
 

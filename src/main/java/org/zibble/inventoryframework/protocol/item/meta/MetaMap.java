@@ -1,10 +1,10 @@
 package org.zibble.inventoryframework.protocol.item.meta;
 
-public class MapMeta extends ItemMeta {
+public class MetaMap extends MetaItem {
 
     private Scaling scaling;
 
-    protected MapMeta() {
+    protected MetaMap() {
         super();
     }
 

@@ -3,9 +3,9 @@ package org.zibble.inventoryframework.protocol.item;
 import com.github.retrooper.packetevents.protocol.nbt.NBTCompound;
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.*;
-import org.zibble.inventoryframework.protocol.Material;
-import org.zibble.inventoryframework.protocol.Materials;
-import org.zibble.inventoryframework.protocol.item.meta.ItemMeta;
+import org.zibble.inventoryframework.protocol.ItemMaterial;
+import org.zibble.inventoryframework.protocol.ItemMaterials;
+import org.zibble.inventoryframework.protocol.item.meta.MetaItem;
 import org.zibble.inventoryframework.protocol.item.meta.MetaUtil;
 
 import java.util.List;
@@ -14,14 +14,14 @@ import java.util.function.Function;
 /**
  * Vanilla ItemStack representation for use in Inventory Framework.
  */
-public class ItemStack {
+public class StackItem {
 
     /**
-     * @return An ItemStack of {@link Materials#AIR} type.
+     * @return An ItemStack of {@link ItemMaterials#AIR} type.
      */
     @Contract(value = " -> new", pure = true)
-    public static @NotNull ItemStack empty() {
-        return new ItemStack(Materials.AIR);
+    public static @NotNull StackItem empty() {
+        return new StackItem(ItemMaterials.AIR);
     }
 
     /**
@@ -29,7 +29,7 @@ public class ItemStack {
      * @return new {@link Builder}
      */
     @Contract(value = "_ -> new", pure = true)
-    public static @NotNull Builder builder(@NotNull Material material) {
+    public static @NotNull Builder builder(@NotNull ItemMaterial material) {
         return new Builder(material);
     }
 
@@ -38,43 +38,43 @@ public class ItemStack {
      * @return new {@link Builder}
      */
     @Contract(value = "_ -> new", pure = true)
-    public static @NotNull Builder builder(@NotNull ItemStack item) {
+    public static @NotNull Builder builder(@NotNull StackItem item) {
         return new Builder(item);
     }
 
-    private @NotNull final Material material;
+    private @NotNull final ItemMaterial material;
     private @Range(from = 0, to = 64) int amount;
     /**
      * The legacy data to be used for older versions of Minecraft.
      */
     private int legacyData = -1;
 
-    private @NotNull ItemMeta itemMeta;
+    private @NotNull MetaItem itemMeta;
 
     /**
-     * Creates an ItemStack from a {@link Material} with amount set to 1.
-     * @param type The {@link Material} to create the ItemStack from.
+     * Creates an ItemStack from a {@link ItemMaterial} with amount set to 1.
+     * @param type The {@link ItemMaterial} to create the ItemStack from.
      */
-    public ItemStack(@NotNull Material type) {
+    public StackItem(@NotNull ItemMaterial type) {
         this(type, 1);
     }
 
     /**
-     * Creates an ItemStack from a {@link Material} with the provided amount.
-     * @param type The {@link Material} to create the ItemStack from.
+     * Creates an ItemStack from a {@link ItemMaterial} with the provided amount.
+     * @param type The {@link ItemMaterial} to create the ItemStack from.
      * @param amount The amount of the items in the stack.
      */
-    public ItemStack(@NotNull Material type, @Range(from = 1, to = 64) int amount) {
+    public StackItem(@NotNull ItemMaterial type, @Range(from = 1, to = 64) int amount) {
         this.material = type;
         this.amount = amount;
         this.itemMeta = MetaUtil.getMeta(type);
     }
 
     /**
-     * @return The {@link Material} of this ItemStack.
+     * @return The {@link ItemMaterial} of this ItemStack.
      */
     @NotNull
-    public Material getType() {
+    public ItemMaterial getType() {
         return material;
     }
 
@@ -123,18 +123,18 @@ public class ItemStack {
     }
 
     /**
-     * @return The {@link ItemMeta} of this ItemStack.
+     * @return The {@link MetaItem} of this ItemStack.
      */
     @NotNull
-    public ItemMeta getItemMeta() {
+    public MetaItem getItemMeta() {
         return itemMeta;
     }
 
     /**
-     * @param itemMeta The {@link ItemMeta} to set for this ItemStack.
+     * @param itemMeta The {@link MetaItem} to set for this ItemStack.
      */
     @ApiStatus.Experimental
-    public void setItemMeta(@NotNull ItemMeta itemMeta) {
+    public void setItemMeta(@NotNull MetaItem itemMeta) {
         if (!this.itemMeta.getClass().isAssignableFrom(itemMeta.getClass()))
             throw new IllegalArgumentException("The provided ItemMeta is not compatible with this ItemStack.");
         this.itemMeta = itemMeta;
@@ -165,22 +165,22 @@ public class ItemStack {
                 .build();
     }
 
-    public ItemStack.Builder toBuilder() {
+    public StackItem.Builder toBuilder() {
         return new Builder(this);
     }
 
     public static class Builder {
 
-        private final Material material;
+        private final ItemMaterial material;
         private int amount;
-        private ItemMeta meta;
+        private MetaItem meta;
         private int legacyData;
 
-        public Builder(@NotNull Material material) {
-            this(new ItemStack(material));
+        public Builder(@NotNull ItemMaterial material) {
+            this(new StackItem(material));
         }
 
-        public Builder(ItemStack itemStack) {
+        public Builder(StackItem itemStack) {
             this.material = itemStack.material;
             this.amount = itemStack.amount;
             this.meta = itemStack.itemMeta;
@@ -193,15 +193,15 @@ public class ItemStack {
         }
 
         @ApiStatus.Experimental
-        public Builder meta(@NotNull ItemMeta meta) {
+        public Builder meta(@NotNull MetaItem meta) {
             if (!this.meta.getClass().isAssignableFrom(meta.getClass()))
                 throw new IllegalArgumentException("The provided ItemMeta is not compatible with this ItemStack.");
             this.meta = meta;
             return this;
         }
 
-        public Builder meta(Function<ItemMeta, ItemMeta> meta) {
-            ItemMeta newMeta = meta.apply(this.meta);
+        public Builder meta(Function<MetaItem, MetaItem> meta) {
+            MetaItem newMeta = meta.apply(this.meta);
             if (!this.meta.getClass().equals(newMeta.getClass()))
                 throw new IllegalArgumentException("The provided ItemMeta is not compatible with this ItemStack.");
             this.meta = newMeta;
@@ -223,8 +223,8 @@ public class ItemStack {
             return this;
         }
 
-        public ItemStack build() {
-            ItemStack itemStack = new ItemStack(this.material, this.amount);
+        public StackItem build() {
+            StackItem itemStack = new StackItem(this.material, this.amount);
             itemStack.itemMeta = this.meta;
             itemStack.legacyData = this.legacyData;
             return itemStack;

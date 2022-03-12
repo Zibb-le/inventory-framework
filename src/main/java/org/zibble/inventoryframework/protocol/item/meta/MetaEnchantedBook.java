@@ -3,35 +3,35 @@ package org.zibble.inventoryframework.protocol.item.meta;
 import com.github.retrooper.packetevents.protocol.nbt.NBTCompound;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
-import org.zibble.inventoryframework.protocol.item.objects.enums.Enchantment;
+import org.zibble.inventoryframework.protocol.item.objects.enums.EnumEnchant;
 
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
 
-public class EnchantedBookMeta extends ItemMeta {
+public class MetaEnchantedBook extends MetaItem {
 
     private static final String STORED_ENCHANTMENTS = "StoredEnchantments";
 
-    private Map<Enchantment, Integer> bookEnchants;
+    private Map<EnumEnchant, Integer> bookEnchants;
 
-    protected EnchantedBookMeta() {
-        this.bookEnchants = new EnumMap<>(Enchantment.class);
+    protected MetaEnchantedBook() {
+        this.bookEnchants = new EnumMap<>(EnumEnchant.class);
     }
 
-    public Map<Enchantment, Integer> getBookEnchants() {
+    public Map<EnumEnchant, Integer> getBookEnchants() {
         return Collections.unmodifiableMap(this.bookEnchants);
     }
 
-    public void addBookEnchant(Enchantment enchantment, int level) {
+    public void addBookEnchant(EnumEnchant enchantment, int level) {
         this.bookEnchants.put(enchantment, level);
     }
 
-    public void removeBookEnchant(Enchantment enchantment) {
+    public void removeBookEnchant(EnumEnchant enchantment) {
         this.bookEnchants.remove(enchantment);
     }
 
-    public void setBookEnchants(Map<Enchantment, Integer> bookEnchants) {
+    public void setBookEnchants(Map<EnumEnchant, Integer> bookEnchants) {
         this.bookEnchants = new EnumMap<>(bookEnchants);
     }
 

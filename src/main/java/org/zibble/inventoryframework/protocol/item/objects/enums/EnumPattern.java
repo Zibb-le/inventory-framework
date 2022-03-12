@@ -1,6 +1,6 @@
 package org.zibble.inventoryframework.protocol.item.objects.enums;
 
-public enum PatternType {
+public enum EnumPattern {
 
     BASE("b"),
     SQUARE_BOTTOM_LEFT("bl"),
@@ -44,7 +44,7 @@ public enum PatternType {
 
     private final String ID;
 
-    PatternType(String ID) {
+    EnumPattern(String ID) {
         this.ID = ID;
     }
 

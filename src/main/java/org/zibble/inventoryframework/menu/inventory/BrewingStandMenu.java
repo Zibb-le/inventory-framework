@@ -12,7 +12,7 @@ import org.zibble.inventoryframework.menu.nameable.NamedMenu;
 import org.zibble.inventoryframework.menu.openinventory.AbstractOpenInventory;
 import org.zibble.inventoryframework.menu.property.DataPropertyHolder;
 import org.zibble.inventoryframework.menu.property.PropertyPair;
-import org.zibble.inventoryframework.protocol.item.ItemStack;
+import org.zibble.inventoryframework.protocol.item.StackItem;
 
 public class BrewingStandMenu extends NamedMenu implements DataPropertyHolder {
 
@@ -20,17 +20,17 @@ public class BrewingStandMenu extends NamedMenu implements DataPropertyHolder {
 
     private @Range(from = 0, to = 20) int fuel;
     private @Range(from = 0, to = 400) int brewTime;
-    private MenuItem<ItemStack> powderSlot;
+    private MenuItem<StackItem> powderSlot;
 
     public BrewingStandMenu(@Nullable final Component title) {
         super(1, 4, title);
     }
 
-    public MenuItem<ItemStack> getPowderSlot() {
+    public MenuItem<StackItem> getPowderSlot() {
         return powderSlot;
     }
 
-    public void setPowderSlot(MenuItem<ItemStack> powderSlot) {
+    public void setPowderSlot(MenuItem<StackItem> powderSlot) {
         this.powderSlot = powderSlot;
     }
 

@@ -12,15 +12,15 @@ import org.zibble.inventoryframework.menu.openinventory.BeaconOpenInventory;
 import org.zibble.inventoryframework.menu.property.DataPropertyHolder;
 import org.zibble.inventoryframework.menu.property.PropertyPair;
 import org.zibble.inventoryframework.protocol.ProtocolPlayer;
-import org.zibble.inventoryframework.protocol.item.objects.enums.EffectType;
+import org.zibble.inventoryframework.protocol.item.objects.enums.EnumEffect;
 
 import java.util.function.Consumer;
 
 public class BeaconMenu extends NamedMenu implements DataPropertyHolder {
 
     private @Range(from = 0, to = 4) int level;
-    private @Nullable EffectType primaryPower;
-    private @Nullable EffectType secondaryPower;
+    private @Nullable EnumEffect primaryPower;
+    private @Nullable EnumEffect secondaryPower;
 
     private @Nullable Consumer<Integer> buttonClickHandler;
 
@@ -40,20 +40,20 @@ public class BeaconMenu extends NamedMenu implements DataPropertyHolder {
     }
 
     @Nullable
-    public EffectType getPrimaryPower() {
+    public EnumEffect getPrimaryPower() {
         return primaryPower;
     }
 
     @Nullable
-    public EffectType getSecondaryPower() {
+    public EnumEffect getSecondaryPower() {
         return secondaryPower;
     }
 
-    public void setPrimaryPower(@Nullable EffectType primaryPower) {
+    public void setPrimaryPower(@Nullable EnumEffect primaryPower) {
         this.primaryPower = primaryPower;
     }
 
-    public void setSecondaryPower(@Nullable EffectType secondaryPower) {
+    public void setSecondaryPower(@Nullable EnumEffect secondaryPower) {
         this.secondaryPower = secondaryPower;
     }
 
