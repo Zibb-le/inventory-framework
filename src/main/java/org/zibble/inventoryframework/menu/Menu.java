@@ -1,9 +1,6 @@
 package org.zibble.inventoryframework.menu;
 
-import org.jetbrains.annotations.ApiStatus;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.jetbrains.annotations.Range;
+import org.jetbrains.annotations.*;
 import org.zibble.inventoryframework.InventoryType;
 import org.zibble.inventoryframework.MenuItem;
 import org.zibble.inventoryframework.menu.openinventory.AbstractOpenInventory;
@@ -16,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
 /**
- * Represents an GUI that can be opened for a player.
+ * Represents a GUI that can be opened for a player.
  * This class is meant to be extended and not for direct use.
  * Each menu represents what items and inventory type need to be displayed to the player.
  * <p>
@@ -38,6 +35,7 @@ public abstract class Menu implements Iterable<MenuItem<StackItem>> {
     protected @Range(from = 0, to = Integer.MAX_VALUE) final int columns;
     protected char[][] mask;
     protected final @NotNull Map<Character, MenuItem<StackItem>> itemMap;
+    protected final @NotNull Map<Integer, @Nullable MenuItem<StackItem>> overrides;
 
     protected @Nullable Consumer<ProtocolPlayer<?>> onOpen;
     protected @Nullable Consumer<ProtocolPlayer<?>> onClose;
@@ -64,6 +62,7 @@ public abstract class Menu implements Iterable<MenuItem<StackItem>> {
         }
 
         this.itemMap = new ConcurrentHashMap<>();
+        this.overrides = new ConcurrentHashMap<>();
 
     }
 
@@ -138,7 +137,8 @@ public abstract class Menu implements Iterable<MenuItem<StackItem>> {
     @Nullable
     public MenuItem<StackItem> getItemAt(@Range(from = 0, to = Integer.MAX_VALUE) final int x,
                                          @Range(from = 0, to = Integer.MAX_VALUE) final int y) {
-        return this.itemMap.get(this.mask[y][x]);
+        MenuItem<StackItem> overriding = this.overrides.get(y * this.columns + x);
+        return overriding != null ? overriding : this.itemMap.get(this.mask[y][x]);
     }
 
 
@@ -150,8 +150,8 @@ public abstract class Menu implements Iterable<MenuItem<StackItem>> {
         MenuItem<StackItem>[][] items = new MenuItem[this.rows][this.columns];
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.columns; j++) {
-                char c = this.mask[i][j];
-                items[i][j] = this.itemMap.get(c);
+                MenuItem<StackItem> overiding = this.overrides.get(i * this.columns + j);
+                items[i][j] = overiding != null ? overiding : this.itemMap.get(this.mask[i][j]);
             }
         }
         return items;
@@ -165,8 +165,8 @@ public abstract class Menu implements Iterable<MenuItem<StackItem>> {
         List<MenuItem<StackItem>> items = new ArrayList<>(rows * columns);
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.columns; j++) {
-                char c = this.mask[i][j];
-                items.add(this.itemMap.get(c));
+                MenuItem<StackItem> overiding = this.overrides.get(i * this.columns + j);
+                items.add(overiding != null ? overiding : this.itemMap.get(this.mask[i][j]));
             }
         }
         return items;
@@ -287,6 +287,24 @@ public abstract class Menu implements Iterable<MenuItem<StackItem>> {
         if (inv != null) {
             inv.close();
         }
+    }
+
+    public void overrideSlot(@Range(from = 0, to = Integer.MAX_VALUE) final int slot, @Nullable final MenuItem<StackItem> item) {
+        this.overrides.put(slot, item);
+    }
+
+    public void removeOverride(@Range(from = 0, to = Integer.MAX_VALUE) final int slot) {
+        this.overrides.remove(slot);
+    }
+
+    public boolean isOverridden(@Range(from = 0, to = Integer.MAX_VALUE) final int slot) {
+        return this.overrides.containsKey(slot);
+    }
+
+    @NotNull
+    @UnmodifiableView
+    public Map<Integer, @Nullable MenuItem<StackItem>> getOverrides() {
+        return Collections.unmodifiableMap(this.overrides);
     }
 
 }
