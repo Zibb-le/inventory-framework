@@ -1,2 +1,5 @@
 rootProject.name = 'inventoryframework'
+include 'spigot'
+include 'api'
+include 'protocol-item-impl'
 

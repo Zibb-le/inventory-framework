@@ -3,41 +3,49 @@ plugins {
     id 'maven-publish'
 }
 
-group 'org.zibble'
-version '1.1-SNAPSHOT'
+allprojects {
+    apply plugin: 'java-library'
+    apply plugin: 'maven-publish'
 
-repositories {
-    mavenLocal()
-    mavenCentral()
-    maven {
-        url 'https://jitpack.io/'
-    }
-}
-
-publishing {
-    publications {
-        maven(MavenPublication) { publication ->
-            groupId = 'org.zibble'
-            artifactId = 'inventory-framework'
-            from(components.java)
-        }
-    }
+    group 'org.zibble'
+    version '1.1-SNAPSHOT'
 
     repositories {
         mavenLocal()
+        mavenCentral()
         maven {
-            credentials {
-                username = "$usr"
-                password = "$pwd"
-            }
-            url 'https://repo.zibble.org/nexus/repository/maven-snapshots/'
+            url 'https://jitpack.io/'
         }
     }
+
+    dependencies {
+        compileOnly 'com.github.retrooper.packetevents:api:2.0-SNAPSHOT'
+        compileOnly 'net.kyori:adventure-api:4.10.1'
+    }
+
+    publishing {
+        publications {
+            maven(MavenPublication) { publication ->
+                groupId = 'org.zibble'
+                artifactId = 'inventory-framework'
+                from(components.java)
+            }
+        }
+
+        repositories {
+            mavenLocal()
+            maven {
+                credentials {
+                    username = "$usr"
+                    password = "$pwd"
+                }
+                url 'https://repo.zibble.org/nexus/repository/maven-snapshots/'
+            }
+        }
+    }
+
+    publish.shouldRunAfter build
+
 }
 
-publish.shouldRunAfter build
-
-dependencies {
-    compileOnly 'com.github.retrooper.packetevents:api:2.0-SNAPSHOT'
-    compileOnly 'net.kyori:adventure-api:4.10.1'
-}
+build.shouldRunAfter subprojects.build
