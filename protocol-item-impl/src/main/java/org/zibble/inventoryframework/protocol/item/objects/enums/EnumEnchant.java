@@ -3,6 +3,7 @@ package org.zibble.inventoryframework.protocol.item.objects.enums;
 import com.github.retrooper.packetevents.protocol.item.enchantment.type.EnchantmentType;
 import com.github.retrooper.packetevents.protocol.item.enchantment.type.EnchantmentTypes;
 import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.NotNull;
 import org.zibble.inventoryframework.protocol.Enchant;
 
 public enum EnumEnchant implements Enchant {
@@ -54,7 +55,7 @@ public enum EnumEnchant implements Enchant {
 
     @Override
     @ApiStatus.Internal
-    public EnchantmentType asProtocol() {
+    public @NotNull EnchantmentType asProtocol() {
         return protocol;
     }
 

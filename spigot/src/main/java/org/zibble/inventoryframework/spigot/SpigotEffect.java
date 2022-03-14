@@ -3,6 +3,7 @@ package org.zibble.inventoryframework.spigot;
 import com.github.retrooper.packetevents.protocol.potion.PotionType;
 import io.github.retrooper.packetevents.util.SpigotDataHelper;
 import org.bukkit.potion.PotionEffectType;
+import org.jetbrains.annotations.NotNull;
 import org.zibble.inventoryframework.protocol.Effect;
 
 public class SpigotEffect implements Effect {
@@ -23,7 +24,7 @@ public class SpigotEffect implements Effect {
     }
 
     @Override
-    public PotionType asProtocol() {
+    public @NotNull PotionType asProtocol() {
         return SpigotDataHelper.fromBukkitPotionEffectType(this.potionType);
     }
 

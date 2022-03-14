@@ -3,6 +3,7 @@ package org.zibble.inventoryframework.protocol.item.objects.enums;
 import com.github.retrooper.packetevents.protocol.potion.PotionType;
 import com.github.retrooper.packetevents.protocol.potion.PotionTypes;
 import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.NotNull;
 import org.zibble.inventoryframework.protocol.Effect;
 
 public enum EnumEffect implements Effect {
@@ -50,7 +51,7 @@ public enum EnumEffect implements Effect {
 
     @Override
     @ApiStatus.Internal
-    public PotionType asProtocol() {
+    public @NotNull PotionType asProtocol() {
         return protocol;
     }
 

@@ -27,7 +27,7 @@ allprojects {
         publications {
             maven(MavenPublication) { publication ->
                 groupId = 'org.zibble'
-                artifactId = 'inventory-framework'
+                artifactId = 'if-' + project.name
                 from(components.java)
             }
         }

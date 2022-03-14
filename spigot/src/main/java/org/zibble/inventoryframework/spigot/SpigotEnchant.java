@@ -4,6 +4,7 @@ import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import com.github.retrooper.packetevents.protocol.item.enchantment.type.EnchantmentType;
 import com.github.retrooper.packetevents.protocol.item.enchantment.type.EnchantmentTypes;
 import org.bukkit.enchantments.Enchantment;
+import org.jetbrains.annotations.NotNull;
 import org.zibble.inventoryframework.InventoryFramework;
 import org.zibble.inventoryframework.protocol.Enchant;
 
@@ -25,7 +26,7 @@ public class SpigotEnchant implements Enchant {
     }
 
     @Override
-    public EnchantmentType asProtocol() {
+    public @NotNull EnchantmentType asProtocol() {
         if (InventoryFramework.framework().getServerVersion().isNewerThanOrEquals(ServerVersion.V_1_13)) {
             return EnchantmentTypes.getByName(this.enchantment.getKey().toString());
         } else {

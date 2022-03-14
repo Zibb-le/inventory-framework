@@ -2,6 +2,7 @@ package org.zibble.inventoryframework.spigot;
 
 import com.github.retrooper.packetevents.protocol.item.ItemStack;
 import io.github.retrooper.packetevents.util.SpigotDataHelper;
+import org.jetbrains.annotations.NotNull;
 import org.zibble.inventoryframework.protocol.Item;
 
 public class SpigotItem implements Item {
@@ -17,7 +18,7 @@ public class SpigotItem implements Item {
     }
 
     @Override
-    public ItemStack asProtocol() {
+    public @NotNull ItemStack asProtocol() {
         return SpigotDataHelper.fromBukkitItemStack(this.item);
     }
 

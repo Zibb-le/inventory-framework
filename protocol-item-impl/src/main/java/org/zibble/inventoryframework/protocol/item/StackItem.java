@@ -1,6 +1,7 @@
 package org.zibble.inventoryframework.protocol.item;
 
 import com.github.retrooper.packetevents.protocol.nbt.NBTCompound;
+import org.zibble.inventoryframework.protocol.Item;
 import org.zibble.inventoryframework.protocol.ItemMaterial;
 import org.zibble.inventoryframework.protocol.ItemMaterials;
 import org.zibble.inventoryframework.protocol.item.meta.MetaItem;
@@ -14,7 +15,7 @@ import java.util.function.Function;
 /**
  * Vanilla ItemStack representation for use in Inventory Framework.
  */
-public class StackItem {
+public class StackItem implements Item {
 
     /**
      * @return An ItemStack of {@link ItemMaterials#AIR} type.
@@ -152,6 +153,7 @@ public class StackItem {
         this.legacyData = data;
     }
 
+    @Override
     @ApiStatus.Internal
     @NotNull
     public com.github.retrooper.packetevents.protocol.item.ItemStack asProtocol() {
